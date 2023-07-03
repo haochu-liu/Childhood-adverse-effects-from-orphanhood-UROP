@@ -39,12 +39,13 @@ df1 <- data.frame(df1)
 print(dim(df1))
 colname_list <- colnames(df1)
 na_num <- list()
+col_label_list <- list()
 for (i in 1:ncol(df1)) {
   na_num[i] <- sum(is.na(df1[, i]))
+  col_label_list[i] <- attr(df1[[colname_list[i]]], "label")
 }
 names(na_num) <- colname_list
+names(col_label_list) <- colname_list
 
-for (i in 1:length(colname_list)) {
-  if 
-}
+# 
 

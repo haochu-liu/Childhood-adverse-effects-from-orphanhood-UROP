@@ -47,5 +47,14 @@ for (i in 1:ncol(df1)) {
 names(na_num) <- colname_list
 names(col_label_list) <- colname_list
 
-# 
+# search and extract
+vars <- search_variable_labels(datasets$FileName, search_terms = "Total children ever born")
+vars
+
+vars <- search_variables(datasets$FileName, variables = c("v201"))
+vars
+
+extract <- extract_dhs(vars, add_geo = FALSE)
+extract
+
 

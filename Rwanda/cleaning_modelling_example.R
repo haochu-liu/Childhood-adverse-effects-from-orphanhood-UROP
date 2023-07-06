@@ -62,6 +62,9 @@ hist(df$hv111)
 hist(df$hv113)
 
 
-
+# Questions
+# 1. data cleaning? Better methods?
+# 2. missing values?
+# 3. unbalanced data
 
 

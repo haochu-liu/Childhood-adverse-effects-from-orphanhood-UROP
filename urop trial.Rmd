@@ -1,0 +1,60 @@
+---
+title: "Sorting indicators"
+author: "Xialu Zheng"
+date: "2023-07-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rdhs)
+surveychar <- dhs_survey_characteristics()
+
+set_rdhs_config(email = "zhengxialu@gmail.com",
+                project = "Childhood Adverse Effects From Orphanhood",
+                config_path = "rdhs.json",
+                global = FALSE)
+````
+
+```{r}
+# orphanhood indicators
+orphanhood_indicator <- dhs_indicators (tagIds = 40)
+
+gender_indicator <- dhs_indicators (tagIds = 82)
+````
+
+```{r}
+# adverse health effects indicators
+# stunting, mortality, vaccination status and malaria
+
+nutrition_indicator <- dhs_indicators(tagIds = 85)
+mortality_indicator <- dhs_indicators(tagIds = 86)
+vaccination_indicator <- dhs_indicators(tagIds = 32)
+malaria_indicator <- dhs_indicators (tagIds = 79)
+````
+
+```{r}
+# request data                
+resp <- dhs_data(indicatorIds = "CN_NUTS_C_WH2",    
+                 countryIds = c("CO"),
+                 surveyYearStart = 2005,            
+                 breakdown = "subnational")         
+                                                    
+# and plot the results                              
+library(ggplot2)                                    
+ggplot(resp, aes(x = SurveyYear, y = Value)) +      
+  geom_point() +                                    
+  geom_smooth(method = "lm") +                      
+  theme_bw() +                                      
+  ylab(unique(resp$Indicator)) 
+```
+
+```{r}
+# downloading dataset
+children_data <- get_datasets(dataset_filenames = "CO_2015_DHS_07062023_1142_196676.zip")
+df1 <- readRDS(CO_2015_DHS_07062023_1142_196676$"COKR72DT")
+view(df1)
+```

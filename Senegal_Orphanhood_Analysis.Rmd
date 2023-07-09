@@ -1,0 +1,25 @@
+---
+title: "Senegal_Orphanhood_Analysis_2019"
+author: "Yujia Luan"
+date: "2023-07-06"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#extract children's information from household member data
+chdf<-subset(SN19HM,hv105<19)
+
+```
+
+```{r}
+#ignore missing information of hv111 and hv113
+chdf <- chdf[,colSums(is.na(chdf))<nrow(chdf)]
+chdf<-subset(chdf,is.na(chdf$hv111)==0)
+chdf<-subset(chdf,is.na(chdf$hv113)==0)
+```
+
+

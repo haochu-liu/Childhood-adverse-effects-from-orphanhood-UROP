@@ -1,0 +1,78 @@
+---
+title: "Senegal_Orphanhood_Analysis_2019"
+author: "Yujia Luan"
+date: "2023-07-06"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#ignore missing information of household line number
+SN19CH1 <- SN19CH1[!is.na(SN19CH1$b16), ]
+SN19CH1<- SN19CH1[SN19CH1$b16!=0, ]
+```
+
+
+```{r}
+#add a column of orphanhood info
+SN19CH1["hv111"]<-NA
+for (x in 1:5688){
+  y<-SN19CH1$b16[x]
+    if (y<10){
+    col<-paste("hv111_0",as.character(y),sep="")
+    }else{
+    col<-paste("hv111_",as.character(y),sep="")
+    }
+    for (z in 1:4538){
+      if (SN19HH$hv001[z]==SN19CH1$hv001[x]&SN19HH$hv002[z]==SN19CH1$hv002[x]){
+         SN19CH1$hv111[x]<-SN19HH[[col]][z]
+      }
+    }
+}
+```
+
+```{r}
+#add another column of orphanhood info
+SN19CH1["hv113"]<-NA
+for (x in 1:5688){
+  y<-SN19CH1$b16[x]
+    if (y<10){
+    col<-paste("hv113_0",as.character(y),sep="")
+    }else{
+    col<-paste("hv113_",as.character(y),sep="")
+    }
+    for (z in 1:4538){
+      if (SN19HH$hv001[z]==SN19CH1$hv001[x]&SN19HH$hv002[z]==SN19CH1$hv002[x]){
+         SN19CH1$hv113[x]<-SN19HH[[col]][z]
+      }
+    }
+}
+```
+
+
+```{r}
+#extract children's information from household member data
+chdf<-subset(SN19HM,hv105<5)
+```
+
+```{r}
+#ignore missing information of hv111 and hv113
+chdf <- chdf[,colSums(is.na(chdf))<nrow(chdf)]
+chdf <- chdf[!is.na(chdf$hv111),]
+chdf <- chdf[!is.na(chdf$hv113),]
+```
+
+```{r}
+#dataframe of orphan and non-orphan
+opdf<-subset(chdf,chdf$hv111==0|chdf$hv113==0)
+nopdf<-subset(chdf,chdf$hv111!=0&chdf$hv113!=0)
+lmdf<-subset(chdf,chdf$hv111==0)
+lfdf<-subset(chdf,chdf$hv113==0)
+```
+
+
+
+

@@ -55,14 +55,14 @@ for (x in 1:5688){
 
 ```{r}
 #extract children's information from household member data
-chdf<-subset(SN19HM,hv105<5)
+chdf<-subset(SN19HM,hv105>6&hv105<15)
 ```
 
 ```{r}
 #ignore missing information of hv111 and hv113
 chdf <- chdf[,colSums(is.na(chdf))<nrow(chdf)]
-chdf <- chdf[!is.na(chdf$hv111),]
-chdf <- chdf[!is.na(chdf$hv113),]
+#chdf <- na.omit(chdf[ , !(colnames(chdf) %in% "hv111")])
+#chdf <- na.omit(chdf[ , !(colnames(chdf) %in% "hv113")])
 ```
 
 ```{r}
@@ -71,8 +71,81 @@ opdf<-subset(chdf,chdf$hv111==0|chdf$hv113==0)
 nopdf<-subset(chdf,chdf$hv111!=0&chdf$hv113!=0)
 lmdf<-subset(chdf,chdf$hv111==0)
 lfdf<-subset(chdf,chdf$hv113==0)
+fdf<-subset(chdf,chdf$hv104==2)
+mdf<-subset(chdf,chdf$hv104==1)
+fopdf<-subset(opdf,opdf$hv104==2)
+mopdf<-subset(opdf,opdf$hv104==1)
 ```
 
+If the children still attend schools in 2019
+```{r}
+#recode hv121
+
+ch1<-table(chdf$hv121)[2]/nrow(chdf)
+
+op1<-table(opdf$hv121)[2]/nrow(opdf)
+
+nop1<-table(nopdf$hv121)[2]/nrow(nopdf)
+
+lm1<-table(lmdf$hv121)[2]/nrow(lmdf)
+
+lf1<-table(lfdf$hv121)[2]/nrow(lfdf)
+
+
+f1<-table(fdf$hv121)[2]/nrow(fdf)
+
+m1<-table(mdf$hv121)[2]/nrow(mdf)
+
+fop1<-table(fopdf$hv121)[2]/nrow(fopdf)
+
+mop1<-table(mopdf$hv121)[2]/nrow(mopdf)
+
+hv121vec<-c(op1,nop1,lm1,lf1)
+#draw a barplot of hv121 statistics
+par(mar=c(3,3,3,3))
+barplot(hv121vec,names.arg=c("op1","nop1","lm1","lf1"),main="hv121 chart",xlab="class",ylab="proportion",xlim=c(0,4),ylim=c(0,1))
+```
+```{r}
+hv121vec<-c(ch1,f1,m1)
+#draw a barplot of hv121 statistics
+par(mar=c(3,3,3,3))
+barplot(hv121vec,names.arg=c("ch1","f1","m1"),main="hv121 chart",xlab="class",ylab="proportion",xlim=c(0,4),ylim=c(0,1))
+```
+Net observed
+```{r}
+#recode hml3
+
+ch1<-table(chdf$hml3)[2]/nrow(chdf)
+
+op1<-table(opdf$hml3)[2]/nrow(opdf)
+
+nop1<-table(nopdf$hml3)[2]/nrow(nopdf)
+
+lm1<-table(lmdf$hml3)[2]/nrow(lmdf)
+
+lf1<-table(lfdf$hml3)[2]/nrow(lfdf)
+
+
+f1<-table(fdf$hml3)[2]/nrow(fdf)
+
+m1<-table(mdf$hml3)[2]/nrow(mdf)
+
+fop1<-table(fopdf$hml3)[2]/nrow(fopdf)
+
+mop1<-table(mopdf$hml3)[2]/nrow(mopdf)
+
+hml73vec<-c(op1,nop1,lm1,lf1)
+#draw a barplot of hv121 statistics
+par(mar=c(3,3,3,3))
+barplot(hml73vec,names.arg=c("op1","nop1","lm1","lf1"),main="hml73 chart orphanhood",xlab="class",ylab="proportion",xlim=c(0,4),ylim=c(0,1))
+```
+
+```{r}
+hml73vec<-c(ch1,f1,m1)
+#draw a barplot of hv121 statistics
+par(mar=c(3,3,3,3))
+barplot(hml73vec,names.arg=c("ch1","f1","m1"),main="hml73 chart by gender",xlab="class",ylab="proportion",xlim=c(0,4),ylim=c(0,1))
+```
 
 
 

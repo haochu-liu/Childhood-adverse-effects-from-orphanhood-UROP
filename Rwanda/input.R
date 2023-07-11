@@ -37,19 +37,12 @@ df <- df_p[, c("hvidx", "hv001", "hv002", # id
 # cleaning
 df <- df[, colSums(is.na(df)) < nrow(df)]
 # under 18
-under_18 <- c(sum(df$hv105 < 18), sum(df$hv105 => 18))
+under_18 <- c(sum(df$hv105 < 18), sum(df$hv105 >= 18))
 x_axis <- c("< 18", ">= 18")
 barplot(under_18, names.arg=x_axis, xlab="Age", ylab="Number of individuals",
         col="blue", main="Adults in Rwanda")
 df <- df[df$hv105 < 18, ]
-# set age as categorical
-df$age_group <- NA
-for (i in 1:nrow(df)) {
-  if (df$hv105 < 5) {df$age_group <- 1} # age 0-4
-  if (df$hv105 <= 9 & df$hv105 >= 5) {df$age_group <- 2} # age 5-9
-  if (df$hv105 <= 14 & df$hv105 >= 10) {df$age_group <- 3} # age 10-14
-  if (df$hv105 <= 17 & df$hv105 >= 15) {df$age_group <- 4} # age 15-17
-}
+
 
 # count missing data
 colname_list <- colnames(df)
@@ -62,6 +55,18 @@ names(na_num) <- colname_list
 df <- df[, 1:24]
 # drop rows with NA in mother/father alive
 df <- df[complete.cases(df[, 4:5]), ]
+
+
+# set age as categorical
+df$age_group <- NA
+for (i in 1:nrow(df)) {
+  if (df$hv105[i] < 5) {df$age_group[i] <- 1} # age 0-4
+  if (df$hv105[i] <= 9 & df$hv105[i] >= 5) {df$age_group[i] <- 2} # age 5-9
+  if (df$hv105[i] <= 14 & df$hv105[i] >= 10) {df$age_group[i] <- 3} # age 10-14
+  if (df$hv105[i] <= 17 & df$hv105[i] >= 15) {df$age_group[i] <- 4} # age 15-17
+}
+
+
 
 
 

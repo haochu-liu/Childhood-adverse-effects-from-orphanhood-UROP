@@ -55,8 +55,10 @@ df_h <- df %>% distinct(hv001, hv002, .keep_all = TRUE)
 
 # household wealth
 x_axis <- c("not orphan", "orphan")
-h1 <- hist(df_h$hv270[df$hv111==1 & df$hv113==1], density=TRUE, plot = FALSE)
-h2 <- hist(df_h$hv270[df$hv111==0 | df$hv113==0], density=TRUE, plot = FALSE)
+c1 <- rgb(173,216,230,max = 255, alpha = 80, names = "lt.blue")
+c2 <- rgb(255,192,203, max = 255, alpha = 80, names = "lt.pink")
+h1 <- hist(df_h$hv270[df$hv111==1 & df$hv113==1], plot=FALSE)
+h2 <- hist(df_h$hv270[df$hv111==0 | df$hv113==0], plot=FALSE)
 plot(h1, col = c1)
 plot(h2, col = c2, add = TRUE)
 

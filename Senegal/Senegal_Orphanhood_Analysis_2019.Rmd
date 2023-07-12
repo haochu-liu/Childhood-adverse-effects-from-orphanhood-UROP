@@ -91,7 +91,6 @@ lm1<-table(lmdf$hv121)[2]/nrow(lmdf)
 
 lf1<-table(lfdf$hv121)[2]/nrow(lfdf)
 
-
 f1<-table(fdf$hv121)[2]/nrow(fdf)
 
 m1<-table(mdf$hv121)[2]/nrow(mdf)
@@ -135,16 +134,39 @@ fop1<-table(fopdf$hml3)[2]/nrow(fopdf)
 mop1<-table(mopdf$hml3)[2]/nrow(mopdf)
 
 hml73vec<-c(op1,nop1,lm1,lf1)
-#draw a barplot of hv121 statistics
+#draw a barplot of hml73 statistics
 par(mar=c(3,3,3,3))
 barplot(hml73vec,names.arg=c("op1","nop1","lm1","lf1"),main="hml73 chart orphanhood",xlab="class",ylab="proportion",xlim=c(0,4),ylim=c(0,1))
 ```
 
 ```{r}
 hml73vec<-c(ch1,f1,m1)
-#draw a barplot of hv121 statistics
+#draw a barplot of hml73 statistics
 par(mar=c(3,3,3,3))
 barplot(hml73vec,names.arg=c("ch1","f1","m1"),main="hml73 chart by gender",xlab="class",ylab="proportion",xlim=c(0,4),ylim=c(0,1))
+```
+health index
+```{r}
+op1<-table(opdf$hv270)[1]/nrow(opdf)
+op2<-table(opdf$hv270)[2]/nrow(opdf)
+op3<-table(opdf$hv270)[3]/nrow(opdf)
+op4<-table(opdf$hv270)[4]/nrow(opdf)
+op5<-table(opdf$hv270)[5]/nrow(opdf)
+nop1<-table(nopdf$hv270)[1]/nrow(nopdf)
+nop2<-table(nopdf$hv270)[2]/nrow(nopdf)
+nop3<-table(nopdf$hv270)[3]/nrow(nopdf)
+nop4<-table(nopdf$hv270)[4]/nrow(nopdf)
+nop5<-table(nopdf$hv270)[5]/nrow(nopdf)
+
+```
+
+```{r}
+
+mat1<-matrix(c(op1,op2,op3,op4,op5,nop1,nop2,nop3,nop4,nop5),nrow=2,ncol=5)
+par(mar=c(5,5,5,5))
+barplot(height=mat1,names.arg=c("poorest","poorer","middle","richer","richest"),main="hv270",xlab="class",ylab="proportion",beside=TRUE)
+
+
 ```
 
 

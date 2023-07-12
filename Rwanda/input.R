@@ -40,7 +40,7 @@ df <- df[, colSums(is.na(df)) < nrow(df)]
 under_18 <- c(sum(df$hv105 < 18), sum(df$hv105 >= 18))
 x_axis <- c("< 18", ">= 18")
 barplot(under_18, names.arg=x_axis, xlab="Age", ylab="Number of individuals",
-        col="blue", main="Adults in Rwanda")
+        col="blue", main="Ages in Rwanda")
 df <- df[df$hv105 < 18, ]
 
 

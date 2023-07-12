@@ -58,3 +58,19 @@ children_data <- get_datasets(dataset_filenames = "COKR72DT.zip")
 df1 <- readRDS(children_data$"COKR72DT")
 view(df1)
 ```
+
+```{r}
+# find surveys including questions related to vaccination
+surveys <- dhs_surveys(surveyCharacteristicIds = 93,        
+                       countryIds = c("CO")) 
+                                                            
+# return the individual recode datasets from these surveys  
+datasets <- dhs_datasets(surveyIds = surveys$SurveyId,      
+                         fileType = "IR",                   
+                         fileFormat = "flat") 
+
+questions <- search_variable_labels(                      
+  dataset_filenames = datasets,                           
+  search_terms = "vaccination|education"
+) 
+```

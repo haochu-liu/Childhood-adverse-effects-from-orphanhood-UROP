@@ -1,8 +1,8 @@
 ---
-title: "Senegal_Orphanhood_Analysis_2019"
+title: "Senegal_Orphanhood_Data"
 author: "Yujia Luan"
-date: "2023-07-06"
-output: pdf_document
+date: "2023-07-12"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -10,16 +10,32 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-#extract children's information from household member data
-chdf<-subset(SN19HM,hv105<19)
-
+listofHM<-list(SN05HM,SN10HM,SN12HM,SN14HM,SN15HM,SN16HM,SN17HM,SN18HM,SN19HM)
 ```
 
 ```{r}
-#ignore missing information of hv111 and hv113
-chdf <- chdf[,colSums(is.na(chdf))<nrow(chdf)]
-chdf<-subset(chdf,is.na(chdf$hv111)==0)
-chdf<-subset(chdf,is.na(chdf$hv113)==0)
+HMSample<-c(69059,77269,41593,40723,41902,41632,78950,43564,41050)
+HHSample<-c(7412,7902,4175,4231,4511,4437,8380,4592,4538)
+Year<-c("2005","2010-2011","2012-2013","2014","2015","2016","2017","2018","2019")
+CHSample18<-c(36015,40297,21667,21437,22263,22178,41152,22700,21431)
+CHSample5<-c(11591,13332,7413,7278,7279,7155,12797,7016,6494)
+Samplesize<-data.frame(Year,HMSample,HHSample,CHSample18,CHSample5)
 ```
 
+```{r}
+#add orphan sample size in the dataframe
+Samplesize['Orphan']<-c(0,0,0,0,0,0,0,0,0)
+for (x in 1:9){
+  Samplesize$Orphan[x]<-nrow(subset(data.frame(listofHM[x]),data.frame(listofHM[x])$hv111==0 | data.frame(listofHM[x])$hv113==0))
+}
+for (x in 1:9){
+  Samplesize$NonOrphan[x]<-nrow(subset(data.frame(listofHM[x]),data.frame(listofHM[x])$hv111!=0 & data.frame(listofHM[x])$hv113!=0))
+}
+for (x in 1:9){
+  Samplesize$LostMom[x]<-nrow(subset(data.frame(listofHM[x]),data.frame(listofHM[x])$hv111==0))
+}
+for (x in 1:9){
+  Samplesize$LostDad[x]<-nrow(subset(data.frame(listofHM[x]),data.frame(listofHM[x])$hv113==0))
+}
+```
 

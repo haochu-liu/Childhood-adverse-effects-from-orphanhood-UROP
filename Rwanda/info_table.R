@@ -1,4 +1,5 @@
 library(rdhs)
+library(dplyr)
 
 
 # survey list
@@ -23,6 +24,10 @@ df_2014 <- data.frame(df_2014)
 download_2013 <- get_datasets("RWPR6IDT.ZIP")
 df_2013 <- readRDS(download_2013$RWPR6IDT)
 df_2013 <- data.frame(df_2013)
+# 2011
+download_2011 <- get_datasets("RWHH6ADT.ZIP")
+df_2011 <- readRDS(download_2013$RWHH6ADT)
+df_2011 <- data.frame(df_2011)
 # 2010
 download_2010 <- get_datasets("RWPR61DT.ZIP")
 df_2010 <- readRDS(download_2010$RWPR61DT)
@@ -43,6 +48,55 @@ df_2000 <- data.frame(df_2000)
 download_1992 <- get_datasets("RWPR21DT.ZIP")
 df_1992 <- readRDS(download_1992$RWPR21DT)
 df_1992 <- data.frame(df_1992)
+
+
+# count household
+count_household <- function(df) {
+  df_h <- df %>% distinct(hv001, hv002, .keep_all = TRUE)
+  nrow(df_h)
+}
+
+
+# count under 18
+count_under_18 <- function(df, age_col) {
+  nrow(df[df[, age_col] < 18, ])
+}
+
+
+# count orphan
+count_orphan <- function(df, age_col, mother_col, father_col, orphan_code) {
+  df <- df[df[, age_col] < 18, ]
+  nrow(subset(df,
+              df[, mother_col] == orphan_code | df[, father_col] == orphan_code))
+}
+
+
+# count household with orphan
+count_household_orphan <- function(df, age_col, mother_col, father_col, orphan_code) {
+  df <- df[df[, age_col] < 18, ]
+  df <- subset(df,
+               df[, mother_col] == orphan_code | df[, father_col] == orphan_code)
+  df_h <- df %>% distinct(hv001, hv002, .keep_all = TRUE)
+  nrow(df_h)
+}
+
+
+# 2019 dataframe
+dim(df_2019)
+count_household(df_2019)
+count_under_18(df_2019, "hv105")
+count_orphan(df_2019, "hv105", "hv111", "hv113", 0)
+count_household_orphan(df_2019, "hv105", "hv111", "hv113", 0)
+
+
+# 2017 dataframe
+
+
+
+
+
+
+
 
 
 

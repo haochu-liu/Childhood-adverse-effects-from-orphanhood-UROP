@@ -1,5 +1,6 @@
 library(rdhs)
 library(dplyr)
+library(labelled)
 
 
 # survey list
@@ -24,10 +25,6 @@ df_2014 <- data.frame(df_2014)
 download_2013 <- get_datasets("RWPR6IDT.ZIP")
 df_2013 <- readRDS(download_2013$RWPR6IDT)
 df_2013 <- data.frame(df_2013)
-# 2011
-download_2011 <- get_datasets("RWHH6ADT.ZIP")
-df_2011 <- readRDS(download_2013$RWHH6ADT)
-df_2011 <- data.frame(df_2011)
 # 2010
 download_2010 <- get_datasets("RWPR61DT.ZIP")
 df_2010 <- readRDS(download_2010$RWPR61DT)
@@ -83,6 +80,7 @@ count_household_orphan <- function(df, age_col, mother_col, father_col, orphan_c
 
 # 2019 dataframe
 dim(df_2019)
+# unlabelled(df_2019)
 count_household(df_2019)
 count_under_18(df_2019, "hv105")
 count_orphan(df_2019, "hv105", "hv111", "hv113", 0)
@@ -90,19 +88,61 @@ count_household_orphan(df_2019, "hv105", "hv111", "hv113", 0)
 
 
 # 2017 dataframe
+dim(df_2017)
+count_household(df_2017)
+count_under_18(df_2017, "hv105")
 
 
+# 2014 dataframe
+dim(df_2014)
+count_household(df_2014)
+count_under_18(df_2014, "hv105")
+count_orphan(df_2014, "hv105", "hv111", "hv113", 0)
+count_household_orphan(df_2014, "hv105", "hv111", "hv113", 0)
 
 
+# 2013 dataframe
+dim(df_2013)
+count_household(df_2013)
+count_under_18(df_2013, "hv105")
 
 
+# 2010 dataframe
+dim(df_2010)
+count_household(df_2010)
+count_under_18(df_2010, "hv105")
+count_orphan(df_2010, "hv105", "hv111", "hv113", 0)
+count_household_orphan(df_2010, "hv105", "hv111", "hv113", 0)
 
 
+# 2007 dataframe
+dim(df_2007)
+count_household(df_2007)
+count_under_18(df_2007, "hv105")
 
 
+# 2005 dataframe
+dim(df_2005)
+count_household(df_2005)
+count_under_18(df_2005, "hv105")
+count_orphan(df_2005, "hv105", "hv111", "hv113", 0)
+count_household_orphan(df_2005, "hv105", "hv111", "hv113", 0)
 
 
+# 2000 dataframe
+dim(df_2000)
+count_household(df_2000)
+count_under_18(df_2000, "hv105")
+count_orphan(df_2000, "hv105", "hv111", "hv113", 0)
+count_household_orphan(df_2000, "hv105", "hv111", "hv113", 0)
 
+
+# 1992 dataframe
+dim(df_1992)
+count_household(df_1992)
+count_under_18(df_1992, "hv105")
+count_orphan(df_1992, "hv105", "hv111", "hv113", 0)
+count_household_orphan(df_1992, "hv105", "hv111", "hv113", 0)
 
 
 

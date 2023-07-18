@@ -54,6 +54,27 @@ df_h_orphan <- subset(df_h, (df_h$hv111==0 | df_h$hv113==0))
 df_h_not_orphan <- subset(df_h, (df_h$hv111==1 & df_h$hv113==1))
 
 
+# lineplot for orphanhood
+load("Rwanda/survey_list.Rda")
+survey_list <- as.data.frame(survey_list)
+colnames(survey_list) <- c("Rwanda", "1992", "2000", "2005", "2007", "2010",
+                           "2013", "2014", "2017", "2019")
+year_list <- c("1992", "2000", "2005", "2010", "2014", "2019")
+years <- as.Date(year_list, format = "%Y")
+orphan_history <- data.frame(years)
+orphan_history$under_18 <- as.numeric(survey_list[3, year_list])
+orphan_history$orphan <- as.numeric(survey_list[4, year_list])
+orphan_history$percentage <- mapply('/', as.numeric(orphan_history$orphan),
+                                         as.numeric(orphan_history$under_18))
+
+plot(orphan_history$years, orphan_history$percentage,
+     type="b", lwd=2, lty = 2, col="#00AFBB", bty="l", pch=20, cex=2,
+     xlab="Year", ylab="# of orphans / # of underages", main="Rwanda")
+abline(v = as.Date(c("1994"), format = "%Y"), col="#FC4E07", lwd=3)
+text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
+
+
+
 # barplots
 # functions for confidence interval
 CI_upper <- function(x, n){
@@ -167,27 +188,32 @@ ggplot(barplot_data, aes(fill=orphan, x=col_label, y=percentage)) +
 orphan <- c(rep("orphan", nrow(df_orphan)),
             rep("not orphan", nrow(df_not_orphan)))
 boxplot_data <- data.frame(orphan)
-boxplot_data$ha3 <- c(df_orphan$ha3, df_not_orphan$ha3)
+boxplot_data$ha3 <- as.numeric(c(df_orphan$ha3, df_not_orphan$ha3))
 boxplot_data$ha3[boxplot_data$ha3 > 2200] <- NA
-boxplot_data$ha2 <- c(df_orphan$ha2, df_not_orphan$ha2)
+boxplot_data$ha2 <- as.numeric(c(df_orphan$ha2, df_not_orphan$ha2))
 boxplot_data$ha2[boxplot_data$ha2 > 2000] <- NA
-boxplot_data$ha40 <- c(df_orphan$ha40, df_not_orphan$ha40)
+boxplot_data$ha40 <- as.numeric(c(df_orphan$ha40, df_not_orphan$ha40))
 boxplot_data$ha40[boxplot_data$ha40 > 6000] <- NA
-boxplot_data$ha53 <- c(df_orphan$ha53, df_not_orphan$ha53)
+boxplot_data$ha53 <- as.numeric(c(df_orphan$ha53, df_not_orphan$ha53))
 boxplot_data$ha53[boxplot_data$ha53 > 900] <- NA
+boxplot_data$age <- as.character(c(df_orphan$hv105, df_not_orphan$hv105))
+# delete row with all NAs
+boxplot_data <- boxplot_data[rowSums(is.na(boxplot_data)) < (ncol(boxplot_data)-2), ]
 
 
 # plot boxplots
-ggplot(boxplot_data, aes(x=orphan, y=ha3)) +
-  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
-  geom_boxplot(width=0.1) +
+ggplot(boxplot_data, aes(x=age, y=ha3, fill=orphan)) +
+  geom_violin(aes(fill=orphan),
+              width=0.8, alpha=0.5, position = position_dodge(0.9)) +
+  geom_boxplot(width=0.2, position = position_dodge(0.9)) +
   labs(y = "Woman's height in centimeters (1 decimal)") +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
-ggplot(boxplot_data, aes(x=orphan, y=ha2)) +
-  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
-  geom_boxplot(width=0.1) +
+ggplot(boxplot_data, aes(x=age, y=ha2, fill=orphan)) +
+  geom_violin(aes(fill=orphan),
+              width=0.8, alpha=0.5, position = position_dodge(0.9)) +
+  geom_boxplot(width=0.2, position = position_dodge(0.9)) +
   labs(y = "Woman's weight in kilograms (1 decimal)") +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()

@@ -156,10 +156,55 @@ ggplot(barplot_data, aes(fill=orphan, x=col_label, y=percentage)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
   labs(x = "Questions") +
+  ggtitle(paste("Rwanda", year)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+
+# boxplots
+# creat table for boxplots
+orphan <- c(rep("orphan", nrow(df_orphan)),
+            rep("not orphan", nrow(df_not_orphan)))
+boxplot_data <- data.frame(orphan)
+boxplot_data$ha3 <- c(df_orphan$ha3, df_not_orphan$ha3)
+boxplot_data$ha3[boxplot_data$ha3 > 2200] <- NA
+boxplot_data$ha2 <- c(df_orphan$ha2, df_not_orphan$ha2)
+boxplot_data$ha2[boxplot_data$ha2 > 2000] <- NA
+boxplot_data$ha40 <- c(df_orphan$ha40, df_not_orphan$ha40)
+boxplot_data$ha40[boxplot_data$ha40 > 6000] <- NA
+boxplot_data$ha53 <- c(df_orphan$ha53, df_not_orphan$ha53)
+boxplot_data$ha53[boxplot_data$ha53 > 900] <- NA
+
+
+# plot boxplots
+ggplot(boxplot_data, aes(x=orphan, y=ha3)) +
+  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = "Woman's height in centimeters (1 decimal)") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ggplot(boxplot_data, aes(x=orphan, y=ha2)) +
+  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = "Woman's weight in kilograms (1 decimal)") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ggplot(boxplot_data, aes(x=orphan, y=ha40)) +
+  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = "Woman's Body Mass Index") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ggplot(boxplot_data, aes(x=orphan, y=ha53)) +
+  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = "Woman's Hemoglobin level (g/dl - 1 decimal)") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
 
 
 

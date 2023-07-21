@@ -26,10 +26,10 @@ col_name_2010c <- c("ha3", "hc3", "ha2", "hc2", "ha40")
 boxplot_data2010 <- df_boxplot(df2010_new, col_name_2010c, "Orphanhood", "hv105")
 
 # boxplot
-box_labels <- label(barplot_data2010)
-val_labels(barplot_data2010) <- NULL
+box_labels <- label(boxplot_data2010)
+val_labels(boxplot_data2010) <- NULL
 
-ggplot(boxplot_data2010, aes(x=hv105, y=ha3, fill=Orphanhood)) +
+ggplot(boxplot_data2010, aes(x=hv105,y=ha3, fill=Orphanhood)) +
   geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9)) +
   geom_boxplot(width=0.2, position = position_dodge(0.9)) +

@@ -56,3 +56,16 @@ df_barplot <- function(df, col_names, col_orphan) {
   barplot_data
 }
 
+df_boxplot <- function(df, col_names, col_orphan, col_age) {
+  #' df: input dataframe
+  #' col_names:column name of required data
+  #' col_orphan: column name for orphanhood
+  #' col_age: column name for age
+  
+  df <- df[!is.na(df[, col_orphan]), ]
+  #df <- subset(df,is.na(df$col_age)!=1)
+  df <- df[!is.na(df[, col_age]), ]
+  boxplot_data<-df[c(col_names,col_orphan,col_age)]
+  boxplot_data
+}
+

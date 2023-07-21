@@ -1,3 +1,7 @@
+library(dplyr)
+library(ggplot2)
+
+
 # get subsets for orphanhood
 not_orphan_m <- subset(df, df$hv111==1 & df$hv113==1 & df$hv104==1)
 not_orphan_f <- subset(df, df$hv111==1 & df$hv113==1 & df$hv104==2)
@@ -32,7 +36,7 @@ x_axis <- c("not_op_m", "not_op_f",
             "op_m", "op_f")
 par(mar=c(3,3,3,3))
 barplot(as.numeric(school_sta[1,]), names.arg=x_axis, ylab="proportion",
-        main="Attending school for age 10-17 children")
+        main="Attending school for age 10-17 children", ylim=c(0,1))
 
 
 # having mosquito bed net for sleeping
@@ -42,7 +46,21 @@ bed_net_sta <- count_by_orphan(not_orphan_m$hv227==1,
                                orphan_f$hv227==1)
 # plot barplot
 barplot(as.numeric(bed_net_sta[1,]), names.arg=x_axis, ylab="proportion",
-        main="Having mosquito bed net for sleeping")
+        main="Having mosquito bed net for sleeping", ylim=c(0,1))
+
+
+# per household data
+df_h <- df %>% distinct(hv001, hv002, .keep_all = TRUE)
+
+
+# household wealth
+x_axis <- c("not orphan", "orphan")
+c1 <- rgb(173,216,230,max = 255, alpha = 80, names = "lt.blue")
+c2 <- rgb(255,192,203, max = 255, alpha = 80, names = "lt.pink")
+h1 <- hist(df_h$hv270[df$hv111==1 & df$hv113==1], plot=FALSE)
+h2 <- hist(df_h$hv270[df$hv111==0 | df$hv113==0], plot=FALSE)
+plot(h1, col = c1)
+plot(h2, col = c2, add = TRUE)
 
 
 

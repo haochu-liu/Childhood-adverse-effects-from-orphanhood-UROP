@@ -351,7 +351,7 @@ df_2005$hv025 <- ifelse(df_2005$hv025==1, 1, 0)
 df_2005$hv201[df_2005$hv201 > 96] <- NA
 df_2005$hv201 <- ifelse(df_2005$hv201<=13, 1, 0)
 df_2005$hv205[df_2005$hv205 > 96] <- NA
-df_2005$hv205 <- ifelse(df_2005$hv205<=20, 1, 0)
+df_2005$hv205 <- ifelse(df_2005$hv205<=22, 1, 0)
 df_2005$hv206[df_2005$hv206 > 1] <- NA
 df_2005$hv207[df_2005$hv207 > 1] <- NA
 df_2005$hv208[df_2005$hv208 > 1] <- NA
@@ -380,7 +380,7 @@ label <- as.list(label(df_2005))
 label$ha40 <- "woman's body mass index"
 label$hv025 <- "Lives in urban area" # 1: urban, 2: rural
 label$hv201 <- "Has piped or tube water" # <=13: piped/tube, >13: not have
-label$hv205 <- "Has flush or pit toilet" # <=20: flush/pit, >20: not have
+label$hv205 <- "Has flush or pit toilet" # <=22: flush/pit, >22: not have
 label$hv270 <- "Poor household wealth" # <=2: poor
 label$hv121 <- "School attendance for age 7-12 (compulsory)" # 0: no, >=1: attend
 label$hv121.1 <- "School attendance for age 13-17"
@@ -429,7 +429,7 @@ df_2000$hv025 <- ifelse(df_2000$hv025==1, 1, 0)
 df_2000$hv201[df_2000$hv201 > 96] <- NA
 df_2000$hv201 <- ifelse(df_2000$hv201<=13, 1, 0)
 df_2000$hv205[df_2000$hv205 > 96] <- NA
-df_2000$hv205 <- ifelse(df_2000$hv205<=20, 1, 0)
+df_2000$hv205 <- ifelse(df_2000$hv205<=22, 1, 0)
 df_2000$hv206[df_2000$hv206 > 1] <- NA
 df_2000$hv207[df_2000$hv207 > 1] <- NA
 df_2000$hv208[df_2000$hv208 > 1] <- NA
@@ -457,7 +457,7 @@ label <- as.list(label(df_2000))
 label$ha40 <- "woman's body mass index"
 label$hv025 <- "Lives in urban area" # 1: urban, 2: rural
 label$hv201 <- "Has piped or tube water" # <=13: piped/tube, >13: not have
-label$hv205 <- "Has flush or pit toilet" # <=20: flush/pit, >20: not have
+label$hv205 <- "Has flush or pit toilet" # <=22: flush/pit, >22: not have
 label$hv121 <- "School attendance for age 7-12 (compulsory)" # 0: no, >=1: attend
 label$hv121.1 <- "School attendance for age 13-17"
 label$ha53 <- "woman's hemoglobin level (g/dl - 1 decimal)"
@@ -512,7 +512,7 @@ df_1992$hv110.1[df_1992$hv105 < 13 | df_1992$hv105 > 17] <- NA
 label <- as.list(label(df_1992))
 label$hv025 <- "Lives in urban area" # 1: urban, 2: rural
 label$hv201 <- "Has piped or tube water" # <=13: piped/tube, >13: not have
-label$hv205 <- "Has flush or pit toilet" # <=20: flush/pit, >20: not have
+label$hv205 <- "Has flush or pit toilet" # <=23: flush/pit, >23: not have
 label$hv110 <- "School attendance for age 7-12 (compulsory)" # 0: no, 1: attend
 label$hv110.1 <- "School attendance for age 13-17"
 label(df_1992) <- label

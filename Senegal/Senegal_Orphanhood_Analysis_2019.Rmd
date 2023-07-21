@@ -11,8 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 #ignore missing information of household line number
-SN19CH1 <- SN19CH1[!is.na(SN19CH1$b16), ]
-SN19CH1<- SN19CH1[SN19CH1$b16!=0, ]
+SN19CH <- SN19CH[!is.na(SN19CH1$b16), ]
+SN19CH<- SN19CH[SN19CH$b16!=0, ]
 ```
 
 
@@ -54,8 +54,17 @@ for (x in 1:5688){
 
 
 ```{r}
+#learn how lossing father affects the child
+lfc<-subset(SN19CH1,hv113==0)
+fc<-subset(SN19CH1,hv113==1)
+table(lfc$h10)
+table(fc$h10)
+#a little data to analyse
+```
+
+```{r}
 #extract children's information from household member data
-chdf<-subset(SN19HM,hv105>6&hv105<15)
+chdf<-subset(SN19HM,hv105<18)
 ```
 
 ```{r}
@@ -164,7 +173,7 @@ nop5<-table(nopdf$hv270)[5]/nrow(nopdf)
 
 mat1<-matrix(c(op1,op2,op3,op4,op5,nop1,nop2,nop3,nop4,nop5),nrow=2,ncol=5)
 par(mar=c(5,5,5,5))
-barplot(height=mat1,names.arg=c("poorest","poorer","middle","richer","richest"),main="hv270",xlab="class",ylab="proportion",beside=TRUE)
+barplot(height=mat1,names.arg=c("poorest","poorer","middle","richer","richest"),main="hv270",xlab="class",ylab="proportion",beside=TRUE,ylim=c(0,1))
 
 
 ```

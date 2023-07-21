@@ -74,3 +74,9 @@ questions <- search_variable_labels(
   search_terms = "vaccination|education"
 ) 
 ```
+
+```{r}
+data3 <- get_datasets(dataset_filenames = "COIR72.zip")
+df3 <- readRDS(data3$"COIR72")
+df3 <- data.frame(df3)
+```

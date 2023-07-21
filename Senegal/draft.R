@@ -1,8 +1,14 @@
-#radio 
-op7<-table(opdf$hv210)[2]/nrow(opdf)
-
-nop7<-table(nopdf$hv210)[2]/nrow(nopdf)
-
-lm7<-table(lmdf$hv210)[2]/nrow(lmdf)
-
-lf7<-table(lfdf$hv210)[2]/nrow(lfdf)
+# confidence intervals
+df05features["lower"]<-integer(44)
+for (x in 1:11){
+  df05features$lower[x]<-CIlower(df05features$proportion[x],nrow(opdf))
+}
+for (x in 12:22){
+  df05features$lower[x]<-CIlower(df05features$proportion[x],nrow(nopdf))
+}
+for (x in 23:33){
+  df05features$lower[x]<-CIlower(df05features$proportion[x],nrow(lmdf))
+}
+for (x in 34:44){
+  df05features$lower[x]<-CIlower(df05features$proportion[x],nrow(lfdf))
+}

@@ -50,11 +50,12 @@ df_barplot <- function(df, col_names, col_orphan) {
     val_labels(df_orphan[, col_names[i]]) <- NULL
     val_labels(df_not_orphan[, col_names[i]]) <- NULL
     barplot_data[i, 4:6] <- count_for_barplot(na.omit(df_orphan[, col_names[i]]==1))
-    barplot_data[length(col_name)/2 + i, 4:6] <- count_for_barplot(na.omit(df_not_orphan[, col_names[i]]==1))
+    barplot_data[length(col_names) + i, 4:6] <- count_for_barplot(na.omit(df_not_orphan[, col_names[i]]==1))
   }
   
   barplot_data
 }
+
 
 df_boxplot <- function(df, col_names, col_orphan, col_age) {
   #' df: input dataframe
@@ -68,4 +69,5 @@ df_boxplot <- function(df, col_names, col_orphan, col_age) {
   boxplot_data<-df[c(col_names,col_orphan,col_age)]
   boxplot_data
 }
+
 

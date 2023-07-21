@@ -1,7 +1,75 @@
 library(rdhs)
-library(dplyr)
 library(labelled)
 library(ggplot2)
+library(dplyr)
+library(Hmisc)
+library(haven)
+
+
+# import functions
+source("functions_for_plotting.R")
+
+
+# 2019
+year <- 2019
+load("Rwanda/df_2019.Rda")
+bar_col <- c("hv025", "hv201", "hv205", "hv206",
+             "hv207", "hv208", "hv209", "hv210",
+             "hv211", "hv212", "hv227", "hv221",
+             "hv243a", "hv243b", "hv243e", "hv270",
+             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+box_col <- c("ha3", "hc3", "ha2", "hc2", "ha40", "ha53", "hc53")
+bar_df <- df_barplot(df_2019, bar_col, "Orphanhood")
+box_df <- df_boxplot(df_2019, box_col, "Orphanhood", "hv105")
+# barplot
+ggplot(bar_df, aes(fill=orphan, x=col_label, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "Questions") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip(ylim=c(0, 1)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
+# boxplot
+ggplot(box_col, aes(x=age, y=ha3, fill=orphan)) +
+  geom_violin(aes(fill=orphan),
+              width=0.8, alpha=0.5, position = position_dodge(0.9)) +
+  geom_boxplot(width=0.2, position = position_dodge(0.9)) +
+  labs(y = "Woman's height in centimeters (1 decimal)") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ggplot(box_col, aes(x=age, y=ha2, fill=orphan)) +
+  geom_violin(aes(fill=orphan),
+              width=0.8, alpha=0.5, position = position_dodge(0.9)) +
+  geom_boxplot(width=0.2, position = position_dodge(0.9)) +
+  labs(y = "Woman's weight in kilograms (1 decimal)") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ggplot(box_col, aes(x=orphan, y=ha40)) +
+  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = "Woman's Body Mass Index") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ggplot(box_col, aes(x=orphan, y=ha53)) +
+  geom_violin(aes(fill=orphan), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = "Woman's Hemoglobin level (g/dl - 1 decimal)") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+
+
+
+
+
+
+
+
 
 
 # choose one dataframe

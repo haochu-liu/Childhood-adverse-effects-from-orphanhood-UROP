@@ -1,3 +1,5 @@
+source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Summary of DHS data.R")
+
 # 2000
 df2000_new <- df2000[, c("hvidx","hv001","hv002",
                          "hv111","hv113", 
@@ -17,17 +19,6 @@ barplot(under_18_2000, names.arg= c("< 18", ">= 18"), xlab="Age", ylab="Number o
         col="blue", main= "Colombia2000")
 
 df2000_new <- df2000_new[df2000_new$hv105 < 18, ]
-
-# labels
-library(Hmisc)
-label <- as.list(label(df2000_new))
-label$hv025 <- "Lives in urban area" # 1: urban, 2: rural
-label$hv201 <- "Has piped or tube water" # <=40: pipe/well 71: bottled
-label$hv205 <- "Has flush or pit toilet" # <=21: flush/pit, >21: not have
-label$hv121 <- "School attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
-label$hv121.1 <- "School attendance for age 17"
-
-label(df2000_new) <- label
 
 # clean columns
 df2000_new$hv104[df2000_new$hv104 > 2] <- NA
@@ -53,3 +44,15 @@ df2000_new$hv121 <- ifelse(df2000_new$hv121 >= 1, 1, 0)
 df2000_new$hv121.1[df2000_new$hv121.1 == 9] <- NA
 df2000_new$hv121.1[df2000_new$hv105 == 17] <- NA
 df2000_new$hv121.1 <- ifelse(df2000_new$hv121.1 >= 1, 1, 0)
+
+# labels
+library(Hmisc)
+label <- as.list(label(df2000_new))
+label$hv025 <- "lives in urban area" # 1: urban, 2: rural
+label$hv201 <- "has piped or tube water" # <=40: pipe/well 71: bottled
+label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
+label$hv121 <- "school attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
+label$hv121.1 <- "school attendance for age 17"
+
+label(df2000_new) <- label
+

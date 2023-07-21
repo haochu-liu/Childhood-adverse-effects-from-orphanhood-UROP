@@ -1,0 +1,240 @@
+---
+title: "Senegal_Orphanhood_Analysis_2010"
+author: "Yujia Luan"
+date: "2023-07-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(haven)
+library(ggplot2)
+library(stringr)
+```
+
+```{r}
+chdf10<-subset(SN10HM,hv105<18)
+#ignore missing values
+chdf10 <- chdf10[,colSums(is.na(chdf10))<nrow(chdf10)*0.8]
+```
+
+```{r}
+chdf<-chdf10
+opdf<-subset(chdf,chdf$hv111==0|chdf$hv113==0)
+nopdf<-subset(chdf,chdf$hv111!=0&chdf$hv113!=0)
+lmdf<-subset(chdf,chdf$hv111==0)
+lfdf<-subset(chdf,chdf$hv113==0)
+```
+
+```{r}
+#school attendence hv121
+op1<-table(opdf$hv121)[2]/nrow(opdf)
+
+nop1<-table(nopdf$hv121)[2]/nrow(nopdf)
+
+lm1<-table(lmdf$hv121)[2]/nrow(lmdf)
+
+lf1<-table(lfdf$hv121)[2]/nrow(lfdf)
+
+```
+
+```{r}
+#rural/urban
+op2<-table(opdf$hv025)[2]/nrow(opdf)
+
+nop2<-table(nopdf$hv025)[2]/nrow(nopdf)
+
+lm2<-table(lmdf$hv025)[2]/nrow(lmdf)
+
+lf2<-table(lfdf$hv025)[2]/nrow(lfdf)
+
+
+```
+
+```{r}
+#hv206 electricity
+op3<-table(opdf$hv206)[2]/nrow(opdf)
+
+nop3<-table(nopdf$hv206)[2]/nrow(nopdf)
+
+lm3<-table(lmdf$hv206)[2]/nrow(lmdf)
+
+lf3<-table(lfdf$hv206)[2]/nrow(lfdf)
+```
+
+```{r}
+#radio 
+op4<-table(opdf$hv207)[2]/nrow(opdf)
+
+nop4<-table(nopdf$hv207)[2]/nrow(nopdf)
+
+lm4<-table(lmdf$hv207)[2]/nrow(lmdf)
+
+lf4<-table(lfdf$hv207)[2]/nrow(lfdf)
+```
+
+```{r}
+#television
+op5<-table(opdf$hv208)[2]/nrow(opdf)
+
+nop5<-table(nopdf$hv208)[2]/nrow(nopdf)
+
+lm5<-table(lmdf$hv208)[2]/nrow(lmdf)
+
+lf5<-table(lfdf$hv208)[2]/nrow(lfdf)
+```
+
+```{r}
+#refrigerator
+op6<-table(opdf$hv209)[2]/nrow(opdf)
+
+nop6<-table(nopdf$hv209)[2]/nrow(nopdf)
+
+lm6<-table(lmdf$hv209)[2]/nrow(lmdf)
+
+lf6<-table(lfdf$hv209)[2]/nrow(lfdf)
+```
+
+```{r}
+#bicycle
+op7<-table(opdf$hv210)[2]/nrow(opdf)
+
+nop7<-table(nopdf$hv210)[2]/nrow(nopdf)
+
+lm7<-table(lmdf$hv210)[2]/nrow(lmdf)
+
+lf7<-table(lfdf$hv210)[2]/nrow(lfdf)
+```
+
+
+```{r}
+# motor/scooter
+op8<-table(opdf$hv211)[2]/nrow(opdf)
+
+nop8<-table(nopdf$hv211)[2]/nrow(nopdf)
+
+lm8<-table(lmdf$hv211)[2]/nrow(lmdf)
+
+lf8<-table(lfdf$hv211)[2]/nrow(lfdf)
+```
+
+```{r}
+#car
+op9<-table(opdf$hv212)[2]/nrow(opdf)
+
+nop9<-table(nopdf$hv212)[2]/nrow(nopdf)
+
+lm9<-table(lmdf$hv212)[2]/nrow(lmdf)
+
+lf9<-table(lfdf$hv212)[2]/nrow(lfdf)
+```
+
+```{r}
+# phone
+op10<-table(opdf$hv221)[2]/nrow(opdf)
+
+nop10<-table(nopdf$hv221)[2]/nrow(nopdf)
+
+lm10<-table(lmdf$hv221)[2]/nrow(lmdf)
+
+lf10<-table(lfdf$hv221)[2]/nrow(lfdf)
+```
+
+```{r}
+# bednet
+op11<-table(opdf$hv227)[2]/nrow(opdf)
+
+nop11<-table(nopdf$hv227)[2]/nrow(nopdf)
+
+lm11<-table(lmdf$hv227)[2]/nrow(lmdf)
+
+lf11<-table(lfdf$hv227)[2]/nrow(lfdf)
+```
+
+```{r}
+df10features<-data.frame(proportion=c(op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,nop1,nop2,nop3,nop4,nop5,nop6,nop7,nop8,nop9,nop10,nop11,lm1,lm2,lm3,lm4,lm5,lm6,lm7,lm8,lm9,lm10,lm11,lf1,lf2,lf3,lf4,lf5,lf6,lf7,lf8,lf9,lf10,lf11),dataname=c("op1","op2","op3","op4","op5","op6","op7","op8","op9","op10","op11","nop1","nop2","nop3","nop4","nop5","nop6","nop7","nop8","nop9","nop10","nop11","lm1","lm2","lm3","lm4","lm5","lm6","lm7","lm8","lm9","lm10","lm11","lf1","lf2","lf3","lf4","lf5","lf6","lf7","lf8","lf9","lf10","lf11"))
+
+
+```
+
+```{r}
+df10features["orphanhood"]<-integer(44)
+for (x in 1:11){
+  df10features$orphanhood[x]<-"orphan"
+}
+for (x in 12:22){
+  df10features$orphanhood[x]<-"nonorphan"
+}
+for (x in 23:33){
+  df10features$orphanhood[x]<-"lostmother"
+}
+for (x in 34:44){
+  df10features$orphanhood[x]<-"lostfather"
+}
+for (x in 1:44){
+  if (x%%11==10|x%%11==0){
+    df10features$question[x]<-str_sub(df10features$dataname[x],-2,-1)
+  }
+  else{
+    df10features$question[x]<-str_sub(df10features$dataname[x],-1,-1)
+  }
+}
+
+```
+
+```{r}
+# function of confidence interval
+CIupper<-function(x,n){
+  upper<-x+1.96*sqrt(x*(1-x)/n)
+  return(upper)
+}
+
+CIlower<-function(x,n){
+  lower<-x-1.96*sqrt(x*(1-x)/n)
+  return(lower)
+}
+```
+
+
+```{r}
+# confidence intervals upper
+df10features["upper"]<-integer(44)
+for (x in 1:11){
+  df10features$upper[x]<-CIupper(df10features$proportion[x],nrow(opdf))
+}
+for (x in 12:22){
+  df10features$upper[x]<-CIupper(df10features$proportion[x],nrow(nopdf))
+}
+for (x in 23:33){
+  df10features$upper[x]<-CIupper(df10features$proportion[x],nrow(lmdf))
+}
+for (x in 34:44){
+  df10features$upper[x]<-CIupper(df10features$proportion[x],nrow(lfdf))
+}
+# confidence intervals lower
+df10features["lower"]<-integer(44)
+for (x in 1:11){
+  df10features$lower[x]<-CIlower(df10features$proportion[x],nrow(opdf))
+}
+for (x in 12:22){
+  df10features$lower[x]<-CIlower(df10features$proportion[x],nrow(nopdf))
+}
+for (x in 23:33){
+  df10features$lower[x]<-CIlower(df10features$proportion[x],nrow(lmdf))
+}
+for (x in 34:44){
+  df10features$lower[x]<-CIlower(df10features$proportion[x],nrow(lfdf))
+}
+```
+
+
+```{r}
+# draw the barplot
+df10fea1<-subset(df10features,df10features$question>2)
+ggplot(data = df10fea1, mapping = aes(x=question,y = proportion, fill = orphanhood)) + geom_bar(stat = 'identity', position = 'dodge') + geom_errorbar( aes(ymin=lower, ymax=upper), width=0.4, colour="orange", alpha=0.6,position = position_dodge(.9))
+```
+
+

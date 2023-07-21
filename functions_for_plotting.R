@@ -64,9 +64,9 @@ df_boxplot <- function(df, col_names, col_orphan, col_age) {
   #' col_age: column name for age
   
   df <- df[!is.na(df[, col_orphan]), ]
-  #df <- subset(df,is.na(df$col_age)!=1)
   df <- df[!is.na(df[, col_age]), ]
-  boxplot_data<-df[c(col_names,col_orphan,col_age)]
+  boxplot_data<-df[c(col_names, col_orphan, col_age)]
+  boxplot_data[, col_age] <- as.character(boxplot_data[, col_age])
   boxplot_data
 }
 

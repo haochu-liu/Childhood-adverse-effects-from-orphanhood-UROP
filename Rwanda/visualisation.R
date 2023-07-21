@@ -22,7 +22,7 @@ box_col <- c("ha3", "hc3", "ha2", "hc2", "ha40", "ha53", "hc53")
 bar_df <- df_barplot(df_2019, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2019, box_col, "Orphanhood", "hv105")
 # barplot
-ggplot(bar_df, aes(fill=orphan, x=col_label, y=percentage)) +
+ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
@@ -32,11 +32,22 @@ ggplot(bar_df, aes(fill=orphan, x=col_label, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 # boxplot
-ggplot(box_col, aes(x=age, y=ha3, fill=orphan)) +
-  geom_violin(aes(fill=orphan),
+box_labels <- label(box_df)
+
+BMI05<-ggplot(data=chdf05,mapping=aes(x=orphanhood,y=BMI))+geom_boxplot()+ylim(c(5,35))+geom_boxplot(outlier.colour = "red", outlier.shape = 1)+
+  coord_flip()+
+  ggtitle("Senegal 2010(Children under 5)")+theme_bw()
+print(BMI05)
+
+# delete row with all NAs
+box_df <- box_df[rowSums(is.na(box_df)) < (ncol(box_df)-2), ]
+box_df <- box_df[box_df$hv105 >= 15 & box_df$hv105 <= 17, ]
+
+ggplot(box_df, aes(x=hv105, y=ha3, fill=Orphanhood)) +
+  geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9)) +
   geom_boxplot(width=0.2, position = position_dodge(0.9)) +
-  labs(y = "Woman's height in centimeters (1 decimal)") +
+  labs(y = as.character(box_labels["ha3"]), x = "Age") +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 

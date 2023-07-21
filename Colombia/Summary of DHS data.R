@@ -36,12 +36,15 @@ data1990 <- get_datasets(dataset_filenames = "COKR22FL.zip")
 df1990 <- readRDS(data1990$"COKR22FL")
 df1990 <- data.frame(df1990)
 
-# 1995 (household member)colnam
+# 1995 (household member)
 data1995 <- get_datasets(dataset_filenames = "COPR31DT.zip")
 df1995 <- readRDS(data1995$"COPR31DT")
 df1995 <- data.frame(df1995)
 
-
+# 2000 (household member)
+data2000 <- get_datasets(dataset_filenames = "COPR41FL.zip")
+df2000 <- readRDS(data2000$"COPR41FL")
+df2000 <- data.frame(df2000)
 
 # 2005 (household member)
 data2005 <- get_datasets(dataset_filenames = "COPR53DT.zip")
@@ -58,3 +61,8 @@ data2015 <- get_datasets(dataset_filenames = "COPR72DT.zip")
 df2015 <- readRDS(data2015$"COPR72DT")
 df2015 <- data.frame(df2015)
 
+# search for key words
+# library(Hmisc)
+# df_label <- label(df2010)
+# "Height" %in% df_label
+# sum(is.na(df2005$hv227))==nrow(df2005)

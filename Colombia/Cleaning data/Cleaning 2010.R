@@ -70,5 +70,9 @@ label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
 label$hv121 <- "school attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
 label$hv121.1 <- "school attendance for age 17"
 label$hv270 <- "poor household wealth" # <=2: poor
+label$ha2 <- "woman's weight"
+label$ha3 <- "woman's height"
+label$hc2 <- "child's weight"
+label$hc3 <- "child's height"
 
 label(df2010_new) <- label

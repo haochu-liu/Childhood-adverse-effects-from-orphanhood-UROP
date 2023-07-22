@@ -3,6 +3,8 @@ source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/functions_for_p
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Cleaning data/Cleaning 2010.R")
 
 library(ggplot2)
+library(Hmisc)
+library(labelled)
 # bar plot
 col_name_2010b <- c("hv025","hv201","hv205", 
                     "hv207", "hv208", "hv209", "hv210",
@@ -29,7 +31,9 @@ boxplot_data2010 <- df_boxplot(df2010_new, col_name_2010c, "Orphanhood", "hv105"
 box_labels <- label(boxplot_data2010)
 val_labels(boxplot_data2010) <- NULL
 
-ggplot(boxplot_data2010, aes(x=hv105,y=ha3, fill=Orphanhood)) +
+df <- boxplot_data2010 
+df <- df[!is.na(df[,"ha3"]),]
+ggplot(df, aes(x=hv105,y=ha3, fill=Orphanhood)) +
   geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9)) +
   geom_boxplot(width=0.2, position = position_dodge(0.9)) +
@@ -37,7 +41,9 @@ ggplot(boxplot_data2010, aes(x=hv105,y=ha3, fill=Orphanhood)) +
   ggtitle("Colombia2010") +
   coord_flip()
 
-ggplot(boxplot_data2010, aes(x=hv105, y=hc3, fill=Orphanhood)) +
+df <- boxplot_data2010 
+df <- df[!is.na(df[,"hc3"]),]
+ggplot(df, aes(x=hv105, y=hc3, fill=Orphanhood)) +
   geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9)) +
   geom_boxplot(width=0.2, position = position_dodge(0.9)) +
@@ -45,7 +51,9 @@ ggplot(boxplot_data2010, aes(x=hv105, y=hc3, fill=Orphanhood)) +
   ggtitle("Colombia2010") +
   coord_flip()
 
-ggplot(boxplot_data2010, aes(x=hv105, y=ha2, fill=Orphanhood)) +
+df <- boxplot_data2010 
+df <- df[!is.na(df[,"ha2"]),]
+ggplot(df, aes(x=hv105, y=ha2, fill=Orphanhood)) +
   geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9)) +
   geom_boxplot(width=0.2, position = position_dodge(0.9)) +
@@ -53,7 +61,9 @@ ggplot(boxplot_data2010, aes(x=hv105, y=ha2, fill=Orphanhood)) +
   ggtitle("Colombia2010") +
   coord_flip()
 
-ggplot(boxplot_data2010, aes(x=hv105, y=hc2, fill=Orphanhood)) +
+df <- boxplot_data2010 
+df <- df[!is.na(df[,"hc2"]),]
+ggplot(df, aes(x=hv105, y=hc2, fill=Orphanhood)) +
   geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9)) +
   geom_boxplot(width=0.2, position = position_dodge(0.9)) +
@@ -61,7 +71,9 @@ ggplot(boxplot_data2010, aes(x=hv105, y=hc2, fill=Orphanhood)) +
   ggtitle("Colombia2010") +
   coord_flip()
 
-ggplot(boxplot_data2010, aes(x=Orphanhood, y=ha40)) +
+df <- boxplot_data2010 
+df <- df[!is.na(df[,"ha40"]),]
+ggplot(df, aes(x=Orphanhood, y=ha40)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
   labs(y = as.character(box_labels["ha40"]), x = "Age") +

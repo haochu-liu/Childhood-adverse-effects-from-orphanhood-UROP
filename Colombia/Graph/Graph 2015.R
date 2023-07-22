@@ -3,6 +3,8 @@ source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/functions_for_p
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Cleaning data/Cleaning 2015.R")
 
 library(ggplot2)
+library(Hmisc)
+library(labelled)
 # barplot
 
 # binary variables

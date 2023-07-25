@@ -29,3 +29,5 @@ ggplot(barplot_data2015, aes(fill = orphan, x = column_labels, y=percentage)) +
 # continuous variables 
 # col_name_2015c <- c("")
 # df_boxplot(df2015_new, col_name_c, col_orphan, "hv105")
+
+# putting all together 

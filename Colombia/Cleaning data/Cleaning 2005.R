@@ -73,5 +73,6 @@ label$ha2 <- "woman's weight"
 label$ha3 <- "woman's height"
 label$hc2 <- "child's weight"
 label$hc3 <- "child's height"
+label$hv105 <- "age"
 
 label(df2005_new) <- label

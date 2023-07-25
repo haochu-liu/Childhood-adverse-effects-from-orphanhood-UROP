@@ -71,7 +71,7 @@ df_boxplot <- function(df, col_names, col_orphan, col_age) {
 }
 
 
-df_isna <- function(df_list, col_names, years) {
+df_isna <- function(df_list, col_names, col_labels, years) {
   #' df_list: list of dataframes, key is year, value is dataframe
   #' col_names: column names for all dataframes
   #' years: years in string
@@ -81,7 +81,8 @@ df_isna <- function(df_list, col_names, years) {
     year <- c(year, rep(years[i], length(col_names)))
   }
   column <- rep(col_names, length(years))
-  isna_data <- data.frame(year, column)
+  label <- rep(col_labels, length(years))
+  isna_data <- data.frame(year, column, label)
   isna_data$na_percentage <- NA
   
   index <- 1

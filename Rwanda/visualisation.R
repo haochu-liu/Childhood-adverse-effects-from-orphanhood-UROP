@@ -538,12 +538,49 @@ col_name_list <- c("hv025", "hv201", "hv205", "hv206",
                    "hv121", "hv121.1", "hv110", "hv110.1", "ha57", "hc57",
                    "hml32", "ha3", "hc3", "hb3", "ha2", "hc2", "hb2",
                    "ha40", "hb40", "ha53", "hc53")
-heatmap_df <- df_isna(df_list, col_name_list, year_list)
+col_label_list <- c(
+  "Lives in urban area",
+  "Has piped or tube water",
+  "Has flush or pit toilet",
+  "Has electricity",
+  "Has radio",
+  "Has television",
+  "Has refrigerator",
+  "Has bicycle",
+  "Has motorcycle/scooter",
+  "Has car/truck",
+  "Has mosquito bed net for sleeping",
+  "Has telephone (land-line)",
+  "Has mobile telephone",
+  "Has watch",
+  "Has a computer",
+  "Poor household wealth",
+  "School attendance for age 7-12 (compulsory)",
+  "School attendance for age 13-17",
+  "School attendance for age 7-12 (compulsory) 1992",
+  "School attendance for age 13-17 1992",
+  "Has anemia (woman)",
+  "Has anemia (child)",
+  "Has malaria",
+  "Woman's height in centimeters (1 decimal)",
+  "Child's height in centimeters (1 decimal)",
+  "Man's height in centimeters (1 decimal)",
+  "Woman's weight in kilograms (1 decimal)",
+  "Child's weight in kilograms (1 decimal)",
+  "Man's weight in kilograms (1 decimal)",
+  "Woman's body mass index",
+  "Man's body mass index",
+  "Woman's hemoglobin level (g/dl - 1 decimal)",
+  "Child's hemoglobin level (g/dl - 1 decimal)"
+)
+heatmap_df <- df_isna(df_list, col_name_list, col_label_list, year_list)
 
-ggplot(heatmap_df, aes(column, year, fill=na_percentage)) + 
+ggplot(heatmap_df, aes(label, year, fill=na_percentage)) + 
   geom_tile() +
   labs(x = "column name") +
-  ggtitle("Rwanda")
+  guides(fill=guide_legend(title="%NA")) +
+  ggtitle("Rwanda")+
+  coord_flip()
 
 
 

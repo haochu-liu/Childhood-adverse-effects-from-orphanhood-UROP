@@ -4,6 +4,7 @@ library(ggplot2)
 library(dplyr)
 library(Hmisc)
 library(haven)
+library(patchwork)
 
 
 # lineplot for orphanhood
@@ -29,6 +30,9 @@ text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
 # import functions
 source("functions_for_plotting.R")
 
+# create dataframe bar_years
+bar_years <- data.frame()
+
 
 # 2019
 year <- 2019
@@ -51,6 +55,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -94,6 +100,13 @@ ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
+ha40_2019 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
 ggplot(box_df, aes(x=Orphanhood, y=ha53)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
@@ -130,6 +143,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -183,6 +198,13 @@ ggplot(box_df, aes(x=hv105, y=hb2, fill=Orphanhood)) +
   coord_flip()
 
 ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ha40_2014 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
   labs(y = as.character(box_labels["ha40"]), x = "Age") +
@@ -232,6 +254,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -291,6 +315,13 @@ ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
+ha40_2010 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
 ggplot(box_df, aes(x=Orphanhood, y=hb40)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
@@ -334,6 +365,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -377,6 +410,13 @@ ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
+ha40_2005 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
 ggplot(box_df, aes(x=Orphanhood, y=ha53)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
@@ -412,6 +452,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -461,8 +503,24 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 
 
+# side by side barplots
+ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "Questions") +
+  ggtitle("Rwanda") +
+  facet_wrap(~year) +
+  coord_flip(ylim=c(0, 1)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
+
+
+ha40_2019 + ha40_2014 + ha40_2010 + ha40_2005 + plot_layout(ncol = 2)
 
 
 

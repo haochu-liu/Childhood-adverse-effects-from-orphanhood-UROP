@@ -523,6 +523,27 @@ ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
 ha40_2019 + ha40_2014 + ha40_2010 + ha40_2005 + plot_layout(ncol = 2)
 
 
+# heatmap for missing values
+year_list <- c("2019", "2014", "2010", "2005", "2000", "1992")
+df_list <- list("2019" = df_2019,
+                "2014" = df_2014,
+                "2010" = df_2010,
+                "2005" = df_2005,
+                "2000" = df_2000,
+                "1992" = df_1992)
+col_name_list <- c("hv025", "hv201", "hv205", "hv206",
+                   "hv207", "hv208", "hv209", "hv210",
+                   "hv211", "hv212", "hv227", "hv221",
+                   "hv243a", "hv243b", "hv243e", "hv270",
+                   "hv121", "hv121.1", "hv110", "hv110.1", "ha57", "hc57",
+                   "hml32", "ha3", "hc3", "hb3", "ha2", "hc2", "hb2",
+                   "ha40", "hb40", "ha53", "hc53")
+heatmap_df <- df_isna(df_list, col_name_list, year_list)
+
+ggplot(heatmap_df, aes(column, year, fill=na_percentage)) + 
+  geom_tile() +
+  labs(x = "column name") +
+  ggtitle("Rwanda")
 
 
 

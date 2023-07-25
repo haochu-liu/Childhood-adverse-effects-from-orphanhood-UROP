@@ -281,8 +281,15 @@ BMI05<-ggplot(data=chdf05,mapping=aes(x=orphanhood,y=BMI))+geom_boxplot()+ylim(c
   ggtitle("Senegal 2010(Children under 5)")+theme_bw()
 print(BMI05)
 ```
-here we can see there are outliers due to recording error
 ```{r}
+box2005<-df_boxplot(chdf2005,"BMI","Orphanhood","hv105")
+#box2005$hv105<-as.numeric(box2005$hv105)
+BMI05<-ggplot(data=box2005,mapping=aes(x=hv105,y=BMI,fill=Orphanhood))+geom_boxplot()+ylim(c(5,35))+geom_boxplot(outlier.colour = "red", outlier.shape = 1)+
+  coord_flip()+
+  ggtitle("Senegal 2010(Children under 5)")+theme_bw()
+print(BMI05)
+```
+
 
 ```
 

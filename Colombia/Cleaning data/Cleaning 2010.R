@@ -1,4 +1,5 @@
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Summary of DHS data.R")
+library(haven)
 
 # 2010
 df2010_new <- df2010[, c("hvidx","hv001","hv002",
@@ -16,8 +17,8 @@ df2010_new["Orphanhood"] <- ifelse(df2010$hv111 == 0 | df2010$hv113 == 0,
 
 # under 18
 under_18_2010 <- c(sum(df2010_new$hv105 < 18,na.rm=TRUE), sum(df2010_new$hv105 >= 18,na.rm=TRUE))
-barplot(under_18_2010, names.arg= c("< 18", ">= 18"), xlab="Age", ylab="Number of individuals",
-        col="blue", main= "Colombia2010")
+# barplot(under_18_2010, names.arg= c("< 18", ">= 18"), xlab="Age", ylab="Number of individuals",
+#         col="blue", main= "Colombia2010")
 
 df2010_new <- df2010_new[df2010_new$hv105 < 18, ]
 

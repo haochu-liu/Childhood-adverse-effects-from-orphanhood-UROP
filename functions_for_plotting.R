@@ -59,15 +59,47 @@ df_barplot <- function(df, col_names, col_orphan) {
 
 df_boxplot <- function(df, col_names, col_orphan, col_age) {
   #' df: input dataframe
-  #' col_names:column name of required data
+  #' col_names: column name of required data
   #' col_orphan: column name for orphanhood
   #' col_age: column name for age
   
   df <- df[!is.na(df[, col_orphan]), ]
   df <- df[!is.na(df[, col_age]), ]
-  boxplot_data<-df[c(col_names, col_orphan, col_age)]
+  boxplot_data < -df[c(col_names, col_orphan, col_age)]
   boxplot_data[, col_age] <- as.character(boxplot_data[, col_age])
   boxplot_data
+}
+
+
+df_isna <- function(df_list, col_names, col_labels, years) {
+  #' df_list: list of dataframes, key is year, value is dataframe
+  #' col_names: column names for all dataframes
+  #' years: years in string
+  
+  year <- c()
+  for (i in 1:length(years)) {
+    year <- c(year, rep(years[i], length(col_names)))
+  }
+  column <- rep(col_names, length(years))
+  label <- rep(col_labels, length(years))
+  isna_data <- data.frame(year, column, label)
+  isna_data$na_percentage <- NA
+  
+  index <- 1
+  for (i in 1:length(years)) {
+    df <- df_list[[years[i]]]
+    n <- nrow(df)
+    cols_in_df <- colnames(df)
+    for (j in 1:length(col_names)) {
+      if (col_names[j] %in% cols_in_df) {
+        isna_data[index, "na_percentage"] <- sum(is.na(df[, col_names[j]])) / n
+      } else {
+        # isna_data[index, "na_percentage"] <- 1.0
+      }
+      index <- index + 1
+    }
+  }
+  isna_data
 }
 
 

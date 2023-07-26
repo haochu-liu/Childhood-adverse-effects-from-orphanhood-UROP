@@ -4,6 +4,7 @@ library(ggplot2)
 library(dplyr)
 library(Hmisc)
 library(haven)
+library(patchwork)
 
 
 # lineplot for orphanhood
@@ -29,6 +30,9 @@ text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
 # import functions
 source("functions_for_plotting.R")
 
+# create dataframe bar_years
+bar_years <- data.frame()
+
 
 # 2019
 year <- 2019
@@ -51,6 +55,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -94,6 +100,13 @@ ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
+ha40_2019 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
 ggplot(box_df, aes(x=Orphanhood, y=ha53)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
@@ -130,6 +143,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -183,6 +198,13 @@ ggplot(box_df, aes(x=hv105, y=hb2, fill=Orphanhood)) +
   coord_flip()
 
 ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
+ha40_2014 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
   labs(y = as.character(box_labels["ha40"]), x = "Age") +
@@ -232,6 +254,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -291,6 +315,13 @@ ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
+ha40_2010 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
 ggplot(box_df, aes(x=Orphanhood, y=hb40)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
@@ -334,6 +365,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -377,6 +410,13 @@ ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
   ggtitle(paste("Rwanda", year)) +
   coord_flip()
 
+ha40_2005 <- ggplot(box_df, aes(x=Orphanhood, y=ha40)) +
+  geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
+  geom_boxplot(width=0.1) +
+  labs(y = as.character(box_labels["ha40"]), x = "Age") +
+  ggtitle(paste("Rwanda", year)) +
+  coord_flip()
+
 ggplot(box_df, aes(x=Orphanhood, y=ha53)) +
   geom_violin(aes(fill=Orphanhood), width=0.8, alpha=0.5) +
   geom_boxplot(width=0.1) +
@@ -412,6 +452,8 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 # boxplot
 box_labels <- label(box_df)
 val_labels(box_df) <- NULL
@@ -461,10 +503,84 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+bar_df$year <- year
+bar_years <- rbind(bar_years, bar_df)
 
 
+# side by side barplots
+ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "Questions") +
+  ggtitle("Rwanda") +
+  facet_wrap(~year) +
+  coord_flip(ylim=c(0, 1)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
 
 
+ha40_2019 + ha40_2014 + ha40_2010 + ha40_2005 + plot_layout(ncol = 2)
+
+
+# heatmap for missing values
+year_list <- c("2019", "2014", "2010", "2005", "2000", "1992")
+df_list <- list("2019" = df_2019,
+                "2014" = df_2014,
+                "2010" = df_2010,
+                "2005" = df_2005,
+                "2000" = df_2000,
+                "1992" = df_1992)
+col_name_list <- c("hv025", "hv201", "hv205", "hv206",
+                   "hv207", "hv208", "hv209", "hv210",
+                   "hv211", "hv212", "hv227", "hv221",
+                   "hv243a", "hv243b", "hv243e", "hv270",
+                   "hv121", "hv121.1", "hv110", "hv110.1", "ha57", "hc57",
+                   "hml32", "ha3", "hc3", "hb3", "ha2", "hc2", "hb2",
+                   "ha40", "hb40", "ha53", "hc53")
+col_label_list <- c(
+  "Lives in urban area",
+  "Has piped or tube water",
+  "Has flush or pit toilet",
+  "Has electricity",
+  "Has radio",
+  "Has television",
+  "Has refrigerator",
+  "Has bicycle",
+  "Has motorcycle/scooter",
+  "Has car/truck",
+  "Has mosquito bed net for sleeping",
+  "Has telephone (land-line)",
+  "Has mobile telephone",
+  "Has watch",
+  "Has a computer",
+  "Poor household wealth",
+  "School attendance for age 7-12 (compulsory)",
+  "School attendance for age 13-17",
+  "School attendance for age 7-12 (compulsory) 1992",
+  "School attendance for age 13-17 1992",
+  "Has anemia (woman)",
+  "Has anemia (child)",
+  "Has malaria",
+  "Woman's height in centimeters (1 decimal)",
+  "Child's height in centimeters (1 decimal)",
+  "Man's height in centimeters (1 decimal)",
+  "Woman's weight in kilograms (1 decimal)",
+  "Child's weight in kilograms (1 decimal)",
+  "Man's weight in kilograms (1 decimal)",
+  "Woman's body mass index",
+  "Man's body mass index",
+  "Woman's hemoglobin level (g/dl - 1 decimal)",
+  "Child's hemoglobin level (g/dl - 1 decimal)"
+)
+heatmap_df <- df_isna(df_list, col_name_list, col_label_list, year_list)
+
+ggplot(heatmap_df, aes(label, year, fill=na_percentage)) + 
+  geom_tile() +
+  labs(x = "column name") +
+  guides(fill=guide_legend(title="%NA")) +
+  ggtitle("Rwanda")+
+  coord_flip()
 
 
 

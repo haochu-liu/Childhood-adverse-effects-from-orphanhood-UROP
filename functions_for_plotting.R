@@ -102,4 +102,44 @@ df_isna <- function(df_list, col_names, col_labels, years) {
   isna_data
 }
 
+df_odd_ratio <- function(df, col_names, col_orphan){
+  df <- df[!is.na(df[, col_orphan]), ]
+  
+  label_list <- label(df)
+  column_labels <- as.character(label_list[col_names])
+  odd_data <- data.frame(col_names, column_labels)
+  odd_data$odd_ratio <- NA
+  odd_data$CI_upper <- NA
+  odd_data$CI_lower <- NA
+  
+  for (i in 1:length(col_names)) {
+    val_labels(df[, col_names[i]]) <- NULL
+    # count a b c d
+    a <- sum(df[,col_orphan] == "orphan" & df[,col_names[i]] == 1)
+    b <- sum(df[,col_orphan] == "orphan" & df[,col_names[i]] == 0)
+    c <- sum(df[,col_orphan] == "non-orphan" & df[,col_names[i]] == 1)
+    d <- sum(df[,col_orphan] == "non-orphan" & df[,col_names[i]] == 0)
+    
+    # odd ratio
+    od <- (a*d) / (b*c)
+      
+    # CI lower
+    lower <- exp(log(od) - 1.96 * sqrt(1/a + 1/b + 1/c + 1/d))
+    
+    # CI upper
+    upper <- exp(log(od) + 1.96 * sqrt(1/a + 1/b + 1/c + 1/d))
+    
+    # updata df
+    odd_data[i, "odd_ratio"] <- od
+    odd_data[i, "CI_upper"] <- upper
+    odd_data[i, "CI_lower"] <- lower
+  }
+  
+  odd_data
+}
+  
+  
+  
+  
+  
 

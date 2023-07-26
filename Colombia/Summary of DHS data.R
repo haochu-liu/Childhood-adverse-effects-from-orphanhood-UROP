@@ -1,4 +1,5 @@
 library(rdhs)
+library(haven)
 
 set_rdhs_config(email = "zhengxialu@gmail.com",
                 project = "Childhood Adverse Effects From Orphanhood",
@@ -66,3 +67,4 @@ df2015 <- data.frame(df2015)
 # df_label <- label(df2010)
 # "Height" %in% df_label
 # sum(is.na(df2005$hv227))==nrow(df2005)
+

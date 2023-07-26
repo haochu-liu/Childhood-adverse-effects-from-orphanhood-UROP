@@ -14,6 +14,7 @@ df2005_new <- df2005[, c("hvidx","hv001","hv002",
 # orphanhood
 df2005_new["Orphanhood"] <- ifelse(df2005$hv111 == 0 | df2005$hv113 == 0, 
                                    "orphan", "non-orphan")
+names(df2005_new)[names(df2005_new) == "shh12i"] <- "hv243e"
 
 # under 18
 under_18_2005 <- c(sum(df2005_new$hv105 < 18,na.rm=TRUE), sum(df2005_new$hv105 >= 18,na.rm=TRUE))

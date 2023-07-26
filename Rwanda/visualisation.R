@@ -524,6 +524,8 @@ ha40_2019 + ha40_2014 + ha40_2010 + ha40_2005 + plot_layout(ncol = 2)
 
 
 # heatmap for missing values
+df_1992 <- df_1992 %>% rename(hv121 = hv110, hv121.1 = hv110.1)
+
 year_list <- c("2019", "2014", "2010", "2005", "2000", "1992")
 df_list <- list("2019" = df_2019,
                 "2014" = df_2014,
@@ -535,7 +537,7 @@ col_name_list <- c("hv025", "hv201", "hv205", "hv206",
                    "hv207", "hv208", "hv209", "hv210",
                    "hv211", "hv212", "hv227", "hv221",
                    "hv243a", "hv243b", "hv243e", "hv270",
-                   "hv121", "hv121.1", "hv110", "hv110.1", "ha57", "hc57",
+                   "hv121", "hv121.1", "ha57", "hc57",
                    "hml32", "ha3", "hc3", "hb3", "ha2", "hc2", "hb2",
                    "ha40", "hb40", "ha53", "hc53")
 col_label_list <- c(
@@ -557,8 +559,6 @@ col_label_list <- c(
   "Poor household wealth",
   "School attendance for age 7-12 (compulsory)",
   "School attendance for age 13-17",
-  "School attendance for age 7-12 (compulsory) 1992",
-  "School attendance for age 13-17 1992",
   "Has anemia (woman)",
   "Has anemia (child)",
   "Has malaria",
@@ -576,12 +576,17 @@ col_label_list <- c(
 heatmap_df <- df_isna(df_list, col_name_list, col_label_list, year_list)
 
 ggplot(heatmap_df, aes(label, year, fill=na_percentage)) + 
-  geom_tile() +
-  labs(x = "column name") +
-  guides(fill=guide_legend(title="%NA")) +
-  ggtitle("Rwanda")+
+  geom_tile(aes(fill=na_percentage), colour="white") +
+  scale_fill_gradientn(colours=RColorBrewer::brewer.pal(7, "YlOrBr"),
+                       na.value="grey") +
+  geom_point(data=heatmap_df, aes(size="Question missing"), shape=NA, colour="grey") +
+  guides(size=guide_legend("Not applicable",
+                           override.aes=list(shape=15, size=7)),
+         fill=guide_legend(title="%NA")) +
+  scale_x_discrete(limits=col_label_list) +
+  theme(axis.title.y=element_blank()) +
+  ggtitle("Rwanda") +
   coord_flip()
-
 
 
 

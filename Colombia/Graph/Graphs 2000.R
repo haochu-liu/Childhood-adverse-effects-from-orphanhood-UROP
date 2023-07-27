@@ -51,3 +51,4 @@ ggplot(odd_CO_2000, aes(x = odd_ratio, y = column_labels)) +
 odd_CO_2000$year <- "2000"
 odd_CO_2000$country <- "Colombia"
 save(odd_CO_2000, file = "Colombia/odd_CO_2000.Rda")
+

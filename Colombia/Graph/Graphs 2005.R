@@ -10,7 +10,7 @@ library(haven)
 col_name_2005b <- c("hv025","hv026","hv201","hv205", "hv206",
                     "hv207", "hv208", "hv209", 
                     "hv211", "hv212", "hv221",
-                    "shh12i","hv270",
+                    "hv243e","hv270",
                     "hv121", "hv121.1")
 
 barplot_data2005 <- df_barplot(df2005_new, col_name_2005b, "Orphanhood")
@@ -24,6 +24,27 @@ ggplot(barplot_data2005, aes(fill = orphan, x = column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+
+# odd
+odd2005 <- df_odd_ratio(df2005_new, col_name_2005b, "Orphanhood")
+ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Colombia 2005") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
 
 col_name_2005c <- c("ha3", "hc3", "ha2", "hc2", "ha40")
 boxplot_data2005 <- df_boxplot(df2005_new, col_name_2005c, "Orphanhood", "hv105")

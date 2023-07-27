@@ -22,3 +22,24 @@ ggplot(barplot_data2000, aes(fill = orphan, x = column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+# odd
+odd2000 <- df_odd_ratio(df2000_new, col_name_2000b, "Orphanhood")
+ggplot(odd2000, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Colombia 2000") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+

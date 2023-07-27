@@ -416,7 +416,7 @@ ggplot(odd2019, aes(x = odd_ratio, y = column_labels)) +
 
 
 # side by side barplots
-allyear_bar<-ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
+allyear_bar <- ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +

@@ -5,20 +5,20 @@ source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/
 
 # barplot
 allyear_CO_bar <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
-allyear_CO_odd <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
 
 allyear_CO_bar_plot <- ggplot(allyear_CO_bar, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
   labs(x = "Questions") +
-  ggtitle("Senegal") +
+  ggtitle("Colombia") +
   facet_wrap(~year) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
 allyear_CO_bar_plot
+
 
 library(ggpubr)
 # ggarrange(g1, g2, g3, g4, 
@@ -106,5 +106,9 @@ ggplot(df_heatmap, aes(label, year, fill=na_percentage)) +
 
 
 # odd ratio
-ggarrange(or2000,or2005,or2010,or2015,
-          ncol = 2, nrow = 2)
+# ggarrange(or2000,or2005,or2010,or2015,
+#          ncol = 2, nrow = 2)
+
+allyear_CO_odd <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
+
+allyear_CO_odd_plot 

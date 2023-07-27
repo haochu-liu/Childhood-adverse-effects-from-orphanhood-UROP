@@ -12,9 +12,9 @@ col_name_2010b <- c("hv025","hv201","hv205",
                     "hv243a", "hv270",
                     "hv121", "hv121.1")
 
-barplot_data2010 <- df_barplot(df2010_new, col_name_2010b, "Orphanhood")
+bar_CO_2010 <- df_barplot(df2010_new, col_name_2010b, "Orphanhood")
 
-ggplot(barplot_data2010, aes(fill = orphan, x = column_labels, y=percentage)) +
+ggplot(bar_CO_2010, aes(fill = orphan, x = column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
@@ -24,13 +24,13 @@ ggplot(barplot_data2010, aes(fill = orphan, x = column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-barplot_data2010$year <- "2010"
-barplot_data2010$country <- "Colombia"
-save(barplot_data2010, file = "Colombia/bar_CO_2010.Rda")
+bar_CO_2010$year <- "2010"
+bar_CO_2010$country <- "Colombia"
+save(bar_CO_2010, file = "Colombia/bar_CO_2010.Rda")
 
 # odd
-odd2010 <- df_odd_ratio(df2010_new, col_name_2010b, "Orphanhood")
-ggplot(odd2010, aes(x = odd_ratio, y = column_labels)) + 
+odd_CO_2010 <- df_odd_ratio(df2010_new, col_name_2010b, "Orphanhood")
+ggplot(odd_CO_2010, aes(x = odd_ratio, y = column_labels)) + 
   geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
   geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
                    0.25, color = "gray50") +
@@ -49,9 +49,9 @@ ggplot(odd2010, aes(x = odd_ratio, y = column_labels)) +
         axis.text.x.bottom = element_text(size = 12, colour = "black"),
         axis.title.x = element_text(size = 12, colour = "black"))
 
-odd2010$year <- "2010"
-odd2010$country <- "Colombia"
-save(odd2010, file = "Colombia/odd_CO_2010.Rda")
+odd_CO_2010$year <- "2010"
+odd_CO_2010$country <- "Colombia"
+save(odd_CO_2010, file = "Colombia/odd_CO_2010.Rda")
 
 col_name_2010c <- c("ha3", "hc3", "ha2", "hc2", "ha40")
 boxplot_data2010 <- df_boxplot(df2010_new, col_name_2010c, "Orphanhood", "hv105")

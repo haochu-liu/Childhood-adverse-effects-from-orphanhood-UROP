@@ -13,9 +13,9 @@ col_name_2005b <- c("hv025","hv026","hv201","hv205", "hv206",
                     "hv243e","hv270",
                     "hv121", "hv121.1")
 
-barplot_data2005 <- df_barplot(df2005_new, col_name_2005b, "Orphanhood")
+bar_CO_2005 <- df_barplot(df2005_new, col_name_2005b, "Orphanhood")
 
-ggplot(barplot_data2005, aes(fill = orphan, x = column_labels, y=percentage)) +
+ggplot(bar_CO_2005, aes(fill = orphan, x = column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
@@ -25,13 +25,13 @@ ggplot(barplot_data2005, aes(fill = orphan, x = column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-barplot_data2005$year <- "2005"
-barplot_data2005$country <- "Colombia"
-save(barplot_data2005, file = "Colombia/bar_CO_2005.Rda")
+bar_CO_2005$year <- "2005"
+bar_CO_2005$country <- "Colombia"
+save(bar_CO_2005, file = "Colombia/bar_CO_2005.Rda")
 
 # odd
-odd2005 <- df_odd_ratio(df2005_new, col_name_2005b, "Orphanhood")
-ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) + 
+odd_CO_2005 <- df_odd_ratio(df2005_new, col_name_2005b, "Orphanhood")
+ggplot(odd_CO_2005, aes(x = odd_ratio, y = column_labels)) + 
   geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
   geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
                    0.25, color = "gray50") +
@@ -50,9 +50,9 @@ ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) +
         axis.text.x.bottom = element_text(size = 12, colour = "black"),
         axis.title.x = element_text(size = 12, colour = "black"))
 
-odd2005$year <- "2005"
-odd2005$country <- "Colombia"
-save(odd2005, file = "Colombia/odd_CO_2005.Rda")
+odd_CO_2005$year <- "2005"
+odd_CO_2005$country <- "Colombia"
+save(odd_CO_2005, file = "Colombia/odd_CO_2005.Rda")
 
 
 col_name_2005c <- c("ha3", "hc3", "ha2", "hc2", "ha40")

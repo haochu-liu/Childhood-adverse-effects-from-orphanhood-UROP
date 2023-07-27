@@ -16,4 +16,7 @@ load("Senegal/bar_SN_2019.Rda")
 load("Senegal/odd_SN_2019.Rda")
 
 
+bar_df <- rbind(bar_CO_2015, bar_RW_2019, bar_SN_2019)
+odd_df <- rbind(odd_CO_2015, odd_RW_2019, odd_SN_2019)
+
 

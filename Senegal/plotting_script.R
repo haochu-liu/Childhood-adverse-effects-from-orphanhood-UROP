@@ -258,3 +258,26 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   theme(axis.title.y=element_blank())+
   scale_x_discrete(limits=col_label_list) +
   coord_flip()
+
+#odds
+odd2019<-df_odd_ratio(chdf2019,col_name,"Orphanhood")
+
+ggplot(odd2019, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2019") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))
+

@@ -8,6 +8,10 @@ library(patchwork)
 library(scales)
 
 
+# import functions
+source("functions_for_plotting.R")
+
+
 # 2019
 year <- "2019"
 load("Rwanda/df_2019.Rda")
@@ -29,6 +33,7 @@ ggplot(bar_df, aes(fill=orphan, x=column_labels, y=percentage)) +
   theme_classic()
 bar_RW_2019$year <- year
 bar_RW_2019$country <- "Rwanda"
+bar_RW_2019$column_labels <- tolower(bar_RW_2019$column_labels)
 # oddplot
 ggplot(odd_df, aes(x=odd_ratio, y=column_labels)) + 
   geom_vline(xintercept=1, color="red", linetype="dashed", cex=0.5, alpha=0.5) +
@@ -44,6 +49,7 @@ ggplot(odd_df, aes(x=odd_ratio, y=column_labels)) +
   annotation_logticks(sides="b")
 odd_RW_2019$year <- year
 odd_RW_2019$country <- "Rwanda"
+odd_RW_2019$column_labels <- tolower(odd_RW_2019$column_labels)
 
 save(bar_RW_2019, file="Rwanda/bar_RW_2019.Rda")
 save(odd_RW_2019, file="Rwanda/odd_RW_2019.Rda")

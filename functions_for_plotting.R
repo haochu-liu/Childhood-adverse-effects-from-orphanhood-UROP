@@ -115,10 +115,10 @@ df_odd_ratio <- function(df, col_names, col_orphan){
   for (i in 1:length(col_names)) {
     val_labels(df[, col_names[i]]) <- NULL
     # count a b c d
-    a <- sum(df[,col_orphan] == "orphan" & df[,col_names[i]] == 1)
-    b <- sum(df[,col_orphan] == "orphan" & df[,col_names[i]] == 0)
-    c <- sum(df[,col_orphan] == "non-orphan" & df[,col_names[i]] == 1)
-    d <- sum(df[,col_orphan] == "non-orphan" & df[,col_names[i]] == 0)
+    a <- sum(na.omit(df[,col_orphan] == "orphan" & df[,col_names[i]] == 1))
+    b <- sum(na.omit(df[,col_orphan] == "orphan" & df[,col_names[i]] == 0))
+    c <- sum(na.omit(df[,col_orphan] == "non-orphan" & df[,col_names[i]] == 1))
+    d <- sum(na.omit(df[,col_orphan] == "non-orphan" & df[,col_names[i]] == 0))
     
     # odd ratio
     od <- (a*d) / (b*c)

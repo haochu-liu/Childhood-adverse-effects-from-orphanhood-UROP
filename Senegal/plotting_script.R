@@ -33,6 +33,32 @@ BMI05<-ggplot(data=dfbox2010,mapping=aes(x=Orphanhood,y=BMI))+
   ggtitle("Senegal 2010(Children under 5)")+theme_bw()
 print(BMI05)
 
+#odd ratio plot
+
+odd2005<-df_odd_ratio(chdf2005,col_name,"Orphanhood")
+
+ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2005") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
+  
+
 #2010
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221",
@@ -54,6 +80,31 @@ bar2010<-ggplot(dfbar2010, aes(fill=orphan, x=column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+#odd ratio plot
+
+odd2010<-df_odd_ratio(chdf2010,col_name,"Orphanhood")
+
+ggplot(odd2010, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2010") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
+
 #2012
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221",
@@ -73,6 +124,31 @@ bar2012<-ggplot(dfbar2012, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+
+#odd ratio plot
+
+odd2012<-df_odd_ratio(chdf2012,col_name,"Orphanhood")
+
+ggplot(odd2012, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2012") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
 
 #2014
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
@@ -94,6 +170,31 @@ bar2014<-ggplot(dfbar2014, aes(fill=orphan, x=column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+#odd ratio plot
+
+odd2014<-df_odd_ratio(chdf2014,col_name,"Orphanhood")
+
+ggplot(odd2014, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2014") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
+
 #2015
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221",
@@ -113,6 +214,29 @@ bar2015<-ggplot(dfbar2015, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+
+odd2015<-df_odd_ratio(chdf2015,col_name,"Orphanhood")
+
+ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2015") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
 
 #2016
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
@@ -134,6 +258,29 @@ bar2016<-ggplot(dfbar2016, aes(fill=orphan, x=column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+odd2016<-df_odd_ratio(chdf2016,col_name,"Orphanhood")
+
+ggplot(odd2016, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2016") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
+
 #2017
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221",
@@ -153,6 +300,30 @@ bar2017<-ggplot(dfbar2017, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+
+#odds
+odd2017<-df_odd_ratio(chdf2017,col_name,"Orphanhood")
+
+ggplot(odd2017, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2017") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
 
 #2018
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
@@ -174,6 +345,30 @@ bar2018<-ggplot(dfbar2018, aes(fill=orphan, x=column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+#odds
+odd2018<-df_odd_ratio(chdf2018,col_name,"Orphanhood")
+
+ggplot(odd2018, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2018") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  scale_x_continuous(trans='log2')+
+  theme(axis.title.y=element_blank())
+
 #2019
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221",
@@ -181,6 +376,7 @@ col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv270")
 dfbar2019<-df_barplot(chdf2019,col_name,"Orphanhood")
 dfbar2019$year <- 2019
+dfbar2019$country <- Senegal
 bar_years <- rbind(bar_years,dfbar2019)
 
 # barplot
@@ -193,6 +389,30 @@ bar2019<-ggplot(dfbar2019, aes(fill=orphan, x=column_labels, y=percentage)) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
+
+#odds
+odd2019<-df_odd_ratio(chdf2019,col_name,"Orphanhood")
+
+ggplot(odd2019, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw()+
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Senegal 2019") +
+  theme(panel.border = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.text.x.bottom = element_text(size = 12, colour = "black"),
+        axis.title.x = element_text(size = 12, colour = "black"))+
+  theme(axis.title.y=element_blank())
+  +scale_x_continuous(trans='log2')
 
 
 # side by side barplots
@@ -250,34 +470,13 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   geom_tile(aes(fill=na_percentage), colour="white") +
   scale_fill_gradientn(colours=RColorBrewer::brewer.pal(7, "YlOrBr"),
                        na.value="grey") +
-  geom_point(data=heatmap_df, aes(size="NA"), shape=NA, colour="grey") +
+  geom_point(data=heatmap_df, aes(size="Questions missing"), shape=NA, colour="grey") +
   guides(size=guide_legend("Not applicable",
                            override.aes=list(shape=15, size=7)),
-         fill=guide_legend(title="Proportion of\nchildren with missing outcomes")) +
+         fill=guide_legend(title="Proportion of\nchildren with\nmissing outcomes")) +
   ggtitle("Senegal") +
   theme(axis.title.y=element_blank())+
   scale_x_discrete(limits=col_label_list) +
   coord_flip()
 
-#odds
-odd2019<-df_odd_ratio(chdf2019,col_name,"Orphanhood")
-
-ggplot(odd2019, aes(x = odd_ratio, y = column_labels)) + 
-  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
-  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
-                   0.25, color = "gray50") +
-  geom_point(shape = 18, size = 3, color = "orange") +
-  theme_bw()+
-  theme(panel.grid.minor = element_blank()) +
-  ylab("Outcomes") +
-  xlab("Odds ratio (95% CI)") +
-  ggtitle("Odd Ratio for Senegal 2019") +
-  theme(panel.border = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), 
-        axis.line = element_line(colour = "black"),
-        axis.text.y = element_text(size = 12, colour = "black"),
-        axis.text.x.bottom = element_text(size = 12, colour = "black"),
-        axis.title.x = element_text(size = 12, colour = "black"))
 

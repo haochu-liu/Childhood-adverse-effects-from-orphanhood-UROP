@@ -16,6 +16,10 @@ col_name_2015b <- c("hv025","hv201","hv205", "hv206",
 
 barplot_data2015 <- df_barplot(df2015_new, col_name_2015b, "Orphanhood")
 
+barplot_data2015$year <- "2015"
+barplot_data2015$country <- "Colombia"
+save(barplot_data2015, file = "Colombia/bar_CO_2015.Rda")
+
 ggplot(barplot_data2015, aes(fill = orphan, x = column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
@@ -32,7 +36,12 @@ ggplot(barplot_data2015, aes(fill = orphan, x = column_labels, y=percentage)) +
 
 # odd
 odd2015 <- df_odd_ratio(df2015_new, col_name_2015b, "Orphanhood")
-ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) + 
+
+odd2015$year <- "2015"
+odd2015$country <- "Colombia"
+save(odd2015, file = "Colombia/odd_CO_2015.Rda")
+
+or2015 <- ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) + 
     geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
     geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
                      0.25, color = "gray50") +
@@ -51,3 +60,4 @@ ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) +
         axis.text.x.bottom = element_text(size = 12, colour = "black"),
         axis.title.x = element_text(size = 12, colour = "black"))
 
+or2015

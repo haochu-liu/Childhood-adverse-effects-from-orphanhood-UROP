@@ -5,6 +5,7 @@ library(dplyr)
 library(Hmisc)
 library(haven)
 library(patchwork)
+library(scales)
 
 
 # lineplot for orphanhood
@@ -582,11 +583,33 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   geom_point(data=heatmap_df, aes(size="Question missing"), shape=NA, colour="grey") +
   guides(size=guide_legend("Not applicable",
                            override.aes=list(shape=15, size=7)),
-         fill=guide_legend(title="%NA")) +
+         fill=guide_legend(title="Proportion of \nchildren with missing outcomes")) +
   scale_x_discrete(limits=col_label_list) +
   theme(axis.title.y=element_blank()) +
   ggtitle("Rwanda") +
   coord_flip()
+
+
+# odd plots
+odd_col <- c("hv025", "hv201", "hv205", "hv206",
+             "hv207", "hv208", "hv209", "hv210",
+             "hv211", "hv212", "hv227", "hv221",
+             "hv243a", "hv243b", "hv243e", "hv270",
+             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+odd_df <- df_odd_ratio(df_2019, odd_col, "Orphanhood")
+
+ggplot(odd_df, aes(x=odd_ratio, y=column_labels)) + 
+  geom_vline(xintercept=1, color="red", linetype="dashed", cex=0.5, alpha=0.5) +
+  geom_errorbarh(aes(xmax=CI_upper, xmin=CI_lower),
+                 size=0.25, height=0.25, color="gray50") +
+  geom_point(shape=18, size=3, color="orange") +
+  theme(panel.grid.minor=element_blank()) +
+  xlab("Odds ratio (with 95% CI)") +
+  ylab(element_blank()) +
+  ggtitle("Odd Ratio for Rwanda 2019") +
+  theme_classic() +
+  scale_x_continuous(trans='log10') +
+  annotation_logticks(sides="b")
 
 
 

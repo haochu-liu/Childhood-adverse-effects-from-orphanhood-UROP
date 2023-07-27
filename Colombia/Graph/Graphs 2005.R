@@ -25,6 +25,10 @@ ggplot(barplot_data2005, aes(fill = orphan, x = column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+barplot_data2010$year <- "2010"
+barplot_data2010$country <- "Colombia"
+save(barplot_data2010, file = "Colombia/bar_CO_2010.Rda")
+
 # odd
 odd2005 <- df_odd_ratio(df2005_new, col_name_2005b, "Orphanhood")
 ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) + 
@@ -45,6 +49,11 @@ ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) +
         axis.text.y = element_text(size = 12, colour = "black"),
         axis.text.x.bottom = element_text(size = 12, colour = "black"),
         axis.title.x = element_text(size = 12, colour = "black"))
+
+odd2005$year <- "2005"
+odd2005$country <- "Colombia"
+save(odd2005, file = "Colombia/odd_CO_2005.Rda")
+
 
 col_name_2005c <- c("ha3", "hc3", "ha2", "hc2", "ha40")
 boxplot_data2005 <- df_boxplot(df2005_new, col_name_2005c, "Orphanhood", "hv105")

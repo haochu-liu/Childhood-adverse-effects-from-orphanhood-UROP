@@ -25,9 +25,9 @@ ggplot(barplot_data2005, aes(fill = orphan, x = column_labels, y=percentage)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-barplot_data2010$year <- "2010"
-barplot_data2010$country <- "Colombia"
-save(barplot_data2010, file = "Colombia/bar_CO_2010.Rda")
+barplot_data2005$year <- "2005"
+barplot_data2005$country <- "Colombia"
+save(barplot_data2005, file = "Colombia/bar_CO_2005.Rda")
 
 # odd
 odd2005 <- df_odd_ratio(df2005_new, col_name_2005b, "Orphanhood")

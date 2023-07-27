@@ -49,7 +49,7 @@ df2000_new$hv121.1 <- ifelse(df2000_new$hv121.1 >= 1, 1, 0)
 
 # labels
 library(Hmisc)
-label <- as.list(label(df2000_new))
+label <- as.list(tolower(label(df2000_new)))
 label$hv025 <- "lives in urban area" # 1: urban, 2: rural
 label$hv026 <- "place of residence" # 1: city 2: other
 label$hv201 <- "has piped or tube water" # <=40: pipe/well 71: bottled
@@ -59,5 +59,5 @@ label$hv121.1 <- "school attendance for age 17"
 
 label(df2000_new) <- label
 
-save(df2000_new, file = "Colombia/df2000_new.Rda")
+# save(df2000_new, file = "Colombia/df2000_new.Rda")
 # load("Colombia/df2000_new.Rda")

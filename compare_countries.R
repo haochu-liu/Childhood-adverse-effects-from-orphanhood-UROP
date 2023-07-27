@@ -34,7 +34,14 @@ bar_df <- rbind(bar_CO_2015, bar_RW_2019, bar_SN_2019)
 odd_df <- rbind(odd_CO_2015, odd_RW_2019, odd_SN_2019)
 
 
-
+ggplot(bar_df, aes(fill=orphan, x=country, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
 
 
 

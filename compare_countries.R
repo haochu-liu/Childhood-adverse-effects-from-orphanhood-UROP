@@ -33,17 +33,49 @@ odd_SN_2019 <- odd_SN_2019[is.element(odd_SN_2019$col_names, in_names), ]
 bar_df <- rbind(bar_CO_2015, bar_RW_2019, bar_SN_2019)
 odd_df <- rbind(odd_CO_2015, odd_RW_2019, odd_SN_2019)
 
+#4 categories
+vehicle_df<-bar_df[bar_df$column_names %in% c('hv210','hv211','hv212'),]
+wealth_df<-bar_df[bar_df$column_names %in% c('hv025','hv270'),]
+communication_df<-bar_df[bar_df$column_names %in% c('hv221','hv243a','hv243e'),]
+appliance_df<-bar_df[bar_df$column_names %in% c('hv206','hv207','hv208','hv209'),]
 
-ggplot(bar_df, aes(fill=orphan, x=country, y=percentage)) +
+ggplot(vehicle_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
-  scale_y_continuous(expand = c(0, 0)) +
+  #scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
+ggplot(wealth_df, aes(fill=orphan, x=country, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
 
+ggplot(communication_df, aes(fill=orphan, x=country, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
 
-
+ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
 

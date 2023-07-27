@@ -1,54 +1,41 @@
-source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graph 2015.R")
+source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2015.R")
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2010.R")
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2005.R")
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2000.R")
 
 # barplot
-g1 <- ggplot(barplot_data2015, aes(fill = orphan, x = column_labels, y=percentage)) +
+allyear_CO_bar <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
+allyear_CO_odd <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
+
+allyear_CO_bar_plot <- ggplot(allyear_CO_bar, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
   labs(x = "Questions") +
-  ggtitle("Colombia2010") +
+  ggtitle("Senegal") +
+  facet_wrap(~year) +
   coord_flip(ylim=c(0, 1)) +
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-g2 <- ggplot(barplot_data2010, aes(fill = orphan, x = column_labels, y=percentage)) +
-  geom_col(width=0.5, position=position_dodge(0.5)) +
-  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
-                width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "Questions") +
-  ggtitle("Colombia2010") +
-  coord_flip(ylim=c(0, 1)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
-
-g3 <- ggplot(barplot_data2005, aes(fill = orphan, x = column_labels, y=percentage)) +
-  geom_col(width=0.5, position=position_dodge(0.5)) +
-  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
-                width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "Questions") +
-  ggtitle("Colombia2010") +
-  coord_flip(ylim=c(0, 1)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
-
-g4 <- ggplot(barplot_data2000, aes(fill = orphan, x = column_labels, y=percentage)) +
-  geom_col(width=0.5, position=position_dodge(0.5)) +
-  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
-                width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "Questions") +
-  ggtitle("Colombia2010") +
-  coord_flip(ylim=c(0, 1)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
-
+allyear_CO_bar_plot
 
 library(ggpubr)
-ggarrange(g1, g2, g3, g4, 
+# ggarrange(g1, g2, g3, g4, 
           #labels = c("2015", "2010", "2005", "2000"),
-          ncol = 2, nrow = 2)
+          #ncol = 2, nrow = 2)
+
+bar_years <- rbind
+allyear_bar<-ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "Questions") +
+  ggtitle("Senegal") +
+  facet_wrap(~year) +
+  coord_flip(ylim=c(0, 1)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme_classic()
 
 # box
 ggarrange(box_2005_ha2, box_2010_ha2, 

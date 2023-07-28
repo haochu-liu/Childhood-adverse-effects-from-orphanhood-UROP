@@ -160,9 +160,8 @@ df_forester_country <- function(odd_df, number_of_countries) {
 }
 
 
-df_forester_year <- function(odd_df, years) {
+df_forester_year <- function(odd_df) {
   #' odd_df: dataframe for odds
-  #' years: list of years
   
   df <- odd_df[order(odd_df$col_names, odd_df$year), ]
   forester_data <- data.frame()

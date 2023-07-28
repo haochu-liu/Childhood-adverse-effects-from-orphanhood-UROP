@@ -40,8 +40,28 @@ ggplot(bar_df, aes(fill=orphan, x=country, y=percentage)) +
                 width=0.4, colour="black", position = position_dodge(.5)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
+  scale_y_continuous(expand = c(0, 0))
+
+
+dotCOLS = c("#a6d8f0","#f9b282", "#adf0a6")
+barCOLS = c("#008fd5","#de6b35", "#4ede35")
+ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
+                   col=country, fill=country)) + 
+  geom_linerange(size=1, position=position_dodge(width = 0.5)) +
+  geom_hline(yintercept=1, lty=2) +
+  geom_point(size=2.5, shape=21, position=position_dodge(width = 0.5)) +
+  scale_fill_manual(values=barCOLS) +
+  scale_color_manual(values=dotCOLS) +
+  scale_x_discrete(name=element_blank()) +
+  scale_y_continuous(name="Odds ratio", trans='log10') +
+  coord_flip() +
+  theme_minimal() +
+  annotation_logticks(sides="b") +
+  ggtitle("Odd Ratio in most recent years")
+
+
+
+  
 
 
 

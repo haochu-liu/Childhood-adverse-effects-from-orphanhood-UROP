@@ -61,7 +61,7 @@ ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) +
 
 #2010
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b",
             "hv121","hml35",
             "hv270")
 dfbar2010<-df_barplot(chdf2010,col_name,"Orphanhood")
@@ -107,7 +107,7 @@ ggplot(odd2010, aes(x = odd_ratio, y = column_labels)) +
 
 #2012
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b",
             "hv121","hml35",
             "hv270")
 dfbar2012<-df_barplot(chdf2012,col_name,"Orphanhood")
@@ -152,7 +152,7 @@ ggplot(odd2012, aes(x = odd_ratio, y = column_labels)) +
 
 #2014
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b",
             "hv121","hml35",
             "hv270")
 dfbar2014<-df_barplot(chdf2014,col_name,"Orphanhood")
@@ -197,7 +197,7 @@ ggplot(odd2014, aes(x = odd_ratio, y = column_labels)) +
 
 #2015
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b",
             "hv121","hml35",
             "hv270")
 dfbar2015<-df_barplot(chdf2015,col_name,"Orphanhood")
@@ -240,7 +240,7 @@ ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) +
 
 #2016
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b",
             "hv121","hml35",
             "hv270")
 dfbar2016<-df_barplot(chdf2016,col_name,"Orphanhood")
@@ -283,7 +283,7 @@ ggplot(odd2016, aes(x = odd_ratio, y = column_labels)) +
 
 #2017
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b","hv243e",
             "hv121","hml35",
             "hv270")
 dfbar2017<-df_barplot(chdf2017,col_name,"Orphanhood")
@@ -327,7 +327,7 @@ ggplot(odd2017, aes(x = odd_ratio, y = column_labels)) +
 
 #2018
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b","hv243e",
             "hv121","hml35",
             "hv270")
 dfbar2018<-df_barplot(chdf2018,col_name,"Orphanhood")
@@ -371,12 +371,12 @@ ggplot(odd2018, aes(x = odd_ratio, y = column_labels)) +
 
 #2019
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
+            "hv227","hv221","hv243a","hv243b","hv243e",
             "hv121","hml35",
             "hv270")
 dfbar2019<-df_barplot(chdf2019,col_name,"Orphanhood")
 dfbar2019$year <- 2019
-dfbar2019$country <- Senegal
+#dfbar2019$country <- "Senegal"
 bar_years <- rbind(bar_years,dfbar2019)
 
 # barplot
@@ -414,7 +414,7 @@ ggplot(odd2019, aes(x = odd_ratio, y = column_labels)) +
   theme(axis.title.y=element_blank())
   +scale_x_continuous(trans='log2')
 
-
+bar_years$column_labels<-tolower(bar_years$column_labels)
 # side by side barplots
 allyear_bar <- ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +

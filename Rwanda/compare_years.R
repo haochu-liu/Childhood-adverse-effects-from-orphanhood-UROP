@@ -22,19 +22,32 @@ load("Rwanda/bar_RW_1992.Rda")
 load("Rwanda/odd_RW_1992.Rda")
 
 
-co_names <- as.character(odd_CO_2015$col_names)
-rw_names <- as.character(odd_RW_2019$col_names)
-sn_names <- as.character(odd_SN_2019$col_names)
-in_names <- intersect(co_names, rw_names)
-in_names <- intersect(sn_names, in_names)
-
-bar_CO_2015 <- bar_CO_2015[is.element(bar_CO_2015$column_names, in_names), ]
-odd_CO_2015 <- odd_CO_2015[is.element(odd_CO_2015$col_names, in_names), ]
-bar_RW_2019 <- bar_RW_2019[is.element(bar_RW_2019$column_names, in_names), ]
-odd_RW_2019 <- odd_RW_2019[is.element(odd_RW_2019$col_names, in_names), ]
-bar_SN_2019 <- bar_SN_2019[is.element(bar_SN_2019$column_names, in_names), ]
-odd_SN_2019 <- odd_SN_2019[is.element(odd_SN_2019$col_names, in_names), ]
+bar_df <- rbind(bar_RW_2019, bar_RW_2014, bar_RW_2010, bar_RW_2005, bar_RW_2000, bar_RW_1992)
+odd_df <- rbind(odd_RW_2019, odd_RW_2014, odd_RW_2010, odd_RW_2005, odd_RW_2000, odd_RW_1992)
 
 
-bar_df <- rbind(bar_CO_2015, bar_RW_2019, bar_SN_2019)
-odd_df <- rbind(odd_CO_2015, odd_RW_2019, odd_SN_2019)
+source("functions_for_plotting.R")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

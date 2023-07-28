@@ -160,7 +160,12 @@ df_forester_country <- function(df, number_of_countries) {
 }
 
 
-df_forester_year <- 
+df_forester_year <- function(df, years) {
+  #' df: dataframe for odds
+  #' years: list of years
+  
+  
+}
 
 
 

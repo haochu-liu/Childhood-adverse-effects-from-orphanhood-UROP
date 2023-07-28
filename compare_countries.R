@@ -107,18 +107,22 @@ source("functions_for_plotting.R")
 forester_df <- df_forester_country(odd_df, 3)
 
 # indent outcome if there is a number in odd_ratio column
-forester_df$group <- ifelse(is.na(forester_df$odd_ratio), 
+forester_df$Outcomes <- ifelse(is.na(forester_df$odd_ratio), 
                          forester_df$group,
                          paste0("   ", forester_df$group))
 
 # use forester to create the table with forest plot
-forester(left_side_data = forester_df[,1],
+forester(left_side_data = forester_df[,ncol(forester_df), drop=FALSE],
          estimate = forester_df$odd_ratio,
          ci_low = forester_df$CI_lower,
          ci_high = forester_df$CI_upper,
-         display = FALSE,
-         xlim = c(-100, 25),
+         estimate_precision = 2,
+         null_line_at = 1,
+         ggplot_width = 40,
+         nudge_x = 0.5,
+         xlim = c(0.2,2.6),
+         estimate_col_name = "Odd Ratio (95% CI)",
+         arrows = TRUE,
+         arrow_labels = c("Non-orphan Better", "Orphan Better"),
          file_path = here::here("forester_plot.png"))
-
-
 

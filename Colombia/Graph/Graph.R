@@ -126,6 +126,7 @@ allyear_CO_odd_plot <- ggplot(allyear_CO_odd, aes(x = odd_ratio, y = column_labe
 allyear_CO_odd_plot
 
 # odd with table
+
 years <- c("2000", "2005", "2010", "2015")
 table <- df_forester(allyear_CO_odd, col_label, years)
 

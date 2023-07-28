@@ -140,8 +140,8 @@ df_odd_ratio <- function(df, col_names, col_orphan){
 }
 
 
-df_forester_country <- function(df, number_of_countries) {
-  #' df: dataframe for odds
+df_forester_country <- function(odd_df, number_of_countries) {
+  #' odd_df: dataframe for odds
   #' number_of_countries: numeric number
   df <- odd_df[order(odd_df$col_names, odd_df$country), ]
   forester_data <- data.frame()
@@ -164,7 +164,7 @@ df_forester_year <- function(df, years) {
   #' df: dataframe for odds
   #' years: list of years
   
-  
+  df <- 
 }
 
 

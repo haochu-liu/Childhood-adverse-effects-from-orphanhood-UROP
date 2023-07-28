@@ -159,6 +159,25 @@ df_forester <- function(allyear_df, col_labels, years){
   
   forester
 }
+
+
+df_forester_country <- function(df, number_of_countries) {
+  df <- odd_df[order(odd_df$col_names, odd_df$country), ]
+  forester_data <- data.frame()
+  n <- nrow(df) / number_of_countries
+  
+  for (i in 1:n) {
+    group <- c(df$column_labels[1+3*(i-1)], df$country[1:3])
+    slice_df <- data.frame(group)
+    slice_df$odd_ratio <- c(NA, df$odd_ratio[(3*i-2):(3*i)])
+    slice_df$CI_lower <- c(NA, df$CI_lower[(3*i-2):(3*i)])
+    slice_df$CI_upper <- c(NA, df$CI_upper[(3*i-2):(3*i)])
+    forester_data <- rbind(forester_data, slice_df)
+  }
+  
+  forester_data
+}
+
   
   
 

@@ -103,4 +103,8 @@ ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
   ggtitle("Odd Ratio in most recent years")
 
 
+source("functions_for_plotting.R")
+
+
+
 

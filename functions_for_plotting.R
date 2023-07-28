@@ -168,7 +168,7 @@ df_forester_country <- function(df, number_of_countries) {
   
   for (i in 1:n) {
     group <- c(df$column_labels[1+3*(i-1)], df$country[1:3])
-    slice_df <- data.frame(Outcome)
+    slice_df <- data.frame(group)
     slice_df$odd_ratio <- c(NA, df$odd_ratio[(3*i-2):(3*i)])
     slice_df$CI_lower <- c(NA, df$CI_lower[(3*i-2):(3*i)])
     slice_df$CI_upper <- c(NA, df$CI_upper[(3*i-2):(3*i)])

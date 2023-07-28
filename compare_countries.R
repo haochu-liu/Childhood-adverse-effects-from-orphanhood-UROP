@@ -48,7 +48,7 @@ ggplot(vehicle_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()+
+  theme_classic() +
   ggtitle("Orphanhood Data of Most Recent Year(Vehicle)")
 
 ggplot(wealth_df, aes(fill=orphan, x=country, y=percentage)) +
@@ -70,7 +70,7 @@ ggplot(communication_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()+
+  theme_classic() +
   ggtitle("Orphanhood Data of Most Recent Year(Communication)")
 
 ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
@@ -81,13 +81,13 @@ ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()+
+  theme_classic() +
   ggtitle("Orphanhood Data of Most Recent Year(Appliance)")
 
 
 # odd plot for three countries
-dotCOLS = c("#a6d8f0","#f9b282", "#adf0a6")
-barCOLS = c("#008fd5","#de6b35", "#4ede35")
+dotCOLS = c("#a6d8f0", "#f9b282", "#adf0a6")
+barCOLS = c("#008fd5", "#de6b35", "#4ede35")
 ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
                    col=country, fill=country)) + 
   geom_linerange(size=1, position=position_dodge(width = 0.5)) +

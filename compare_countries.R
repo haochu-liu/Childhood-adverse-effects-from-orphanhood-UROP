@@ -114,8 +114,8 @@ forester_df$group <- ifelse(is.na(forester_df$odd_ratio),
 # use forester to create the table with forest plot
 forester(left_side_data = forester_df[,1],
          estimate = forester_df$odd_ratio,
-         ci_low = forester_df$`CI_lower`,
-         ci_high = forester_df$`CI_upper`,
+         ci_low = forester_df$CI_lower,
+         ci_high = forester_df$CI_upper,
          display = FALSE,
          xlim = c(-100, 25),
          file_path = here::here("forester_plot.png"))

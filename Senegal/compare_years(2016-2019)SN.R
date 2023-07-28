@@ -1,8 +1,9 @@
 #Senegal Compare among years of data
-
-save(bar_years,file="Senegal\bar_years")
+#barchart
+save(bar_years,file="Senegal/bar_years")
 bar_SN_years<-bar_years
-save(bar_SN_years,file="Senegal\bar_SN_years")
+save(bar_SN_years,file="Senegal/bar_SN_years")
+
 
 bar_SN_years<-bar_SN_years[bar_SN_years$year %in% c('2016','2017','2018','2019'),]
   
@@ -54,3 +55,6 @@ ggplot(appliance_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
   ggtitle("Orphanhood Data of 4 years in Senegal(Appliance)")
+
+
+#odd ratio plot

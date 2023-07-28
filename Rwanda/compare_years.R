@@ -28,6 +28,8 @@ odd_df <- rbind(odd_RW_2019, odd_RW_2014, odd_RW_2010, odd_RW_2005, odd_RW_2000,
 
 source("functions_for_plotting.R")
 
+odd_RW <- df_forester_year(odd_df)
+save(odd_RW, file="Rwanda/odd_RW.Rda")
 
 
 

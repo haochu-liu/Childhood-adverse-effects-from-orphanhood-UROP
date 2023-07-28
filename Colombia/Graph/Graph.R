@@ -111,4 +111,34 @@ ggplot(df_heatmap, aes(label, year, fill=na_percentage)) +
 
 allyear_CO_odd <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
 
-allyear_CO_odd_plot 
+allyear_CO_odd_plot <- ggplot(allyear_CO_odd, aes(x = odd_ratio, y = column_labels)) + 
+  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
+  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
+                   0.25, color = "gray50") +
+  geom_point(shape = 18, size = 3, color = "orange") +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank()) +
+  ylab("Outcomes") +
+  xlab("Odds ratio (95% CI)") +
+  ggtitle("Odd Ratio for Colombia 2015") +
+  theme_classic() 
+
+allyear_CO_odd_plot
+
+# odd with table
+years <- c("2000", "2005", "2010", "2015")
+table <- df_forester(allyear_CO_odd, col_label, years)
+
+# indent outcome if there is a number in odd_ratio column
+table$Outcomes <- ifelse(is.na(table$Odd_Ratio), 
+                         table$Outcomes,
+                         paste0("   ", table$Outcomes))
+
+# use forester to create the table with forest plot
+forester(left_side_data = table[,1],
+         estimate = table$Odd_Ratio,
+         ci_low = table$`CI_lower`,
+         ci_high = table$`CI_upper`,
+         display = FALSE,
+         xlim = c(-100, 25),
+         file_path = here::here("Colombia/forester_plot.png"))

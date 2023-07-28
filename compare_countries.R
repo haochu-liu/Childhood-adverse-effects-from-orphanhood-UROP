@@ -6,6 +6,7 @@ library(Hmisc)
 library(haven)
 library(patchwork)
 library(scales)
+library(forester)
 
 
 load("Rwanda/bar_RW_2019.Rda")
@@ -100,5 +101,6 @@ ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
   theme_minimal() +
   annotation_logticks(sides="b") +
   ggtitle("Odd Ratio in most recent years")
+
 
 

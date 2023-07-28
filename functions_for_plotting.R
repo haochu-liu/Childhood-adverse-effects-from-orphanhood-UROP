@@ -137,29 +137,6 @@ df_odd_ratio <- function(df, col_names, col_orphan){
   
   odd_data
 }
-  
-  
-df_forester <- function(allyear_df, col_labels, years){
-  
-  # create an empty dataframe with four columns 
-  columns <- c("Outcomes","Odd_Ratio","CI_lower","CI_upper") 
-  forester <- data.frame(matrix(nrow = 0, ncol = length(columns))) 
-  colnames(forester) <- columns
-  
-  for (i in 1:length(col_labels)){
-    forester <- rbind(forester, c(col_labels[i], NA, NA, NA))
-    
-    for (j in 1:length(years)){
-      or <- allyear_df$odd_ratio[allyear_df$year == years[j] & allyear_df$column_labels == col_labels[i]]
-      CI_lower <- allyear_df$CI_lower[allyear_df$year == years[j] & allyear_df$column_labels == col_labels[i]]
-      CI_uppper <- allyear_df$CI_upper[allyear_df$year == years[j] & allyear_df$column_labels == col_labels[i]]
-      forester <- rbind(forester, c(years[j], or, CI_lower, CI_upper))
-    }
-  }
-  
-  forester
-}
-
 
 df_forester_country <- function(df, number_of_countries) {
   df <- odd_df[order(odd_df$col_names, odd_df$country), ]

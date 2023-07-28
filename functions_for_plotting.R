@@ -160,11 +160,25 @@ df_forester_country <- function(odd_df, number_of_countries) {
 }
 
 
-df_forester_year <- function(df, years) {
-  #' df: dataframe for odds
+df_forester_year <- function(odd_df, years) {
+  #' odd_df: dataframe for odds
   #' years: list of years
   
-  df <- 
+  df <- odd_df[order(odd_df$col_names, odd_df$year), ]
+  forester_data <- data.frame()
+  unique_col <- unique(df$col_names)
+  
+  for (i in 1:length(unique_col)) {
+    new_df <- df[df$col_names == unique_col[i], ]
+    Outcome <- c(new_df$column_labels[1], new_df$year)
+    slice_df <- data.frame(Outcome)
+    slice_df$odd_ratio <- c(NA, new_df$odd_ratio)
+    slice_df$CI_lower <- c(NA, new_df$CI_lower)
+    slice_df$CI_upper <- c(NA, new_df$CI_upper)
+    forester_data <- rbind(forester_data, slice_df)
+  }
+  
+  forester_data
 }
 
 

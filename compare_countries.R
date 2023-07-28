@@ -104,7 +104,21 @@ ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
 
 
 source("functions_for_plotting.R")
+forester_df <- df_forester_country(odd_df, 3)
 
+# indent outcome if there is a number in odd_ratio column
+forester_df$group <- ifelse(is.na(forester_df$odd_ratio), 
+                         forester_df$group,
+                         paste0("   ", forester_df$group))
+
+# use forester to create the table with forest plot
+forester(left_side_data = forester_df[,1],
+         estimate = forester_df$odd_ratio,
+         ci_low = forester_df$`CI_lower`,
+         ci_high = forester_df$`CI_upper`,
+         display = FALSE,
+         xlim = c(-100, 25),
+         file_path = here::here("forester_plot.png"))
 
 
 

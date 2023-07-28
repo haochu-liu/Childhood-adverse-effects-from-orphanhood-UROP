@@ -125,7 +125,7 @@ save(odd_RW_2000, file="Rwanda/odd_RW_2000.Rda")
 year <- "1992"
 load("Rwanda/df_1992.Rda")
 col_names <- c("hv025", "hv201", "hv205", "hv206",
-               "hv207", "hv208", "hv209", "hv210",
+               "hv207", "hv209", "hv210",
                "hv211", "hv212")
 bar_RW_1992 <- df_barplot(df_1992, col_names, "Orphanhood")
 odd_RW_1992 <- df_odd_ratio(df_1992, col_names, "Orphanhood")

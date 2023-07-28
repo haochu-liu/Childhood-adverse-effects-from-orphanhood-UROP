@@ -47,7 +47,8 @@ ggplot(vehicle_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
+  theme_classic()+
+  ggtitle("Orphanhood Data of Most Recent Year(Vehicle)")
 
 ggplot(wealth_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -57,7 +58,8 @@ ggplot(wealth_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
+  theme_classic() +
+  ggtitle("Orphanhood Data of Most Recent Year(Wealth)")
 
 ggplot(communication_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -67,7 +69,8 @@ ggplot(communication_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
+  theme_classic()+
+  ggtitle("Orphanhood Data of Most Recent Year(Communication)")
 
 ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -77,5 +80,6 @@ ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
   labs(x = "Questions") +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
+  theme_classic()+
+  ggtitle("Orphanhood Data of Most Recent Year(Appliance)")
 

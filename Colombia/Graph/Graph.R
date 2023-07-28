@@ -5,6 +5,7 @@ source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/
 
 # barplot
 allyear_CO_bar <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
+save(allyear_CO_bar, file = "Colombia/bar_CO.Rda")
 
 allyear_CO_bar_plot <- ggplot(allyear_CO_bar, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -110,6 +111,7 @@ ggplot(df_heatmap, aes(label, year, fill=na_percentage)) +
 #          ncol = 2, nrow = 2)
 
 allyear_CO_odd <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
+save(allyear_CO_odd, file = "Colombia/odd_CO.Rda")
 
 allyear_CO_odd_plot <- ggplot(allyear_CO_odd, aes(x = odd_ratio, y = column_labels)) + 
   geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +

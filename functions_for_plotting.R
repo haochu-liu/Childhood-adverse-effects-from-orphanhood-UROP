@@ -178,6 +178,7 @@ df_forester_country <- function(df, number_of_countries) {
   forester_data
 }
 
-  
-  
+
+
+
 

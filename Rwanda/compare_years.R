@@ -37,6 +37,8 @@ save(odd_RW, file="Rwanda/odd_RW.Rda")
 # create barplot
 bar_df$column_labels[bar_df$column_names=="hv211"] <- "has motorcycle/scooter"
 bar_df$column_labels[bar_df$column_names=="hv212"] <- "has car/truck"
+bar_df$column_labels[bar_df$column_names=="hv227"] <- "have bednet for sleeping"
+bar_df$column_labels[bar_df$column_names=="hv221"] <- "has telephone"
 bar_df$column_labels <- tolower(bar_df$column_labels)
 vehicle_df <- bar_df[bar_df$column_names %in% c('hv210', 'hv211', 'hv212'),]
 basic_df <- bar_df[bar_df$column_names %in% c('hv025', 'hv270', 'hv201', 'hv205', 'hv206'),]

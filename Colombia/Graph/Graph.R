@@ -4,10 +4,10 @@ source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2000.R")
 
 # barplot
-allyear_CO_bar <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
-save(allyear_CO_bar, file = "Colombia/bar_CO.Rda")
+bar_CO <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
+save(bar_CO, file = "Colombia/bar_CO.Rda")
 
-allyear_CO_bar_plot <- ggplot(allyear_CO_bar, aes(fill=orphan, x=column_labels, y=percentage)) +
+bar_CO_plot <- ggplot(bar_CO, aes(fill=orphan, x=column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
@@ -18,7 +18,7 @@ allyear_CO_bar_plot <- ggplot(allyear_CO_bar, aes(fill=orphan, x=column_labels, 
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-allyear_CO_bar_plot
+bar_CO_plot
 
 
 library(ggpubr)
@@ -110,10 +110,10 @@ ggplot(df_heatmap, aes(label, year, fill=na_percentage)) +
 # ggarrange(or2000,or2005,or2010,or2015,
 #          ncol = 2, nrow = 2)
 
-allyear_CO_odd <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
-save(allyear_CO_odd, file = "Colombia/odd_CO.Rda")
+odd_CO <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
+save(odd_CO, file = "Colombia/odd_CO.Rda")
 
-allyear_CO_odd_plot <- ggplot(allyear_CO_odd, aes(x = odd_ratio, y = column_labels)) + 
+odd_CO_plot <- ggplot(odd_CO, aes(x = odd_ratio, y = column_labels)) + 
   geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
   geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
                    0.25, color = "gray50") +
@@ -125,7 +125,7 @@ allyear_CO_odd_plot <- ggplot(allyear_CO_odd, aes(x = odd_ratio, y = column_labe
   ggtitle("Odd Ratio for Colombia 2015") +
   theme_classic() 
 
-allyear_CO_odd_plot
+odd_CO_plot
 
 # odd with table
 
@@ -145,3 +145,54 @@ forester(left_side_data = table[,1],
          display = FALSE,
          xlim = c(-100, 25),
          file_path = here::here("Colombia/forester_plot.png"))
+
+# compare years -- bar
+
+vehicle_df_CO <- allyear_CO_bar[allyear_CO_bar$column_names %in% c('hv210','hv211','hv212'),]
+wealth_df_CO <- allyear_CO_bar[allyear_CO_bar$column_names %in% c('hv025','hv270'),]
+communication_df_CO <- allyear_CO_bar[allyear_CO_bar$column_names %in% c('hv221','hv243a','hv243e'),]
+appliance_df_CO <- allyear_CO_bar[allyear_CO_bar$column_names %in% c('hv206','hv207','hv208','hv209'),]
+
+ggplot(vehicle_df_CO, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  ggtitle("Orphanhood Data of in Colombia (Vehicle)")
+
+ggplot(wealth_df_CO, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  ggtitle("Orphanhood Data of in Colombia (Wealth)")
+
+ggplot(communication_df_CO, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  ggtitle("Orphanhood Data of in Colombia (Communication)")
+
+ggplot(appliance_df_CO, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  ggtitle("Orphanhood Data of in Colombia (Appliance)")

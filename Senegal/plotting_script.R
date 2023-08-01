@@ -23,14 +23,14 @@ bar2005<-ggplot(dfbar2005, aes(fill=orphan, x=column_labels, y=percentage)) +
   theme_classic()
 
 # boxplot
-dfbox2010<-df_boxplot(chdf2010,"BMI","Orphanhood","hv105")
-BMI05<-ggplot(data=dfbox2010,mapping=aes(x=Orphanhood,y=BMI))+
+dfbox2005<-df_boxplot(chdf2005,"BMI","Orphanhood","hv105")
+BMI05<-ggplot(data=dfbox2005,mapping=aes(x=Orphanhood,y=BMI))+
   geom_boxplot(width=0.2, position = position_dodge(0.9))+
   geom_violin(aes(fill=Orphanhood),
               width=0.8, alpha=0.5, position = position_dodge(0.9))+
   ylim(c(5,35))+geom_boxplot(outlier.colour = "red", outlier.shape = 1)+
   coord_flip()+
-  ggtitle("Senegal 2010(Children under 5)")+theme_bw()
+  ggtitle("Senegal 2005(Children under 5)")+theme_bw()
 print(BMI05)
 
 #odd ratio plot

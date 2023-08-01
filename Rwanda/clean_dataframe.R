@@ -40,7 +40,7 @@ df_1992 <- data.frame(df_1992)
 # choose columns
 year <- "2019"
 df_2019 <- df_2019[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv105", "hv104",
-                       "ha3", "hc3", "hb3",
+                       "ha3", "hc3", "hb3", "hc1",
                        "ha2", "hc2", "hb2",
                        "ha40", "hb40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
@@ -134,7 +134,7 @@ save(df_2019, file="Rwanda/df_2019.Rda")
 # choose columns
 year <- "2014"
 df_2014 <- df_2014[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv105", "hv104",
-                       "ha3", "hc3", "hb3",
+                       "ha3", "hc3", "hb3", "hc1",
                        "ha2", "hc2", "hb2",
                        "ha40", "hb40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
@@ -227,7 +227,7 @@ save(df_2014, file="Rwanda/df_2014.Rda")
 # choose columns
 year <- "2010"
 df_2010 <- df_2010[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv105", "hv104",
-                       "ha3", "hc3", "hb3",
+                       "ha3", "hc3", "hb3", "hc1",
                        "ha2", "hc2", "hb2",
                        "ha40", "hb40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
@@ -320,7 +320,7 @@ save(df_2010, file="Rwanda/df_2010.Rda")
 # choose columns
 year <- "2005"
 df_2005 <- df_2005[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv105", "hv104",
-                       "ha3", "hc3",
+                       "ha3", "hc3", "hc1",
                        "ha2", "hc2",
                        "ha40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
@@ -398,7 +398,7 @@ save(df_2005, file="Rwanda/df_2005.Rda")
 # choose columns
 year <- "2000"
 df_2000 <- df_2000[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv105", "hv104",
-                       "ha3", "hc3",
+                       "ha3", "hc3", "hc1",
                        "ha2", "hc2",
                        "ha40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",

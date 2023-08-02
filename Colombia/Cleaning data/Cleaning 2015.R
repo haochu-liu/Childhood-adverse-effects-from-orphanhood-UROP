@@ -27,10 +27,10 @@ df2015_new$hv104[df2015_new$hv104 > 2] <- NA
 df2015_new$hv025 <- ifelse(df2015_new$hv025 == 1, 1, 0)
 
 df2015_new$hv201[df2015_new$hv201 == 99] <- NA
-df2015_new$hv201 <- ifelse(df2015_new$hv201 <= 71, 1, 0)
+df2015_new$hv201 <- ifelse(df2015_new$hv201 <= 13, 1, 0)
 
-df2015_new$hv205[df2015_new$hv205 > 96] <- NA
-df2015_new$hv205 <- ifelse(df2015_new$hv205 < 40 | df2015_new$hv205 == 71, 1, 0) 
+df2015_new$hv205[df2015_new$hv205 == 99] <- NA
+df2015_new$hv205 <- ifelse(df2015_new$hv205 <= 21, 1, 0) 
 
 df2015_new$hv206[df2015_new$hv206 == 9] <- NA
 df2015_new$hv207[df2015_new$hv207 == 9] <- NA
@@ -58,7 +58,7 @@ df2015_new$hv121.1 <- ifelse(df2015_new$hv121.1 >= 1, 1, 0)
 library(Hmisc)
 label <- as.list(label(df2015_new))
 label$hv025 <- "lives in urban area" # 1: urban, 2: rural
-label$hv201 <- "has piped or tube water" # <=40: pipe/well 71: bottled
+label$hv201 <- "has piped or tube water" # <=13
 label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
 label$hv121 <- "school attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
 label$hv121.1 <- "school attendance for age 17"

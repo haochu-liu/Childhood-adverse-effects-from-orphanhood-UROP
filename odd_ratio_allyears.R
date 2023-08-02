@@ -35,7 +35,8 @@ forester(left_side_data = CO_df[,1, drop=FALSE],
          estimate_col_name = "Odd Ratio (95% CI)",
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
-         file_path = here::here("Colombia/forester_plot_CO.png"))
+         file_path = here::here("Colombia/forester_plot_CO.pdf"), 
+         render_as = "pdf")
 
 
 # indent outcome if there is a number in odd_ratio column
@@ -56,7 +57,8 @@ forester(left_side_data = SN_df[,1, drop=FALSE],
          estimate_col_name = "Odd Ratio (95% CI)",
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
-         file_path = here::here("Senegal/forester_plot_SN.png"))
+         file_path = here::here("Senegal/forester_plot_SN.pdf"),
+         render_as = "pdf")
 
 # indent outcome if there is a number in odd_ratio column
 RW_df$Outcomes <- ifelse(is.na(RW_df$odd_ratio), 
@@ -76,4 +78,5 @@ forester(left_side_data = RW_df[,1, drop=FALSE],
          estimate_col_name = "Odd Ratio (95% CI)",
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
-         file_path = here::here("Rwanda/forester_plot_RW.png"))
+         file_path = here::here("Rwanda/forester_plot_RW.pdf"),
+         render_as = "pdf")

@@ -38,10 +38,10 @@ df2005_new$hv025 <- ifelse(df2005_new$hv025 == 1, 1, 0)
 df2005_new$hv026 <- ifelse(df2005_new$hv026 == 0 | df2005_new$hv026 == 1, 1, 0)
 
 df2005_new$hv201[df2005_new$hv201 == 99] <- NA
-df2005_new$hv201 <- ifelse(df2005_new$hv201 <= 71, 1, 0)
+df2005_new$hv201 <- ifelse(df2005_new$hv201 <= 13, 1, 0)
 
-df2005_new$hv205[df2005_new$hv205 > 96] <- NA
-df2005_new$hv205 <- ifelse(df2005_new$hv205 < 40 | df2005_new$hv205 == 71, 1, 0) 
+df2005_new$hv205[df2005_new$hv205 == 99] <- NA
+df2005_new$hv205 <- ifelse(df2005_new$hv205 <= 21, 1, 0) 
 
 df2005_new$hv206[df2005_new$hv206 == 9] <- NA
 df2005_new$hv207[df2005_new$hv207 == 9] <- NA
@@ -49,7 +49,7 @@ df2005_new$hv208[df2005_new$hv208 == 9] <- NA
 df2005_new$hv209[df2005_new$hv209 == 9] <- NA
 df2005_new$hv221[df2005_new$hv221 == 9] <- NA
 
-df2005_new$hvshh12i[df2005_new$shh12i == 9] <- NA
+df2005_new$hv243e[df2005_new$hv243e == 9] <- NA
 df2005_new$hv211[df2005_new$hv211 == 9] <- NA
 df2005_new$hv212[df2005_new$hv212 == 9] <- NA
 df2005_new$hv270 <- ifelse(df2005_new$hv270 <= 2, 1, 0)
@@ -68,7 +68,7 @@ label <- as.list(label(df2005_new))
 label$ha40 <- "woman's body mass index"
 label$hv025 <- "lives in urban area" # 1: urban, 2: rural
 label$hv026 <- "place of residence" # 1: city 2: other
-label$hv201 <- "has piped or tube water" # <=40: pipe/well 71: bottled
+label$hv201 <- "has piped or tube water" # <=13
 label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
 label$hv121 <- "school attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
 label$hv121.1 <- "school attendance for age 17"
@@ -80,3 +80,4 @@ label$hc3 <- "child's height"
 label$hv105 <- "age"
 
 label(df2005_new) <- label
+

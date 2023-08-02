@@ -3,6 +3,8 @@ source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2005.R")
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/Graph/Graphs 2000.R")
 
+library(ggplot2)
+
 # barplot
 bar_CO <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
 save(bar_CO, file = "Colombia/bar_CO.Rda")

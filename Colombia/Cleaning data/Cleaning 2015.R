@@ -4,11 +4,13 @@ library(haven)
 # 2015
 df2015_new <- df2015[, c("hvidx","hv001","hv002",
                          "hv111","hv113", 
-                         "hv217","hv105","hv104",
+                         "hv217","hv105","hv104","hc1",
                          "hv025",
                          "hv201","hv205","hv206","hv207","hv208","hv209","hv221",
                          "hv210","hv211","hv212","hv243a","hv243e","hv270",
-                         "hv106","hv107","hv121","hv121"
+                         "hv106","hv107","hv121","hv121",
+                         "hc70","hc71","hc72",
+                         "ha3","hc3","ha2","hc2","ha40",
 )]
 # orphanhood
 df2015_new["Orphanhood"] <- ifelse(df2015$hv111 == 0 | df2015$hv113 == 0, 

@@ -485,10 +485,3 @@ continuous_2017<-select(chdf2017,c("hc1","BMI","hc2","hc3","Orphanhood","hv105")
 continuous_2018<-select(chdf2018,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
 continuous_2019<-select(chdf2019,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
 
-
-boxcox<-function(df,indicator,age,orphanhood){
-  continuous_df<-subset(df,select=c(indicator,age,orphanhood))
-  continuous_df<-na.omit(continuous_df)
-  lmodel<-lm(indicator~1,data=continuous_df)
-  bc_indicator<-boxcox(lmodel)
-}

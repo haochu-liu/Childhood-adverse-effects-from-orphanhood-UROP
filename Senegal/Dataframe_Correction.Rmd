@@ -24,17 +24,21 @@ chdf2019<-subset(SN19HM,hv105<18)
 
 chdf2019<-select(chdf2019,hv001,hv002,hvidx,
                  hv111,hv113,
-                 hv110,hv217,hv105,hv104,hv025,hv201,
-                 hv205,hv206,hv207,hv208,hv209,hv210,hv211,hv212,hv227,hv221,
+                 hv110,hv217,hv105,hv104,hv025,
+                 hv201,hv205,hv206,hv207,hv208,hv209,hv210,hv211,hv212,hv227,hv221,
                  hv243a,hv243b,hv243e,
                  #education
                  hv106,hv107,hv121,
                  #wealth index
                  hv270,
-                 #malaria rapid test
-                 hml35,
+                 #smoke
+                 hv252,
+                 #malaria
+                 hml35,hv253,
+                 #health
                  hc1,hc2,hc3,
                  ha1,ha2,ha3)
+
 #chdf2019["hml35"]<-NA
 #chdf2019<-subset(chdf2019,is.na(hv111)==FALSE)
 #colnames(chdf2019)[6]<-"hv121"
@@ -60,6 +64,7 @@ chdf2019<-replace_with_na(chdf2019,replace=list(hv111 = c(8,9),
                                       hv121 = c(9),
                                       hv201 = c(97,99),
                                       hv104 = 9,
+                                      hv201 = 99,
                                       hv205 = 99,
                                       hv206=9,
                                       hv207=9,
@@ -87,9 +92,11 @@ chdf2019<-replace_with_na(chdf2019,replace=list(hv111 = c(8,9),
 #organise binary data
 chdf2019["hv121"] <- ifelse(chdf2019$hv121 == 1 | chdf2019$hv121 == 2, 
                                    1, 0)
-chdf2019["hv025"] <- ifelse(chdf2019$hv121 == 1, 
+chdf2019["hv025"] <- ifelse(chdf2019$hv025 == 1, 
                                    1, 0)
 chdf2019["hv270"] <- ifelse(chdf2019$hv270<3,1,0)
+chdf2019["hv201"] <- ifelse(chdf2019$hv201<22,1,0)
+chdf2019["hv205"] <- ifelse(chdf2019$hv205<24,1,0)
 
 ```
 
@@ -114,8 +121,10 @@ chdf2019$hv001 <- labelled(chdf2019$hv001, label = "cluster number")
 chdf2019$hv270 <- labelled(chdf2019$hv270, label = "poor household wealth")
 chdf2019$hv002 <- labelled(chdf2019$hv002, label = "household number")
 chdf2019$hvidx <- labelled(chdf2019$hvidx, label = "line number")
-#chdf2019$hv110 <- labelled(chdf2019$hv110, label = "school attendence")
+chdf2019$hv110 <- labelled(chdf2019$hv110, label = "school attendence")
 chdf2019$hv121 <- labelled(chdf2019$hv121, label = "school attendence")
+chdf2019$hv201 <- labelled(chdf2019$hv201, label = "has piped or tube water")
+chdf2019$hv205 <- labelled(chdf2019$hv205, label = "has toilet facility")
 chdf2019$hv105 <- labelled(chdf2019$hv105, label = "age")
 chdf2019$hv104 <- labelled(chdf2019$hv104, label = "gender")
 chdf2019$hv025 <- labelled(chdf2019$hv025, label = "lives in urban area")

@@ -370,12 +370,13 @@ ggplot(odd2018, aes(x = odd_ratio, y = column_labels)) +
   theme(axis.title.y=element_blank())
 
 #2019
-col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b","hv243e",
+col_name<-c("hv025","hv201","hv205","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
+            "hv227","hv221","hv243a","hv243e",
             "hv121","hml35",
             "hv270")
 dfbar2019<-df_barplot(chdf2019,col_name,"Orphanhood")
 dfbar2019$year <- 2019
+dfbar2019$column_labels<-tolower(dfbar2019$column_labels)
 #dfbar2019$country <- "Senegal"
 bar_years <- rbind(bar_years,dfbar2019)
 
@@ -479,4 +480,15 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   scale_x_discrete(limits=col_label_list) +
   coord_flip()
 
+continuous_2016<-select(chdf2016,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
+continuous_2017<-select(chdf2017,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
+continuous_2018<-select(chdf2018,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
+continuous_2019<-select(chdf2019,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
 
+
+boxcox<-function(df,indicator,age,orphanhood){
+  continuous_df<-subset(df,select=c(indicator,age,orphanhood))
+  continuous_df<-na.omit(continuous_df)
+  lmodel<-lm(indicator~1,data=continuous_df)
+  bc_indicator<-boxcox(lmodel)
+}

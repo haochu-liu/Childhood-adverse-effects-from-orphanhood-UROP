@@ -36,8 +36,10 @@ fieller_fix_CO$Outcome <- ifelse(is.na(fieller_fix_CO$ratio),
                              fieller_fix_CO$Outcome,
                              paste0("   ", fieller_fix_CO$Outcome))
 
+fieller_fix_CO$`P value` <- round(as.numeric(fieller_fix_CO$p_value), digits = 4)
+
 # plot
-forester(left_side_data = fieller_fix_CO[,c("Outcome","p_value","parameter"), drop=FALSE],
+forester(left_side_data = fieller_fix_CO[,c("Outcome","P value"), drop=FALSE],
          estimate = fieller_fix_CO$ratio,
          ci_low = fieller_fix_CO$CI_lower,
          ci_high = fieller_fix_CO$CI_upper,

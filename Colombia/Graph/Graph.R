@@ -50,12 +50,6 @@ ggarrange(box_2005_ha2, box_2010_ha2,
 
 # heat map for NA
 
-col_name <- c("hv025","hv201","hv205", "hv206",
-              "hv207", "hv208", "hv209", "hv210",
-              "hv211", "hv212", "hv221",
-              "hv243a", "hv243e", "hv270",
-              "hv121", "hv121.1")
-
 year <- c("2000", "2005", "2010", "2015")
 data <- list("2000" = df2000_new,
              "2005" = df2005_new,
@@ -66,7 +60,8 @@ col_name <- c("hv025", "hv026","hv201", "hv205", "hv206",
               "hv211", "hv212", "hv221",
               "hv243a", "hv243e", "hv270",
               "hv121", "hv121.1", 
-              "ha2", "ha3", "hc2","hc3", "ha40")
+              "ha2", "ha3", "hc2","hc3", "ha40",
+              "hc1","hv106")
 
 col_label <- c(
   "Lives in urban area",
@@ -90,7 +85,9 @@ col_label <- c(
   "Woman's height in centimeters (1 decimal)",
   "Child's weight in kilograms (1 decimal)",
   "Child's height in centimeters (1 decimal)",
-  "Woman's body mass index")
+  "Woman's body mass index",
+  "Child's age in months",
+  "Highest education level attained")
 
 df_heatmap <- df_isna(data, col_name, col_label, year)
 
@@ -198,3 +195,35 @@ ggplot(appliance_df_CO, aes(fill=orphan, x=year, y=percentage)) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
   ggtitle("Orphanhood Data of in Colombia (Appliance)")
+
+# fieller
+source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Box-cox.R")
+library(forester)
+
+fieller_CO1 <- fieller_child_df(df2005_new, "Colombia", "2005")
+fieller_CO2 <- fieller_child_df(df2010_new, "Colombia", "2010")
+fieller_CO3 <- fieller_woman_df(df2005_new, "Colombia", "2005")
+fieller_CO4 <- fieller_woman_df(df2010_new, "Colombia", "2010")
+fieller_CO <- rbind(fieller_CO1, fieller_CO2, fieller_CO3, fieller_CO4)
+
+save(fieller_CO, file = "Colombia/fieller_CO.Rda")
+
+
+# indent outcome if there is a number in ratio column
+fieller_CO <- df_yearsort(fieller_CO, 2)
+fieller_CO$Outcome <- ifelse(is.na(fieller_CO$ratio), 
+                         fieller_CO$Outcome,
+                         paste0("   ", fieller_CO$Outcome))
+
+# use forester to create the table with forest plot
+forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=FALSE],
+         estimate = fieller_CO$ratio,
+         ci_low = fieller_CO$CI_lower,
+         ci_high = fieller_CO$CI_upper,
+         estimate_precision = 4,
+         null_line_at = 1,
+         ggplot_width = 40,
+         nudge_x = 0.5,
+         estimate_col_name = "Ratio with 95% CI",
+         file_path = here::here("Colombia/fieller_plot_CO.png"), 
+         render_as = "png")

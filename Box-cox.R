@@ -129,57 +129,95 @@ fieller_woman_df <- function(df, country, year){
   fieller_df
 }
 
-df_yearsort <- function(fieller_df, number_of_years) {
-    df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]
-    forester_data <- data.frame()
-    n <- nrow(df) / number_of_years
-    
-    a <- number_of_years
-    b <- a - 1
-    
-    for (i in 1:n) {
-      Outcome <- c(df$col_labels[1+a*(i-1)], df$year[1:a])
-      slice_df <- data.frame(Outcome)
-      slice_df$ratio <- c(NA, df$ratio[(a*i-b):(a*i)])
-      slice_df$CI_lower <- c(NA, df$CI_lower[(a*i-b):(a*i)])
-      slice_df$CI_upper <- c(NA, df$CI_upper[(a*i-b):(a*i)])
-      slice_df$p_value <- c(NA, df$p_value[(a*i-b):(a*i)])
-      slice_df$parameter <- c(NA, df$parameter[(a*i-b):(a*i)])
-      forester_data <- rbind(forester_data, slice_df)
-    }
-    
-    forester_data
-}
+df_sortyear <- function(fieller_df) {
   
-df_sort <- function(fieller_list){
-    # fieller_list: list of dataframe indexed by country name
-    country_name <- names(fieller_list)
+  df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]
+  forester_data <- data.frame()
+  unique_col <- unique(df$col_names)
+  
+  for (i in 1:length(unique_col)) {
+    df_new <- df[df$col_names == unique_col[i], ]
+    Outcome <- c(df_new$col_labels[1], df_new$year)
+    slice_df <- data.frame(Outcome)
+    slice_df$ratio <- c(NA, df_new$ratio)
+    slice_df$CI_lower <- c(NA, df_new$CI_lower)
+    slice_df$CI_upper <- c(NA, df_new$CI_upper)
+    slice_df$p_value <- c(NA, df_new$p_value)
+    slice_df$parameter <- c(NA, df_new$parameter)
     
-    # year sort for every country 
-    for (i in 1:3){
-      fieller_df <- fieller_list[i]
-      yr <- unique(fieller_df$year)
-      fieller_data <- df_yearsort(fieller_df, length(yr))
-      
-      fieller_list[i] <- fieller_data
-    }
-    
-    forester_data <- data.frame()
-    df <- rbind(fieller_list[1], fieller_list[2], fieller_list[3])
-    unique_col <- c("ha2", "ha3", "hc2.1", "hc2.2", "hc3.1", "hc3.2")
-    
-    for (i in 1:length(unique_col)) {
-      new_df <- df[df$col_names == unique_col[i], ]
-      Outcome <- c(new_df$column_labels[1], new_df$year)
-      slice_df <- data.frame(Outcome)
-      slice_df$ratio <- c(NA, new_df$ratio)
-      slice_df$CI_lower <- c(NA, new_df$CI_lower)
-      slice_df$CI_upper <- c(NA, new_df$CI_upper)
-      slice_df$p_value <- c(NA, new_df$p_value)
-      slice_df$parameter <- c(NA, new_df$parameter)
-      forester_data <- rbind(forester_data, slice_df)
-    }
+    forester_data <- rbind(forester_data, slice_df)
+  }
+  
+  forester_data
 }
+
+# plot 
+library(ggplot2)
+library(forester)
+load("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Colombia/fieller_CO.Rda")
+load("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Rwanda/fieller_RW.Rda")
+load("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Senegal/fieller_SN.Rda")
+
+# CO
+# indent outcome if there is a number in ratio column
+fieller_CO <- df_sortyear(fieller_CO)
+fieller_CO$Outcome <- ifelse(is.na(fieller_CO$ratio), 
+                             fieller_CO$Outcome,
+                             paste0("   ", fieller_CO$Outcome))
+
+# use forester to create the table with forest plot
+forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=FALSE],
+         estimate = fieller_CO$ratio,
+         ci_low = fieller_CO$CI_lower,
+         ci_high = fieller_CO$CI_upper,
+         estimate_precision = 4,
+         null_line_at = 1,
+         ggplot_width = 40,
+         nudge_x = 0.5,
+         estimate_col_name = "Ratio with 95% CI",
+         file_path = here::here("Colombia/fieller_plot_CO.png"), 
+         render_as = "png")
+
+# RW
+# indent outcome if there is a number in ratio column
+fieller_RW <- df_sortyear(fieller_RW)
+fieller_RW$Outcome <- ifelse(is.na(fieller_RW$ratio), 
+                             fieller_RW$Outcome,
+                             paste0("   ", fieller_RW$Outcome))
+
+# use forester to create the table with forest plot
+forester(left_side_data = fieller_RW[,c("Outcome","p_value","parameter"), drop=FALSE],
+         estimate = fieller_RW$ratio,
+         ci_low = fieller_RW$CI_lower,
+         ci_high = fieller_RW$CI_upper,
+         estimate_precision = 4,
+         null_line_at = 1,
+         ggplot_width = 40,
+         nudge_x = 0.5,
+         estimate_col_name = "Ratio with 95% CI",
+         file_path = here::here("Rwanda/fieller_plot_RW.png"), 
+         render_as = "png")
+
+# SN
+# indent outcome if there is a number in ratio column
+fieller_SN <- df_sortyear(fieller_SN)
+fieller_SN$Outcome <- ifelse(is.na(fieller_SN$ratio), 
+                             fieller_SN$Outcome,
+                             paste0("   ", fieller_SN$Outcome))
+
+# use forester to create the table with forest plot
+forester(left_side_data = fieller_SN[,c("Outcome","p_value","parameter"), drop=FALSE],
+         estimate = fieller_SN$ratio,
+         ci_low = fieller_SN$CI_lower,
+         ci_high = fieller_SN$CI_upper,
+         estimate_precision = 4,
+         null_line_at = 1,
+         ggplot_width = 40,
+         nudge_x = 0.5,
+         estimate_col_name = "Ratio with 95% CI",
+         file_path = here::here("Senegal/fieller_plot_SN.png"), 
+         render_as = "png")
+
 
 
 

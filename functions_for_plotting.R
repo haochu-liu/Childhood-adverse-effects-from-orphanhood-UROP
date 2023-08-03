@@ -328,3 +328,25 @@ df_child_lfix <- function(df, country, year, lambda_h1, lambda_h2, lambda_w1, la
 }
 
 
+df_sortyear <- function(fieller_df) {
+  
+  df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]
+  forester_data <- data.frame()
+  unique_col <- unique(df$col_names)
+  
+  for (i in 1:length(unique_col)) {
+    df_new <- df[df$col_names == unique_col[i], ]
+    Outcome <- c(df_new$col_labels[1], df_new$year)
+    slice_df <- data.frame(Outcome)
+    slice_df$ratio <- c(NA, df_new$ratio)
+    slice_df$CI_lower <- c(NA, df_new$CI_lower)
+    slice_df$CI_upper <- c(NA, df_new$CI_upper)
+    slice_df$p_value <- c(NA, df_new$p_value)
+    slice_df$parameter <- c(NA, df_new$parameter)
+    
+    forester_data <- rbind(forester_data, slice_df)
+  }
+  
+  forester_data
+}
+

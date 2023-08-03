@@ -143,4 +143,38 @@ save(odd_RW_1992, file="Rwanda/odd_RW_1992.Rda")
 
 
 
+source("Box-cox.R")
+# 2019
+year <- "2019"
+load("Rwanda/df_2019.Rda")
+col_names <- c("hc3", "hc2", "hv105", "Orphanhood")
+fielle_df_2019 <- fieller_child_df(df_2019, "Rwanda", year)
+
+# 2014
+year <- "2014"
+load("Rwanda/df_2014.Rda")
+col_names <- c("hc3", "hc2", "hv105", "Orphanhood")
+fielle_df_2014 <- fieller_child_df(df_2014, "Rwanda", year)
+
+# 2010
+year <- "2010"
+load("Rwanda/df_2010.Rda")
+col_names <- c("hc3", "hc2", "hv105", "Orphanhood")
+fielle_df_2010 <- fieller_child_df(df_2010, "Rwanda", year)
+
+# 2005
+year <- "2005"
+load("Rwanda/df_2005.Rda")
+col_names <- c("hc3", "hc2", "hv105", "Orphanhood")
+fielle_df_2005 <- fieller_child_df(df_2005, "Rwanda", year)
+
+# 2000
+year <- "2000"
+load("Rwanda/df_2000.Rda")
+col_names <- c("hc3", "hc2", "hv105", "Orphanhood")
+fielle_df_2000 <- fieller_child_df(df_2000, "Rwanda", year)
+
+fieller_RW <- rbind(fielle_df_2019, fielle_df_2014, fielle_df_2010,
+                    fielle_df_2005, fielle_df_2000)
+save(fieller_RW, file="Rwanda/fieller_RW.Rda")
 

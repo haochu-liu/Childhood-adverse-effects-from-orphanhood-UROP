@@ -1,0 +1,97 @@
+# Modelling health and education covariates
+
+## Load health dataframes
+
+```{r}
+library(dplyr)
+library(labelled)
+
+
+load("Rwanda/df_2019.Rda")
+load("Rwanda/df_2014.Rda")
+load("Rwanda/df_2010.Rda")
+load("Rwanda/df_2005.Rda")
+load("Senegal/chdf2019.Rda")
+load("Senegal/chdf2018.Rda")
+load("Senegal/chdf2017.Rda")
+load("Senegal/chdf2016.Rda")
+load("Senegal/chdf2015.Rda")
+load("Senegal/chdf2014.Rda")
+load("Senegal/chdf2012.Rda")
+load("Senegal/chdf2010.Rda")
+load("Colombia/Cleaning data/ df2005_new.Rda")
+load("Colombia/Cleaning data/ df2010_new.Rda")
+
+col_names <- c("hc1", "hc2", "hc3", "Orphanhood", "hv104", "hv270")
+
+df_2019 <- df_2019[, col_names]
+df_2019$year <- 2019
+df_2019 <- unlabelled(df_2019)
+
+df_2014 <- df_2014[, col_names]
+df_2014$year <- 2014
+df_2014 <- unlabelled(df_2014)
+
+df_2010 <- df_2010[, col_names]
+df_2010$year <- 2010
+df_2010 <- unlabelled(df_2010)
+
+df_2005 <- df_2005[, col_names]
+df_2005$year <- 2005
+df_2005 <- unlabelled(df_2005)
+
+df_RW <- rbind(df_2019, df_2014, df_2010, df_2005)
+df_RW <- na.omit(df_RW)
+df_RW <- df_RW %>% rename(
+  "Age" = "hc1",
+  "Weight" = "hc2",
+  "Height" = "hc3",
+  "Sex" = "hv104",
+  "Poverty" = "hv270"
+)
+
+
+chdf2019 <- chdf2019[, col_names]
+chdf2019$year <- 2019
+chdf2019 <- unlabelled(chdf2019)
+
+chdf2018 <- chdf2018[, col_names]
+chdf2018$year <- 2018
+chdf2018 <- unlabelled(chdf2018)
+
+chdf2017 <- chdf2017[, col_names]
+chdf2017$year <- 2017
+chdf2017 <- unlabelled(chdf2017)
+
+chdf2016 <- chdf2016[, col_names]
+chdf2016$year <- 2016
+chdf2016 <- unlabelled(chdf2016)
+
+chdf2015 <- chdf2015[, col_names]
+chdf2015$year <- 2015
+chdf2015 <- unlabelled(chdf2015)
+
+chdf2014 <- chdf2014[, col_names]
+chdf2014$year <- 2014
+chdf2014 <- unlabelled(chdf2014)
+
+chdf2012 <- chdf2012[, col_names]
+chdf2012$year <- 2012
+chdf2012 <- unlabelled(chdf2012)
+
+chdf2010 <- chdf2010[, col_names]
+chdf2010$year <- 2010
+chdf2010 <- unlabelled(chdf2010)
+
+df_SN <- rbind(df_2019, df_2014, df_2010, df_2005)
+df_SN <- na.omit(df_SN)
+df_SN <- df_SN %>% rename(
+  "Age" = "hc1",
+  "Weight" = "hc2",
+  "Height" = "hc3",
+  "Sex" = "hv104",
+  "Poverty" = "hv270"
+)
+
+```
+

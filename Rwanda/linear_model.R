@@ -6,16 +6,7 @@ load("Rwanda/df_2019.Rda")
 load("Rwanda/df_2014.Rda")
 load("Rwanda/df_2010.Rda")
 load("Rwanda/df_2005.Rda")
-load("Senegal/chdf2019.Rda")
-load("Senegal/chdf2018.Rda")
-load("Senegal/chdf2017.Rda")
-load("Senegal/chdf2016.Rda")
-load("Senegal/chdf2015.Rda")
-load("Senegal/chdf2014.Rda")
-load("Senegal/chdf2012.Rda")
-load("Senegal/chdf2010.Rda")
-load("Colombia/Cleaning data/ df2005_new.Rda")
-load("Colombia/Cleaning data/ df2010_new.Rda")
+
 
 col_names <- c("hc1", "hc2", "hc3", "Orphanhood", "hv104", "hv270")
 
@@ -79,9 +70,6 @@ summary(lm_height3_RW)
 anova(lm_height1_RW, lm_height2_RW, lm_height3_RW)
 
 drop1(lm_height2_RW, test = "F")
-
-
-
 
 
 

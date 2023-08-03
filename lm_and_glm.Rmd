@@ -83,7 +83,8 @@ chdf2010 <- chdf2010[, col_names]
 chdf2010$year <- 2010
 chdf2010 <- unlabelled(chdf2010)
 
-df_SN <- rbind(df_2019, df_2014, df_2010, df_2005)
+df_SN <- rbind(chdf2019, chdf2018, chdf2017, chdf2016, chdf2015, chdf2014,
+               chdf2012, chdf2010)
 df_SN <- na.omit(df_SN)
 df_SN <- df_SN %>% rename(
   "Age" = "hc1",
@@ -93,5 +94,401 @@ df_SN <- df_SN %>% rename(
   "Poverty" = "hv270"
 )
 
+df2005_new <- df2005_new[, col_names]
+df2005_new$year <- 2005
+df2005_new <- unlabelled(df2005_new)
+
+df2010_new <- df2010_new[, col_names]
+df2010_new$year <- 2010
+df2010_new <- unlabelled(df2010_new)
+
+df_CO <- rbind(df2005_new, df2010_new)
+df_CO <- na.omit(df_CO)
+df_CO <- df_CO %>% rename(
+  "Age" = "hc1",
+  "Weight" = "hc2",
+  "Height" = "hc3",
+  "Sex" = "hv104",
+  "Poverty" = "hv270"
+)
 ```
+
+
+## Fit weight data
+
+### Rwanda
+
+```{r}
+lm_weight1_RW <- lm(Weight ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year +
+                  Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_RW)
+summary(lm_weight1_RW)
+```
+
+```{r}
+lm_weight2_RW <- lm(Weight ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_RW)
+summary(lm_weight2_RW)
+```
+
+```{r}
+lm_weight3_RW <- lm(Weight ~ Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_RW)
+summary(lm_weight3_RW)
+```
+
+```{r}
+anova(lm_weight1_RW, lm_weight2_RW, lm_weight3_RW)
+
+drop1(lm_weight3_RW, test = "F")
+```
+
+
+### Senegal
+
+```{r}
+lm_weight1_SN <- lm(Weight ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year +
+                  Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_SN)
+summary(lm_weight1_SN)
+```
+
+```{r}
+lm_weight2_SN <- lm(Weight ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_SN)
+summary(lm_weight2_SN)
+```
+
+```{r}
+lm_weight3_SN <- lm(Weight ~ Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_SN)
+summary(lm_weight3_SN)
+```
+
+```{r}
+anova(lm_weight1_SN, lm_weight2_SN, lm_weight3_SN)
+
+drop1(lm_weight3_SN, test = "F")
+```
+
+
+### Colombia
+
+```{r}
+lm_weight1_CO <- lm(Weight ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year +
+                  Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_CO)
+summary(lm_weight1_CO)
+```
+
+```{r}
+lm_weight2_CO <- lm(Weight ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_CO)
+summary(lm_weight2_CO)
+```
+
+```{r}
+lm_weight3_CO <- lm(Weight ~ Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_CO)
+summary(lm_weight3_CO)
+```
+
+```{r}
+anova(lm_weight1_CO, lm_weight2_CO, lm_weight3_CO)
+
+drop1(lm_weight3_CO, test = "F")
+```
+
+
+## Fit height data
+
+### Rwanda
+
+```{r}
+lm_height1_RW <- lm(Height ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year +
+                  Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_RW)
+summary(lm_height1_RW)
+```
+
+```{r}
+lm_height2_RW <- lm(Height ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_RW)
+summary(lm_height2_RW)
+```
+
+```{r}
+lm_height3_RW <- lm(Height ~ Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_RW)
+summary(lm_height3_RW)
+```
+
+```{r}
+anova(lm_height1_RW, lm_height2_RW, lm_height3_RW)
+
+drop1(lm_height3_RW, test = "F")
+```
+
+
+### Senegal
+
+```{r}
+lm_height1_SN <- lm(Height ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year +
+                  Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_SN)
+summary(lm_height1_SN)
+```
+
+```{r}
+lm_height2_SN <- lm(Height ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_SN)
+summary(lm_height2_SN)
+```
+
+```{r}
+lm_height3_SN <- lm(Height ~ Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_SN)
+summary(lm_height3_SN)
+```
+
+```{r}
+anova(lm_height1_SN, lm_height2_SN, lm_height3_SN)
+
+drop1(lm_height3_SN, test = "F")
+```
+
+
+### Colombia
+
+```{r}
+lm_height1_CO <- lm(Height ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year +
+                  Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_CO)
+summary(lm_height1_CO)
+```
+
+```{r}
+lm_height2_CO <- lm(Height ~ Orphanhood + Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_CO)
+summary(lm_height2_CO)
+```
+
+```{r}
+lm_height3_CO <- lm(Height ~ Age + I(Age^2) + Sex + Poverty + year,
+                 data=df_CO)
+summary(lm_height3_CO)
+```
+
+```{r}
+anova(lm_height1_CO, lm_height2_CO, lm_height3_CO)
+
+drop1(lm_height2_CO, test = "F")
+```
+
+
+
+## Load education dataframes
+
+```{r}
+load("Rwanda/df_2019.Rda")
+load("Rwanda/df_2014.Rda")
+load("Rwanda/df_2010.Rda")
+load("Rwanda/df_2005.Rda")
+load("Senegal/chdf2019.Rda")
+load("Senegal/chdf2018.Rda")
+load("Senegal/chdf2017.Rda")
+load("Senegal/chdf2016.Rda")
+load("Senegal/chdf2015.Rda")
+load("Senegal/chdf2014.Rda")
+load("Senegal/chdf2012.Rda")
+load("Senegal/chdf2010.Rda")
+load("Colombia/Cleaning data/ df2005_new.Rda")
+load("Colombia/Cleaning data/ df2010_new.Rda")
+load("Colombia/Cleaning data/ df2015_new.Rda")
+
+col_names <- c("hv121", "Orphanhood", "hv104", "hv270", "hv105")
+
+df_2019$hv121[!is.na(df_2019$hv121.1)] = df_2019$hv121.1[!is.na(df_2019$hv121.1)]
+df_2014$hv121[!is.na(df_2014$hv121.1)] = df_2014$hv121.1[!is.na(df_2014$hv121.1)]
+df_2010$hv121[!is.na(df_2010$hv121.1)] = df_2010$hv121.1[!is.na(df_2010$hv121.1)]
+df_2005$hv121[!is.na(df_2005$hv121.1)] = df_2005$hv121.1[!is.na(df_2005$hv121.1)]
+
+df2005_new$hv121[!is.na(df2005_new$hv121.1)] = df2005_new$hv121.1[!is.na(df2005_new$hv121.1)]
+df2010_new$hv121[!is.na(df2010_new$hv121.1)] = df2010_new$hv121.1[!is.na(df2010_new$hv121.1)]
+df2015_new$hv121[!is.na(df2015_new$hv121.1)] = df2015_new$hv121.1[!is.na(df2015_new$hv121.1)]
+
+
+df_2019 <- df_2019[, col_names]
+df_2019$year <- 2019
+df_2019 <- unlabelled(df_2019)
+
+df_2014 <- df_2014[, col_names]
+df_2014$year <- 2014
+df_2014 <- unlabelled(df_2014)
+
+df_2010 <- df_2010[, col_names]
+df_2010$year <- 2010
+df_2010 <- unlabelled(df_2010)
+
+df_2005 <- df_2005[, col_names]
+df_2005$year <- 2005
+df_2005 <- unlabelled(df_2005)
+
+
+df_RW <- rbind(df_2019, df_2014, df_2010, df_2005)
+df_RW <- na.omit(df_RW)
+df_RW <- df_RW %>% rename(
+  "Age" = "hv105",
+  "school_attainment" = "hv121",
+  "Sex" = "hv104",
+  "Poverty" = "hv270"
+)
+
+
+chdf2019 <- chdf2019[, col_names]
+chdf2019$year <- 2019
+chdf2019 <- unlabelled(chdf2019)
+
+chdf2018 <- chdf2018[, col_names]
+chdf2018$year <- 2018
+chdf2018 <- unlabelled(chdf2018)
+
+chdf2017 <- chdf2017[, col_names]
+chdf2017$year <- 2017
+chdf2017 <- unlabelled(chdf2017)
+
+chdf2016 <- chdf2016[, col_names]
+chdf2016$year <- 2016
+chdf2016 <- unlabelled(chdf2016)
+
+chdf2015 <- chdf2015[, col_names]
+chdf2015$year <- 2015
+chdf2015 <- unlabelled(chdf2015)
+
+chdf2014 <- chdf2014[, col_names]
+chdf2014$year <- 2014
+chdf2014 <- unlabelled(chdf2014)
+
+chdf2012 <- chdf2012[, col_names]
+chdf2012$year <- 2012
+chdf2012 <- unlabelled(chdf2012)
+
+chdf2010 <- chdf2010[, col_names]
+chdf2010$year <- 2010
+chdf2010 <- unlabelled(chdf2010)
+
+df_SN <- rbind(chdf2019, chdf2018, chdf2017, chdf2016, chdf2015, chdf2014,
+               chdf2012, chdf2010)
+df_SN <- na.omit(df_SN)
+df_SN <- df_SN %>% rename(
+  "Age" = "hv105",
+  "school_attainment" = "hv121",
+  "Sex" = "hv104",
+  "Poverty" = "hv270"
+)
+
+df2005_new <- df2005_new[, col_names]
+df2005_new$year <- 2005
+df2005_new <- unlabelled(df2005_new)
+
+df2010_new <- df2010_new[, col_names]
+df2010_new$year <- 2010
+df2010_new <- unlabelled(df2010_new)
+
+df2015_new <- df2015_new[, col_names]
+df2015_new$year <- 2015
+df2015_new <- unlabelled(df2015_new)
+
+df_CO <- rbind(df2005_new, df2010_new, df2015_new)
+df_CO <- na.omit(df_CO)
+df_CO <- df_CO %>% rename(
+  "Age" = "hv105",
+  "school_attainment" = "hv121",
+  "Sex" = "hv104",
+  "Poverty" = "hv270"
+)
+```
+
+## Fit education data
+
+### Rwanda
+
+```{r}
+glm_edu1_RW <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year +
+                Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_RW, family = "binomial")
+summary(glm_edu1_RW)
+```
+
+```{r}
+glm_edu2_RW <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
+              data=df_RW, family = "binomial")
+summary(glm_edu2_RW)
+```
+
+```{r}
+glm_edu3_RW <- glm(school_attainment ~ Age + Sex + Poverty + year,
+              data=df_RW, family = "binomial")
+summary(glm_edu3_RW)
+```
+
+```{r}
+anova(glm_edu1_RW, glm_edu2_RW, glm_edu3_RW)
+
+drop1(glm_edu1_RW)
+```
+
+
+### Senegal
+
+```{r}
+glm_edu1_SN <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year +
+                Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_SN, family = "binomial")
+summary(glm_edu1_SN)
+```
+
+```{r}
+glm_edu2_SN <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
+              data=df_SN, family = "binomial")
+summary(glm_edu2_SN)
+```
+
+```{r}
+glm_edu3_SN <- glm(school_attainment ~ Age + Sex + Poverty + year,
+              data=df_SN, family = "binomial")
+summary(glm_edu3_SN)
+```
+
+```{r}
+anova(glm_edu1_SN, glm_edu2_SN, glm_edu3_SN)
+
+drop1(glm_edu1_SN)
+```
+
+
+### Colombia
+
+```{r}
+glm_edu1_CO <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year +
+                Orphanhood*Sex + Orphanhood*Poverty + Orphanhood*Age, data=df_CO, family = "binomial")
+summary(glm_edu1_CO)
+```
+
+```{r}
+glm_edu2_CO <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
+              data=df_CO, family = "binomial")
+summary(glm_edu2_CO)
+```
+
+```{r}
+glm_edu3_CO <- glm(school_attainment ~ Age + Sex + Poverty + year,
+              data=df_CO, family = "binomial")
+summary(glm_edu3_CO)
+```
+
+```{r}
+anova(glm_edu1_CO, glm_edu2_CO, glm_edu3_CO)
+
+drop1(glm_edu1_CO)
+```
+
+
+
+
+
+
+
 

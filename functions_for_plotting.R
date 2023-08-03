@@ -183,6 +183,48 @@ df_forester_year <- function(odd_df) {
   forester_data
 }
 
+edu_bar_df<-function(df){
+  #' df: input dataframe
+  #' column_name: school attendence, highest educational level
+  
+  edu_df<-subset(df,select=c("hv121","hv106","hv105","Orphanhood"))
+  edu_df<-na.omit(edu_df)
+  edu_df<-subset(edu_df,hv105>5)
+  
+  edu_orphan_df<-subset(edu_df,Orphanhood=="orphan")
+  edu_nonorphan_df<-subset(edu_df,Orphanhood=="non-orphan")
+  
+  #attendence bar dataframe
+  att_or_p<-nrow(edu_orphan_df[edu_orphan_df$hv121==1,])/nrow(edu_orphan_df)
+  att_nor_p<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv121==1,])/nrow(edu_nonorphan_df)
+  
+  mat1<-matrix(c(att_or_p,att_nor_p,"orphan","non-orphan"),ncol=2)
+  attendence_df<-data.frame(mat1)
+  colnames(attendence_df)<-c("percentage","orphanhood")
+  
+  
+  #highest educational level bar dataframe
+  edu_orphan_df<-subset(edu_orphan_df,hv105==15)
+  edu_nonorphan_df<-subset(edu_nonorphan_df,hv105==15)
+  hl_or_p0<-nrow(edu_orphan_df[edu_orphan_df$hv106==0,])/nrow(edu_orphan_df)
+  hl_or_p1<-nrow(edu_orphan_df[edu_orphan_df$hv106==1,])/nrow(edu_orphan_df)
+  hl_or_p2<-nrow(edu_orphan_df[edu_orphan_df$hv106==2,])/nrow(edu_orphan_df)
+  hl_or_p3<-nrow(edu_orphan_df[edu_orphan_df$hv106==3,])/nrow(edu_orphan_df)
+  hl_nor_p0<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==0,])/nrow(edu_nonorphan_df)
+  hl_nor_p1<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==1,])/nrow(edu_nonorphan_df)
+  hl_nor_p2<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==2,])/nrow(edu_nonorphan_df)
+  hl_nor_p3<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==3,])/nrow(edu_nonorphan_df)
+  
+  percentage<-c(hl_or_p0,hl_nor_p0,hl_or_p1,hl_nor_p1,hl_or_p2,hl_nor_p2,hl_or_p3,hl_nor_p3)
+  orphan<-c(rep(c("orphan","non-orphan"),4))
+  level<-c("no education","no education","primary","primary","secondary","secondary","higher","higher")
+  
+  mat2<-matrix(c(percentage,orphan,level),ncol=3)
+  highest_level_df<-data.frame(mat2)
+  colnames(highest_level_df)<-c("percentage","orphanhood","level")
+  
+  list(attendence_df,highest_level_df)
+}
 
 
 

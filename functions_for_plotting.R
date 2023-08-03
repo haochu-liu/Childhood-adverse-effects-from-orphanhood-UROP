@@ -195,13 +195,7 @@ edu_bar_df<-function(df){
   edu_nonorphan_df<-subset(edu_df,Orphanhood=="non-orphan")
   
   #attendence bar dataframe
-  att_or_p<-nrow(edu_orphan_df[edu_orphan_df$hv121==1,])/nrow(edu_orphan_df)
-  att_nor_p<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv121==1,])/nrow(edu_nonorphan_df)
-  
-  mat1<-matrix(c(att_or_p,att_nor_p,"orphan","non-orphan"),ncol=2)
-  attendence_df<-data.frame(mat1)
-  colnames(attendence_df)<-c("percentage","orphanhood")
-  
+  attendence_df<-df_barplot(df,"hv121","Orphanhood")
   
   #highest educational level bar dataframe
   edu_orphan_df<-subset(edu_orphan_df,hv105==15)
@@ -217,11 +211,15 @@ edu_bar_df<-function(df){
   
   percentage<-c(hl_or_p0,hl_nor_p0,hl_or_p1,hl_nor_p1,hl_or_p2,hl_nor_p2,hl_or_p3,hl_nor_p3)
   orphan<-c(rep(c("orphan","non-orphan"),4))
+  samplesize<-c(rep(c(nrow(edu_orphan_df),nrow(edu_nonorphan_df)),4))
   level<-c("no education","no education","primary","primary","secondary","secondary","higher","higher")
   
-  mat2<-matrix(c(percentage,orphan,level),ncol=3)
+  mat2<-matrix(c(percentage,orphan,level,samplesize),ncol=4)
   highest_level_df<-data.frame(mat2)
-  colnames(highest_level_df)<-c("percentage","orphanhood","level")
+  colnames(highest_level_df)<-c("percentage","orphanhood","level","samplesize")
+  highest_level_df["CI_lower"]<-CIlower(percentage,samplesize)
+  highest_level_df["CI_upper"]<-CIupper(percentage,samplesize)
+
   
   list(attendence_df,highest_level_df)
 }

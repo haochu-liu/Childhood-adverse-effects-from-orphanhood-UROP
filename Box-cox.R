@@ -63,22 +63,73 @@ fieller_child_df <- function(df, country, year){
   # Fieller
   ttr1_h <- ttestratio(ordf1$bc_height, nordf1$bc_height, var.equal=TRUE, conf.level=0.95)
   ttr2_h <- ttestratio(ordf2$bc_height, nordf2$bc_height, var.equal=TRUE, conf.level=0.95)
-  row1_h <- c("hc3.1","height 0-2 years", lambda_h1, ttr1_h$estimate[3], ttr1_h$conf.int[1], ttr1_h$conf.int[2], ttr1_h$p.value, country, year)
-  row2_h <- c("hc3.2","height 2-5 years", lambda_h2, ttr2_h$estimate[3], ttr2_h$conf.int[1], ttr2_h$conf.int[2], ttr2_h$p.value, country, year)
+  row1_h <- c("hc3.1","Height (age 0-2 years)", lambda_h1, ttr1_h$estimate[3], ttr1_h$conf.int[1], ttr1_h$conf.int[2], ttr1_h$p.value, country, year)
+  row2_h <- c("hc3.2","Height (age 2-5 years)", lambda_h2, ttr2_h$estimate[3], ttr2_h$conf.int[1], ttr2_h$conf.int[2], ttr2_h$p.value, country, year)
   
   ttr1_w <- ttestratio(ordf1$bc_weight, nordf1$bc_weight, var.equal=TRUE, conf.level=0.95)
   ttr2_w <- ttestratio(ordf2$bc_weight, nordf2$bc_weight, var.equal=TRUE, conf.level=0.95)
-  row1_w <- c("hc2.1","weight 0-2 years", lambda_w1, ttr1_w$estimate[3], ttr1_w$conf.int[1], ttr1_w$conf.int[2], ttr1_w$p.value, country, year)
-  row2_w <- c("hc2.2","weight 2-5 years", lambda_w2, ttr2_w$estimate[3], ttr2_w$conf.int[1], ttr2_w$conf.int[2], ttr2_w$p.value, country, year)
+  row1_w <- c("hc2.1","Weight (age 0-2 years)", lambda_w1, ttr1_w$estimate[3], ttr1_w$conf.int[1], ttr1_w$conf.int[2], ttr1_w$p.value, country, year)
+  row2_w <- c("hc2.2","Weight (age 2-5 years)", lambda_w2, ttr2_w$estimate[3], ttr2_w$conf.int[1], ttr2_w$conf.int[2], ttr2_w$p.value, country, year)
   
   fieller_df <- rbind(fieller_df, row1_h, row2_h, row1_w, row2_w)
-  colnames(fieller_df)<-c("col_names","col_labels","parameter","ratio","lower","upper","p-value","country","year")
+  colnames(fieller_df)<-c("col_names","col_labels","parameter","ratio","CI_lower","CI_upper","p_value","country","year")
+  
+  # changing data type
+  fieller_df$parameter = as.numeric(fieller_df$parameter)
+  fieller_df$ratio = as.numeric(fieller_df$ratio)
+  fieller_df$CI_lower = as.numeric(fieller_df$CI_lower)
+  fieller_df$CI_upper = as.numeric(fieller_df$CI_upper)
+  
+  fieller_df
+}
+
+fieller_woman_df <- function(df, country, year){
+  cont_df <<- subset(df, select = c("ha3", "ha2", "hv105", "Orphanhood"))
+  cont_df <- na.omit(cont_df)
+  
+  val_labels(cont_df) <- NULL  
+  
+  fieller_df <- data.frame(matrix(ncol=8,nrow=0))
+  
+  # boxcox to find 2 lambdas
+  hmodel <- lm(ha3 ~ 1, data = cont_df)
+  bc_h <- boxcox(hmodel, lambda = seq(-5, 5, 0.2))
+  
+  wmodel <- lm(ha2 ~ 1, data = cont_df)
+  bc_w <- boxcox(wmodel, lambda = seq(-5, 5, 0.2))
+ 
+  # find lambda
+  lambda_h <- round(bc_h$x[which.max(bc_h$y)])
+  lambda_w <- round(bc_w$x[which.max(bc_w$y)])
+  
+  # transform
+  cont_df["bc_height"] <- boxcox_trans(cont_df$ha3, lambda_h)
+  cont_df["bc_weight"] <- boxcox_trans(cont_df$ha2, lambda_w)
+  
+  #orphan/nonorphan datasets
+  ordf <- subset(cont_df, cont_df$Orphanhood=="orphan")
+  nordf <- subset(cont_df, cont_df$Orphanhood=="non-orphan")
+  
+  # Fieller
+  ttr_h <- ttestratio(ordf$bc_height, nordf$bc_height, var.equal=TRUE, conf.level=0.95)
+  row_h <- c("ha3","Height (woman)", lambda_h, ttr_h$estimate[3], ttr_h$conf.int[1], ttr_h$conf.int[2], ttr_h$p.value, country, year)
+ 
+  ttr_w <- ttestratio(ordf$bc_weight, nordf$bc_weight, var.equal=TRUE, conf.level=0.95)
+  row_w <- c("ha2","Weight (woman)", lambda_w, ttr_w$estimate[3], ttr_w$conf.int[1], ttr_w$conf.int[2], ttr_w$p.value, country, year)
+  
+  fieller_df <- rbind(fieller_df, row_h, row_w)
+  colnames(fieller_df)<-c("col_names","col_labels","parameter","ratio","CI_lower","CI_upper","p_value","country","year")
+  
+  # changing data type
+  fieller_df$parameter = as.numeric(fieller_df$parameter)
+  fieller_df$ratio = as.numeric(fieller_df$ratio)
+  fieller_df$CI_lower = as.numeric(fieller_df$CI_lower)
+  fieller_df$CI_upper = as.numeric(fieller_df$CI_upper)
   
   fieller_df
 }
 
 df_yearsort <- function(fieller_df, number_of_years) {
-
     df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]
     forester_data <- data.frame()
     n <- nrow(df) / number_of_years
@@ -90,14 +141,15 @@ df_yearsort <- function(fieller_df, number_of_years) {
       Outcome <- c(df$col_labels[1+a*(i-1)], df$year[1:a])
       slice_df <- data.frame(Outcome)
       slice_df$ratio <- c(NA, df$ratio[(a*i-b):(a*i)])
-      slice_df$CI_lower <- c(NA, df$lower[(a*i-b):(a*i)])
-      slice_df$CI_upper <- c(NA, df$upper[(a*i-b):(a*i)])
+      slice_df$CI_lower <- c(NA, df$CI_lower[(a*i-b):(a*i)])
+      slice_df$CI_upper <- c(NA, df$CI_upper[(a*i-b):(a*i)])
+      slice_df$p_value <- c(NA, df$p_value[(a*i-b):(a*i)])
+      slice_df$parameter <- c(NA, df$parameter[(a*i-b):(a*i)])
       forester_data <- rbind(forester_data, slice_df)
     }
     
     forester_data
 }
   
-
 
 

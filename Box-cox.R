@@ -24,8 +24,8 @@ fieller_child_df <- function(df, country, year){
   fieller_df <- data.frame(matrix(ncol=7,nrow=0))
   
   # 0-2 and 2-5 year groups 
-  yrdf1 <- subset(cont_df, cont_df$hv105 < 2)
-  yrdf2 <- subset(cont_df, cont_df$hv105 >= 2)
+  yrdf1 <<- subset(cont_df, cont_df$hv105 < 2)
+  yrdf2 <<- subset(cont_df, cont_df$hv105 >= 2)
 
   # boxcox to find 4 lambdas
   hmodel1 <- lm(hc3 ~ 1, data=yrdf1)

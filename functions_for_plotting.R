@@ -276,8 +276,7 @@ df_woman_lfix <- function(df, country, year, lambda_h, lambda_w){
   fieller_df
 }
 
-<<<<<<< HEAD
-=======
+
 df_child_lfix <- function(df, country, year, lambda_h1, lambda_h2, lambda_w1, lambda_w2){
   
   cont_df <<- subset(df, select = c("hc3", "hc2", "hv105", "Orphanhood"))
@@ -328,4 +327,4 @@ df_child_lfix <- function(df, country, year, lambda_h1, lambda_h2, lambda_w1, la
   fieller_df
 }
 
->>>>>>> 003c4a66cb706426277e474417d4e1ce9175226f
+

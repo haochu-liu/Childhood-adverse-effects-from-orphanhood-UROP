@@ -56,8 +56,8 @@ edu_bar_df<-function(df,year,country){
   mat2<-matrix(c(percentage,orphan,level,samplesize),ncol=4)
   highest_level_df<-data.frame(mat2)
   colnames(highest_level_df)<-c("percentage","orphanhood","level","samplesize")
-  highest_level_df["CI_lower"]<-CIlower(percentage,samplesize)
-  highest_level_df["CI_upper"]<-CIupper(percentage,samplesize)
+  highest_level_df["CI_lower"]<-CI_lower(percentage,samplesize)
+  highest_level_df["CI_upper"]<-CI_upper(percentage,samplesize)
   highest_level_df$percentage<-as.numeric(highest_level_df$percentage)
   
   attendence_df["country"]<-country

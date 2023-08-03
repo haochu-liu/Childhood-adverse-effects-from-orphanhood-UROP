@@ -15,7 +15,7 @@ boxcox_trans <- function(vector, lambda){
 }
 
 
-fieller_child_df <- function(df,country,year){
+fieller_child_df <- function(df, country, year){
   cont_df <- subset(df, select = c("hc3", "hc2", "hv105", "Orphanhood"))
   cont_df <- na.omit(cont_df)
   
@@ -28,16 +28,16 @@ fieller_child_df <- function(df,country,year){
   yrdf2 <- subset(cont_df, cont_df$hv105 >= 2)
 
   # boxcox to find 4 lambdas
-  hmodel1 <- lm(hc3 ~ 1, data = yrdf1)
+  hmodel1 <- lm(hc3 ~ 1, data=yrdf1)
   bc_h1 <- boxcox(hmodel1, lambda = seq(-5, 5, 0.2))
   
-  hmodel2 <- lm(hc3 ~ 1, data = yrdf2)
+  hmodel2 <- lm(hc3 ~ 1, data=yrdf2)
   bc_h2 <- boxcox(hmodel2, lambda = seq(-5, 5, 0.2))
   
-  wmodel1 <- lm(hc2 ~ 1, data = yrdf1)
+  wmodel1 <- lm(hc2 ~ 1, data=yrdf1)
   bc_w1 <- boxcox(wmodel1, lambda = seq(-5, 5, 0.2))
   
-  wmodel2 <- lm(hc2 ~ 1, data = yrdf2)
+  wmodel2 <- lm(hc2 ~ 1, data=yrdf2)
   bc_w2 <- boxcox(wmodel2, lambda = seq(-5, 5, 0.2))
   
   # find lambda

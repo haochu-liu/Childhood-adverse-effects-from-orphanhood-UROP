@@ -5,7 +5,7 @@ library(Hmisc)
 library(naniar)
 library(labelled)
 library(ggplot2)
-library(ggpubr)
+#library(ggpubr)
 
 
 df_2019$hv121[!is.na(df_2019$hv121.1)] = df_2019$hv121.1[!is.na(df_2019$hv121.1)]

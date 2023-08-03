@@ -59,6 +59,6 @@ label$hv121.1 <- "school attendance for age 17"
 
 label(df2000_new) <- label
 
-# save(df2000_new, file = "Colombia/df2000_new.Rda")
+save(df2000_new, file = "Colombia/Cleaning data/ df2000_new.Rda")
 # load("Colombia/df2000_new.Rda")
 

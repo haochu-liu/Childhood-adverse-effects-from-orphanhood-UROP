@@ -78,3 +78,5 @@ label$hc2 <- "child's weight"
 label$hc3 <- "child's height"
 
 label(df2010_new) <- label
+
+save(df2000_new, file = "Colombia/Cleaning data/ df2010_new.Rda")

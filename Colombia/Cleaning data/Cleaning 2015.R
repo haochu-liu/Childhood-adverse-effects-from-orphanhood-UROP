@@ -10,7 +10,7 @@ df2015_new <- df2015[, c("hvidx","hv001","hv002",
                          "hv210","hv211","hv212","hv243a","hv243e","hv270",
                          "hv106","hv107","hv121","hv121",
                          "hc70","hc71","hc72",
-                         "ha3","hc3","ha2","hc2","ha40",
+                         "ha3","hc3","ha2","hc2","ha40"
 )]
 # orphanhood
 df2015_new["Orphanhood"] <- ifelse(df2015$hv111 == 0 | df2015$hv113 == 0, 
@@ -68,3 +68,4 @@ label$hv270 <- "poor household wealth" # <=2: poor
 
 label(df2015_new) <- label
 
+save(df2000_new, file = "Colombia/Cleaning data/ df2015_new.Rda")

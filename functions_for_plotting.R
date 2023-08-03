@@ -147,12 +147,15 @@ df_forester_country <- function(odd_df, number_of_countries) {
   forester_data <- data.frame()
   n <- nrow(df) / number_of_countries
   
+  a <- number_of_countries
+  b <- a - 1
+  
   for (i in 1:n) {
-    Outcome <- c(df$column_labels[1+3*(i-1)], df$country[1:3])
+    Outcome <- c(df$column_labels[1+a*(i-1)], df$country[1:a])
     slice_df <- data.frame(Outcome)
-    slice_df$odd_ratio <- c(NA, df$odd_ratio[(3*i-2):(3*i)])
-    slice_df$CI_lower <- c(NA, df$CI_lower[(3*i-2):(3*i)])
-    slice_df$CI_upper <- c(NA, df$CI_upper[(3*i-2):(3*i)])
+    slice_df$odd_ratio <- c(NA, df$odd_ratio[(a*i-b):(a*i)])
+    slice_df$CI_lower <- c(NA, df$CI_lower[(a*i-b):(a*i)])
+    slice_df$CI_upper <- c(NA, df$CI_upper[(a*i-b):(a*i)])
     forester_data <- rbind(forester_data, slice_df)
   }
   

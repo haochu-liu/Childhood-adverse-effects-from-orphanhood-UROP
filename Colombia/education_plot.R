@@ -8,15 +8,25 @@ library(ggplot2)
 
 source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/functions_for_plotting.R")
 
-att_year_df <- rbind(edu_bar_df(df2000_new, 2000, "Colombia")[[1]],
-                     edu_bar_df(df2005_new, 2005, "Colombia")[[1]],
-                     edu_bar_df(df2010_new, 2010, "Colombia")[[1]],
-                     edu_bar_df(df2015_new, 2015, "Colombia")[[1]])
+df2000_edu <- df2000_new
+df2005_edu <- df2005_new
+df2010_edu <- df2010_new
+df2015_edu <- df2015_new
 
-hl_year_df <- rbind(edu_bar_df(df2000_new, 2000, "Colombia")[[2]],
-                    edu_bar_df(df2005_new, 2005, "Colombia")[[2]],
-                    edu_bar_df(df2010_new, 2010, "Colombia")[[2]],
-                    edu_bar_df(df2015_new, 2015, "Colombia")[[2]])
+df2000_edu$hv121[!is.na(df2000_new$hv121.1)] = df2000_new$hv121.1[!is.na(df2000_new$hv121.1)]
+df2005_edu$hv121[!is.na(df2005_new$hv121.1)] = df2005_new$hv121.1[!is.na(df2005_new$hv121.1)]
+df2010_edu$hv121[!is.na(df2010_new$hv121.1)] = df2010_new$hv121.1[!is.na(df2010_new$hv121.1)]
+df2015_edu$hv121[!is.na(df2015_new$hv121.1)] = df2015_new$hv121.1[!is.na(df2015_new$hv121.1)]
+
+att_year_df <- rbind(edu_bar_df(df2000_edu, 2000, "Colombia")[[1]],
+                     edu_bar_df(df2005_edu, 2005, "Colombia")[[1]],
+                     edu_bar_df(df2010_edu, 2010, "Colombia")[[1]],
+                     edu_bar_df(df2015_edu, 2015, "Colombia")[[1]])
+
+hl_year_df <- rbind(edu_bar_df(df2000_edu, 2000, "Colombia")[[2]],
+                    edu_bar_df(df2005_edu, 2005, "Colombia")[[2]],
+                    edu_bar_df(df2010_edu, 2010, "Colombia")[[2]],
+                    edu_bar_df(df2015_edu, 2015, "Colombia")[[2]])
 
 
 # multiple years barplots of school attendence

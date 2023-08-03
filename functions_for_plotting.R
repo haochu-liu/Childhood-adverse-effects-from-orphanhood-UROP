@@ -190,7 +190,7 @@ edu_bar_df<-function(df,year,country){
   edu_df<-remove_var_label(edu_df)
   #edu_df$hv105<-as.integer(edu_df$hv105)
   edu_df<-na.omit(edu_df)
-  edu_df<-edu_df[,hv105>5]
+  edu_df<-edu_df[edu_df$hv105>5,]
   
   edu_orphan_df<-subset(edu_df,Orphanhood=="orphan")
   edu_nonorphan_df<-subset(edu_df,Orphanhood=="non-orphan")

@@ -19,10 +19,11 @@ recent_df_SN<-chdf2019
 edu_bar_df<-function(df,year,country){
   #' df: input dataframe
   #' column_name: school attendence, highest educational level
+  df<-df_2019
   edu_df<-df[,c("hv121","hv106","hv105","Orphanhood")]
   edu_df<-remove_var_label(edu_df)
   edu_df<-na.omit(edu_df)
-  edu_df<-edu_df[,hv105>5]
+  edu_df<-edu_df[edu_df$hv105>5,]
   
   edu_orphan_df<-subset(edu_df,Orphanhood=="orphan")
   edu_nonorphan_df<-subset(edu_df,Orphanhood=="non-orphan")
@@ -70,8 +71,8 @@ hl_SN<-edu_bar_df(recent_df_SN,2019,"Senegal")[[2]]
 hl_country_df<-rbind(hl_RW,hl_CO,hl_SN)
 
 #Senegal plot
-att_year_df<-rbind(edu_bar_df(chdf2016,2016,"Senegal")[[1]],edu_bar_df(chdf2017,2017,"Senegal")[[1]],edu_bar_df(chdf2018,2018,"Senegal")[[1]],edu_bar_df(chdf2019,2019,"Senegal")[[1]])
-hl_year_df<-rbind(edu_bar_df(chdf2016,2016,"Senegal")[[2]],edu_bar_df(chdf2017,2017,"Senegal")[[2]],edu_bar_df(chdf2018,2018,"Senegal")[[2]],edu_bar_df(chdf2019,2019,"Senegal")[[2]])
+att_year_df<-rbind(edu_bar_df(df_2000,2000,"Rwanda")[[1]],edu_bar_df(df_2005,2005,"Rwanda")[[1]],edu_bar_df(df_2010,2010,"Rwanda")[[1]],edu_bar_df(df_2014,2014,"Rwanda")[[1]],edu_bar_df(df_2019,2019,"Rwanda")[[1]])
+hl_year_df<-rbind(edu_bar_df(df_2000,2000,"Rwanda")[[2]],edu_bar_df(df_2005,2005,"Rwanda")[[2]],edu_bar_df(df_2010,2010,"Rwanda")[[2]],edu_bar_df(df_2014,2014,"Rwanda")[[2]],edu_bar_df(df_2019,2019,"Rwanda")[[2]])
 #highest_level_bar_df$percentage<-as.numeric(highest_level_bar_df$percentage)
 
 #single year bar plot of school attendence
@@ -96,7 +97,7 @@ hl_SN_bar<-ggplot(hl_SN, aes(fill=orphanhood, x=level, y=percentage)) +
 print(hl_SN_bar)
 
 #multiple years barplots of school attendence
-att_year_SN<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
+att_year_RW<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
@@ -104,10 +105,10 @@ att_year_SN<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
   ggtitle("Senegal School Attendence(2016-2019)") +
   ylim(0, 1)+
   theme_classic()
-print(att_year_SN)
+print(att_year_RW)
 
 #multiple years barplots of highest level of education
-hl_year_SN <- ggplot(hl_year_df, aes(fill=orphanhood, x=level, y=percentage)) +
+hl_year_RW <- ggplot(hl_year_df, aes(fill=orphanhood, x=level, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
@@ -117,7 +118,7 @@ hl_year_SN <- ggplot(hl_year_df, aes(fill=orphanhood, x=level, y=percentage)) +
   #scale_y_continuous(expand = c(0, 1)) +
   ylim(0,1)+
   theme_classic()
-print(hl_year_SN)
+print(hl_year_RW)
 
 #Comparison plot by countries
 #multiple countries barplots of school attendence

@@ -183,19 +183,21 @@ df_forester_year <- function(odd_df) {
   forester_data
 }
 
-edu_bar_df<-function(df){
+edu_bar_df<-function(df,year,country){
   #' df: input dataframe
   #' column_name: school attendence, highest educational level
-  
-  edu_df<-subset(df,select=c("hv121","hv106","hv105","Orphanhood"))
+  edu_df<-df[,c("hv121","hv106","hv105","Orphanhood")]
+  edu_df<-remove_var_label(edu_df)
+  #edu_df$hv105<-as.integer(edu_df$hv105)
   edu_df<-na.omit(edu_df)
-  edu_df<-subset(edu_df,hv105>5)
+  edu_df<-edu_df[,hv105>5]
   
   edu_orphan_df<-subset(edu_df,Orphanhood=="orphan")
   edu_nonorphan_df<-subset(edu_df,Orphanhood=="non-orphan")
   
   #attendence bar dataframe
   attendence_df<-df_barplot(df,"hv121","Orphanhood")
+  attendence_df$percentage<-as.numeric(attendence_df$percentage)
   
   #highest educational level bar dataframe
   edu_orphan_df<-subset(edu_orphan_df,hv105==15)
@@ -203,24 +205,28 @@ edu_bar_df<-function(df){
   hl_or_p0<-nrow(edu_orphan_df[edu_orphan_df$hv106==0,])/nrow(edu_orphan_df)
   hl_or_p1<-nrow(edu_orphan_df[edu_orphan_df$hv106==1,])/nrow(edu_orphan_df)
   hl_or_p2<-nrow(edu_orphan_df[edu_orphan_df$hv106==2,])/nrow(edu_orphan_df)
-  hl_or_p3<-nrow(edu_orphan_df[edu_orphan_df$hv106==3,])/nrow(edu_orphan_df)
+  
   hl_nor_p0<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==0,])/nrow(edu_nonorphan_df)
   hl_nor_p1<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==1,])/nrow(edu_nonorphan_df)
   hl_nor_p2<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==2,])/nrow(edu_nonorphan_df)
-  hl_nor_p3<-nrow(edu_nonorphan_df[edu_nonorphan_df$hv106==3,])/nrow(edu_nonorphan_df)
   
-  percentage<-c(hl_or_p0,hl_nor_p0,hl_or_p1,hl_nor_p1,hl_or_p2,hl_nor_p2,hl_or_p3,hl_nor_p3)
-  orphan<-c(rep(c("orphan","non-orphan"),4))
-  samplesize<-c(rep(c(nrow(edu_orphan_df),nrow(edu_nonorphan_df)),4))
-  level<-c("no education","no education","primary","primary","secondary","secondary","higher","higher")
+  
+  percentage<-c(hl_or_p0,hl_nor_p0,hl_or_p1,hl_nor_p1,hl_or_p2,hl_nor_p2)
+  orphan<-c(rep(c("orphan","non-orphan"),3))
+  samplesize<-c(rep(c(nrow(edu_orphan_df),nrow(edu_nonorphan_df)),3))
+  level<-c("no education","no education","primary","primary","secondary","secondary")
   
   mat2<-matrix(c(percentage,orphan,level,samplesize),ncol=4)
   highest_level_df<-data.frame(mat2)
   colnames(highest_level_df)<-c("percentage","orphanhood","level","samplesize")
-  highest_level_df["CI_lower"]<-CIlower(percentage,samplesize)
-  highest_level_df["CI_upper"]<-CIupper(percentage,samplesize)
-
+  highest_level_df["CI_lower"]<-CI_lower(percentage,samplesize)
+  highest_level_df["CI_upper"]<-CI_upper(percentage,samplesize)
+  highest_level_df$percentage<-as.numeric(highest_level_df$percentage)
   
+  attendence_df["country"]<-country
+  attendence_df["year"]<-as.character(year)
+  highest_level_df["country"]<-country
+  highest_level_df["year"]<-as.character(year)
   list(attendence_df,highest_level_df)
 }
 
@@ -270,6 +276,8 @@ df_woman_lfix <- function(df, country, year, lambda_h, lambda_w){
   fieller_df
 }
 
+<<<<<<< HEAD
+=======
 df_child_lfix <- function(df, country, year, lambda_h1, lambda_h2, lambda_w1, lambda_w2){
   
   cont_df <<- subset(df, select = c("hc3", "hc2", "hv105", "Orphanhood"))
@@ -320,3 +328,4 @@ df_child_lfix <- function(df, country, year, lambda_h1, lambda_h2, lambda_w1, la
   fieller_df
 }
 
+>>>>>>> 003c4a66cb706426277e474417d4e1ce9175226f

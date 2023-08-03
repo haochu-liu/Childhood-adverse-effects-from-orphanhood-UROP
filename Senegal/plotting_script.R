@@ -61,7 +61,7 @@ ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) +
 
 #2010
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b",
+            "hv227","hv221","hv243a",
             "hv121","hml35",
             "hv270")
 dfbar2010<-df_barplot(chdf2010,col_name,"Orphanhood")
@@ -107,7 +107,7 @@ ggplot(odd2010, aes(x = odd_ratio, y = column_labels)) +
 
 #2012
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b",
+            "hv227","hv221","hv243a",
             "hv121","hml35",
             "hv270")
 dfbar2012<-df_barplot(chdf2012,col_name,"Orphanhood")
@@ -152,7 +152,7 @@ ggplot(odd2012, aes(x = odd_ratio, y = column_labels)) +
 
 #2014
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b",
+            "hv227","hv221","hv243a",
             "hv121","hml35",
             "hv270")
 dfbar2014<-df_barplot(chdf2014,col_name,"Orphanhood")
@@ -197,7 +197,7 @@ ggplot(odd2014, aes(x = odd_ratio, y = column_labels)) +
 
 #2015
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b",
+            "hv227","hv221","hv243a",
             "hv121","hml35",
             "hv270")
 dfbar2015<-df_barplot(chdf2015,col_name,"Orphanhood")
@@ -240,7 +240,7 @@ ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) +
 
 #2016
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b",
+            "hv227","hv221","hv243a",
             "hv121","hml35",
             "hv270")
 dfbar2016<-df_barplot(chdf2016,col_name,"Orphanhood")
@@ -283,7 +283,7 @@ ggplot(odd2016, aes(x = odd_ratio, y = column_labels)) +
 
 #2017
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b","hv243e",
+            "hv227","hv221","hv243a","hv243e",
             "hv121","hml35",
             "hv270")
 dfbar2017<-df_barplot(chdf2017,col_name,"Orphanhood")
@@ -327,7 +327,7 @@ ggplot(odd2017, aes(x = odd_ratio, y = column_labels)) +
 
 #2018
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221","hv243a","hv243b","hv243e",
+            "hv227","hv221","hv243a","hv243e",
             "hv121","hml35",
             "hv270")
 dfbar2018<-df_barplot(chdf2018,col_name,"Orphanhood")
@@ -428,7 +428,7 @@ allyear_bar <- ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-year_list <- c("2005", "2010", "2012", "2014", "2015", "2016","2017","2018","2019")
+year_list <- c("2005","2010", "2012", "2014", "2015", "2016","2017","2018","2019")
 df_list <- list("2005" = chdf2005,
                 "2010" = chdf2010,
                 "2012" = chdf2012,
@@ -438,12 +438,27 @@ df_list <- list("2005" = chdf2005,
                 "2017" = chdf2017,
                 "2018" = chdf2018,
                 "2019" = chdf2019)
-col_name_list <- c("hv025", "hv206",
-                   "hv207", "hv208", "hv209", "hv210",
-                   "hv211", "hv212", "hv227", "hv221",
-                    "hv270",
+col_name_list <- c("hv025", 
+                   "hv206",
+                   "hv207", 
+                   "hv208", 
+                   "hv209", 
+                   "hv210",
+                   "hv211", 
+                   "hv212", 
+                   "hv227", 
+                   "hv221",
+                   "hv270",
                    "hv121",
-                   "hml35", "ha3", "hc3","ha2", "hc2","ha1","hc1")
+                   "hml35", 
+                   "hv243a",
+                   "hv243e",
+                   "ha3",
+                   "hc3",
+                   "ha2", 
+                   "hc2",
+                   "ha1",
+                   "hc1")
 col_label_list <- c(
   "Lives in urban area",
   "Has electricity",
@@ -458,6 +473,8 @@ col_label_list <- c(
   "Poor household wealth",
   "School attendance",
   "Has malaria",
+  "has mobile",
+  "has computer",
   "Woman's height in centimeters (1 decimal)",
   "Child's height in centimeters (1 decimal)",
   "Woman's weight in kilograms (1 decimal)",

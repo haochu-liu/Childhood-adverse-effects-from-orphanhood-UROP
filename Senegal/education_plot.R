@@ -19,15 +19,10 @@ recent_df_SN<-chdf2019
 edu_bar_df<-function(df,year,country){
   #' df: input dataframe
   #' column_name: school attendence, highest educational level
-  #df<-recent_df_RW
-  #year<-2019
-  #country<-"Rwanda"
-  edu_df<-subset(df,select=c("hv121","hv106","hv105","Orphanhood"))
   edu_df<-df[,c("hv121","hv106","hv105","Orphanhood")]
   edu_df<-remove_var_label(edu_df)
-  #edu_df$hv105<-as.integer(edu_df$hv105)
   edu_df<-na.omit(edu_df)
-  edu_df<-subset(edu_df,hv105>5)
+  edu_df<-edu_df[,hv105>5]
   
   edu_orphan_df<-subset(edu_df,Orphanhood=="orphan")
   edu_nonorphan_df<-subset(edu_df,Orphanhood=="non-orphan")

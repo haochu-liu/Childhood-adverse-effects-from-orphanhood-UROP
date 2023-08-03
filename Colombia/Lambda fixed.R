@@ -31,6 +31,8 @@ df_child <- rbind(df_child_lfix(df2005_new, "Colombia", "2005", lambda_h1, lambd
 fieller_fix_CO <- rbind(df_woman, df_child)
 save(fieller_fix_CO, file = "Colombia/fieller_fix_CO.Rda")
 
+
+
 # to use forester 
 fieller_fix_CO <- df_sortyear(fieller_fix_CO)
 fieller_fix_CO$Outcome <- ifelse(is.na(fieller_fix_CO$ratio), 

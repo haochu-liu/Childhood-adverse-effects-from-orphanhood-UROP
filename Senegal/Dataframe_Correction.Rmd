@@ -155,3 +155,17 @@ fieller_SN <- rbind(fieller_SN1, fieller_SN2, fieller_SN3, fieller_SN4,fieller_S
 save(fieller_SN,file="fieller_SN.Rda")
 ```
 
+```{r}
+df_child <- rbind(df_child_lfix(chdf2010, "Senegal", "2010", 1,1,1,1),
+                  df_child_lfix(chdf2012, "Senegal", "2012", 1,2,1,1),
+                  df_child_lfix(chdf2014, "Senegal", "2014", 2,2,1,1),
+                  df_child_lfix(chdf2015, "Senegal", "2015", 1,1,1,1),
+                  df_child_lfix(chdf2016, "Senegal", "2016", 2,2,1,1),
+                  df_child_lfix(chdf2017, "Senegal", "2017", 2,2,1,1),
+                  df_child_lfix(chdf2018, "Senegal", "2018", 2,1,1,0),
+                  df_child_lfix(chdf2019, "Senegal", "2019", 2,1,1,0))
+
+fieller_fix_SN <- rbind(df_child)
+save(fieller_fix_SN,file="fieller_fix_SN.Rda")
+```
+

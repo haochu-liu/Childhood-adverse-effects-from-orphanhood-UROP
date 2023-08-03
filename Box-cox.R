@@ -77,13 +77,6 @@ fieller_child_df <- function(df, country, year){
   fieller_df
 }
 
-
-temp1 <- fieller_child_df(df2005_new, "Colombia", "2005")
-temp2 <- fieller_child_df(df2010_new, "Colombia", "2010")
-temp <- rbind(temp1, temp2)
-try <- df_yearsort(temp, 2)
-
-
 df_yearsort <- function(fieller_df, number_of_years) {
 
     df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]

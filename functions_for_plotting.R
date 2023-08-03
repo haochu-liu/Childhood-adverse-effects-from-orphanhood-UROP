@@ -328,10 +328,6 @@ df_child_lfix <- function(df, country, year, lambda_h1, lambda_h2, lambda_w1, la
 }
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e6750961409f7ab89719daaa3e60e74ec5401238
 df_sortyear <- function(fieller_df) {
   
   df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]
@@ -353,8 +349,3 @@ df_sortyear <- function(fieller_df) {
   
   forester_data
 }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> e6750961409f7ab89719daaa3e60e74ec5401238

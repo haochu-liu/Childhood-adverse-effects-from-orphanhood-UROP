@@ -1,11 +1,14 @@
-library(ggplot2)
+library(haven)
 library(stringr)
 library(dplyr)
 library(Hmisc)
 library(naniar)
-library(haven)
 library(labelled)
-library(ggpubr)
+library(ggplot2)
+
+recent_df_RW<-df_2019
+recent_df_CO<-df2015_new
+recent_df_SN<-chdf2019
 
 edu_bar_df<-function(df,year,country){
   #' df: input dataframe
@@ -53,6 +56,10 @@ edu_bar_df<-function(df,year,country){
   list(attendence_df,highest_level_df)
 }
 
+#
+att_country_df<-rbind(edu_bar_df(recent_df_RW,2019,"Rwanda"),edu_bar_df(recent_df_CO,2015,"Colombia"),edu_bar_df(recent_df_SN,2019,"Senegal"))
+
+#Senegal plot
 att_year_df<-rbind(edu_bar_df(chdf2016,2016,"Senegal")[[1]],edu_bar_df(chdf2017,2017,"Senegal")[[1]],edu_bar_df(chdf2018,2018,"Senegal")[[1]],edu_bar_df(chdf2019,2019,"Senegal")[[1]])
 highest_level_bar_df<-edu_bar_df(chdf2019,2019,"Senegal")[[2]]
 #highest_level_bar_df$percentage<-as.numeric(highest_level_bar_df$percentage)
@@ -83,6 +90,27 @@ att_year<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
                 width=0.4, colour="black", position = position_dodge(.5)) +
   labs(x = "School attendence") +
   ggtitle(paste("Senegal", " 2016-2019")) +
+  ylim(0, 1)+
+  theme_classic()
+
+#Comparison plot by countries
+#multiple countries barplots of school attendence
+att_year<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "School attendence") +
+  ggtitle(paste("Senegal", " 2016-2019")) +
+  ylim(0, 1)+
+  theme_classic()
+
+#multiple countries bar plot of highest level of education
+hl_bar<-ggplot(highest_level_bar_df, aes(fill=orphanhood, x=level, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "Highest level of education") +
+  ggtitle(paste("Senegal", 2019)) +
   ylim(0, 1)+
   theme_classic()
 

@@ -159,13 +159,13 @@ load("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Rwanda/fieller_RW
 load("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/Senegal/fieller_SN.Rda")
 
 # CO
-# indent outcome if there is a number in ratio column
+# indent outcome 
 fieller_CO <- df_sortyear(fieller_CO)
 fieller_CO$Outcome <- ifelse(is.na(fieller_CO$ratio), 
                              fieller_CO$Outcome,
                              paste0("   ", fieller_CO$Outcome))
 
-# use forester to create the table with forest plot
+# plot
 forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=FALSE],
          estimate = fieller_CO$ratio,
          ci_low = fieller_CO$CI_lower,
@@ -179,13 +179,13 @@ forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=F
          render_as = "png")
 
 # RW
-# indent outcome if there is a number in ratio column
+# indent outcome 
 fieller_RW <- df_sortyear(fieller_RW)
 fieller_RW$Outcome <- ifelse(is.na(fieller_RW$ratio), 
                              fieller_RW$Outcome,
                              paste0("   ", fieller_RW$Outcome))
 
-# use forester to create the table with forest plot
+# plot
 forester(left_side_data = fieller_RW[,c("Outcome","p_value","parameter"), drop=FALSE],
          estimate = fieller_RW$ratio,
          ci_low = fieller_RW$CI_lower,
@@ -199,13 +199,13 @@ forester(left_side_data = fieller_RW[,c("Outcome","p_value","parameter"), drop=F
          render_as = "png")
 
 # SN
-# indent outcome if there is a number in ratio column
+# indent outcome
 fieller_SN <- df_sortyear(fieller_SN)
 fieller_SN$Outcome <- ifelse(is.na(fieller_SN$ratio), 
                              fieller_SN$Outcome,
                              paste0("   ", fieller_SN$Outcome))
 
-# use forester to create the table with forest plot
+# plot
 forester(left_side_data = fieller_SN[,c("Outcome","p_value","parameter"), drop=FALSE],
          estimate = fieller_SN$ratio,
          ci_low = fieller_SN$CI_lower,

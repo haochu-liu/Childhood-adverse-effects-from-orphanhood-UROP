@@ -143,6 +143,15 @@ chdf2019$Orphanhood <- labelled(chdf2019$Orphanhood, label = "orphanhood")
 ```
 
 ```{r}
-
+fieller_SN1 <- fieller_child_df(chdf2010, "Senegal", "2010")
+fieller_SN2 <- fieller_child_df(chdf2012, "Senegal", "2012")
+fieller_SN3 <- fieller_child_df(chdf2014, "Senegal", "2014")
+fieller_SN4 <- fieller_child_df(chdf2015, "Senegal", "2015")
+fieller_SN5 <- fieller_child_df(chdf2016, "Senegal", "2016")
+fieller_SN6 <- fieller_child_df(chdf2017, "Senegal", "2017")
+fieller_SN7 <- fieller_child_df(chdf2018, "Senegal", "2018")
+fieller_SN8 <- fieller_child_df(chdf2019, "Senegal", "2019")
+fieller_SN <- rbind(fieller_SN1, fieller_SN2, fieller_SN3, fieller_SN4,fieller_SN5, fieller_SN6, fieller_SN7, fieller_SN8)
+save(fieller_SN,file="fieller_SN.Rda")
 ```
 

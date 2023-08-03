@@ -151,5 +151,36 @@ df_yearsort <- function(fieller_df, number_of_years) {
     forester_data
 }
   
+df_sort <- function(fieller_list){
+    # fieller_list: list of dataframe indexed by country name
+    country_name <- names(fieller_list)
+    
+    # year sort for every country 
+    for (i in 1:3){
+      fieller_df <- fieller_list[i]
+      yr <- unique(fieller_df$year)
+      fieller_data <- df_yearsort(fieller_df, length(yr))
+      
+      fieller_list[i] <- fieller_data
+    }
+    
+    forester_data <- data.frame()
+    df <- rbind(fieller_list[1], fieller_list[2], fieller_list[3])
+    unique_col <- c("ha2", "ha3", "hc2.1", "hc2.2", "hc3.1", "hc3.2")
+    
+    for (i in 1:length(unique_col)) {
+      new_df <- df[df$col_names == unique_col[i], ]
+      Outcome <- c(new_df$column_labels[1], new_df$year)
+      slice_df <- data.frame(Outcome)
+      slice_df$ratio <- c(NA, new_df$ratio)
+      slice_df$CI_lower <- c(NA, new_df$CI_lower)
+      slice_df$CI_upper <- c(NA, new_df$CI_upper)
+      slice_df$p_value <- c(NA, new_df$p_value)
+      slice_df$parameter <- c(NA, new_df$parameter)
+      forester_data <- rbind(forester_data, slice_df)
+    }
+}
+
+
 
 

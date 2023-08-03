@@ -21,7 +21,7 @@ fieller_child_df <- function(df, country, year){
   
   val_labels(cont_df) <- NULL  
   
-  fieller_df <- data.frame(matrix(ncol=7,nrow=0))
+  fieller_df <- data.frame(matrix(ncol=8,nrow=0))
   
   # 0-2 and 2-5 year groups 
   yrdf1 <<- subset(cont_df, cont_df$hv105 < 2)
@@ -63,27 +63,48 @@ fieller_child_df <- function(df, country, year){
   # Fieller
   ttr1_h <- ttestratio(ordf1$bc_height, nordf1$bc_height, var.equal=TRUE, conf.level=0.95)
   ttr2_h <- ttestratio(ordf2$bc_height, nordf2$bc_height, var.equal=TRUE, conf.level=0.95)
-  row1_h <- c("height 0-2 years", ttr1_h$estimate[3], ttr1_h$conf.int[1], ttr1_h$conf.int[2], ttr1_h$p.value, country, year)
-  row2_h <- c("height 2-5 years", ttr2_h$estimate[3], ttr2_h$conf.int[1], ttr2_h$conf.int[2], ttr2_h$p.value, country, year)
+  row1_h <- c("hc3.1","height 0-2 years", lambda_h1, ttr1_h$estimate[3], ttr1_h$conf.int[1], ttr1_h$conf.int[2], ttr1_h$p.value, country, year)
+  row2_h <- c("hc3.2","height 2-5 years", lambda_h2, ttr2_h$estimate[3], ttr2_h$conf.int[1], ttr2_h$conf.int[2], ttr2_h$p.value, country, year)
   
   ttr1_w <- ttestratio(ordf1$bc_weight, nordf1$bc_weight, var.equal=TRUE, conf.level=0.95)
   ttr2_w <- ttestratio(ordf2$bc_weight, nordf2$bc_weight, var.equal=TRUE, conf.level=0.95)
-  row1_w <- c("weight 0-2 years", ttr1_w$estimate[3], ttr1_w$conf.int[1], ttr1_w$conf.int[2], ttr1_w$p.value, country, year)
-  row2_w <- c("weight 2-5 years", ttr2_w$estimate[3], ttr2_w$conf.int[1], ttr2_w$conf.int[2], ttr2_w$p.value, country, year)
+  row1_w <- c("hc2.1","weight 0-2 years", lambda_w1, ttr1_w$estimate[3], ttr1_w$conf.int[1], ttr1_w$conf.int[2], ttr1_w$p.value, country, year)
+  row2_w <- c("hc2.2","weight 2-5 years", lambda_w2, ttr2_w$estimate[3], ttr2_w$conf.int[1], ttr2_w$conf.int[2], ttr2_w$p.value, country, year)
   
   fieller_df <- rbind(fieller_df, row1_h, row2_h, row1_w, row2_w)
-  colnames(fieller_df)<-c("col_labels","ratio","upper","lower","p-value","country","year")
+  colnames(fieller_df)<-c("col_names","col_labels","parameter","ratio","lower","upper","p-value","country","year")
   
   fieller_df
 }
 
 
+temp1 <- fieller_child_df(df2005_new, "Colombia", "2005")
+temp2 <- fieller_child_df(df2010_new, "Colombia", "2010")
+temp <- rbind(temp1, temp2)
+try <- df_yearsort(temp, 2)
 
 
+df_yearsort <- function(fieller_df, number_of_years) {
 
-
-
-
+    df <- fieller_df[order(fieller_df$col_names, fieller_df$year), ]
+    forester_data <- data.frame()
+    n <- nrow(df) / number_of_years
+    
+    a <- number_of_years
+    b <- a - 1
+    
+    for (i in 1:n) {
+      Outcome <- c(df$col_labels[1+a*(i-1)], df$year[1:a])
+      slice_df <- data.frame(Outcome)
+      slice_df$ratio <- c(NA, df$ratio[(a*i-b):(a*i)])
+      slice_df$CI_lower <- c(NA, df$lower[(a*i-b):(a*i)])
+      slice_df$CI_upper <- c(NA, df$upper[(a*i-b):(a*i)])
+      forester_data <- rbind(forester_data, slice_df)
+    }
+    
+    forester_data
+}
+  
 
 
 

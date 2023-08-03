@@ -68,4 +68,4 @@ label$hv270 <- "poor household wealth" # <=2: poor
 
 label(df2015_new) <- label
 
-save(df2000_new, file = "Colombia/Cleaning data/ df2015_new.Rda")
+save(df2015_new, file = "Colombia/Cleaning data/ df2015_new.Rda")

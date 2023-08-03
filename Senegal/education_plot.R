@@ -7,7 +7,7 @@ library(haven)
 library(labelled)
 library(ggpubr)
 
-edu_bar_df<-function(df){
+edu_bar_df<-function(df,year,country){
   #' df: input dataframe
   #' column_name: school attendence, highest educational level
   
@@ -46,14 +46,18 @@ edu_bar_df<-function(df){
   highest_level_df["CI_upper"]<-CIupper(percentage,samplesize)
   highest_level_df$percentage<-as.numeric(highest_level_df$percentage)
   
+  attendence_df["country"]<-country
+  attendence_df["year"]<-as.character(year)
+  highest_level_df["country"]<-country
+  highest_level_df["year"]<-as.character(year)
   list(attendence_df,highest_level_df)
 }
 
-
-attendence_bar_df<-edu_bar_df(chdf2019)[[1]]
-highest_level_bar_df<-edu_bar_df(chdf2019)[[2]]
+att_year_df<-rbind(edu_bar_df(chdf2016,2016,"Senegal")[[1]],edu_bar_df(chdf2017,2017,"Senegal")[[1]],edu_bar_df(chdf2018,2018,"Senegal")[[1]],edu_bar_df(chdf2019,2019,"Senegal")[[1]])
+highest_level_bar_df<-edu_bar_df(chdf2019,2019,"Senegal")[[2]]
 #highest_level_bar_df$percentage<-as.numeric(highest_level_bar_df$percentage)
 
+#single year bar plot of school attendence
 att_bar<-ggplot(attendence_bar_df, aes(x=orphan, y=percentage)) +
   geom_bar(stat="identity",width=0.5)+
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),width=0.4, colour="black", position = position_dodge(.5))+
@@ -62,12 +66,23 @@ att_bar<-ggplot(attendence_bar_df, aes(x=orphan, y=percentage)) +
   coord_flip(ylim=c(0, 1))+
   theme_classic()
 
+#single year bar plot of highest level of education
 hl_bar<-ggplot(highest_level_bar_df, aes(fill=orphanhood, x=level, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
   labs(x = "Highest level of education") +
   ggtitle(paste("Senegal", 2019)) +
+  ylim(0, 1)+
+  theme_classic()
+
+#multiple years barplots of school attendence
+att_year<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  labs(x = "School attendence") +
+  ggtitle(paste("Senegal", " 2016-2019")) +
   ylim(0, 1)+
   theme_classic()
 

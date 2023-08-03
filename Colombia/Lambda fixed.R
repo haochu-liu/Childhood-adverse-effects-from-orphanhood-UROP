@@ -29,6 +29,7 @@ df_child <- rbind(df_child_lfix(df2005_new, "Colombia", "2005", lambda_h1, lambd
                   df_child_lfix(df2010_new, "Colombia", "2010", lambda_h1, lambda_h2, lambda_w1, lambda_w2))
 
 fieller_fix_CO <- rbind(df_woman, df_child)
+save(fieller_fix_CO, file = "Colombia/fieller_fix_CO.Rda")
 
 # to use forester 
 fieller_fix_CO <- df_sortyear(fieller_fix_CO)

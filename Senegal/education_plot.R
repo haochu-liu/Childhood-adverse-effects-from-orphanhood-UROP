@@ -146,3 +146,4 @@ hl_country <- ggplot(hl_country_df, aes(fill=orphanhood, x=level, y=percentage))
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 print(hl_country)
+

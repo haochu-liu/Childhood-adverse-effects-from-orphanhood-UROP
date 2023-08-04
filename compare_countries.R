@@ -8,6 +8,7 @@ library(patchwork)
 library(scales)
 library(forester)
 
+source("functions_for_plotting.R")
 
 load("Rwanda/bar_RW_2019.Rda")
 load("Rwanda/odd_RW_2019.Rda")
@@ -15,7 +16,9 @@ load("Colombia/bar_CO_2015.Rda")
 load("Colombia/odd_CO_2015.Rda")
 load("Senegal/bar_SN_2019.Rda")
 load("Senegal/odd_SN_2019.Rda")
-
+load("Colombia/odd_edu_CO.Rda")
+load("Rwanda/odd_edu_RW.Rda")
+load("Senegal/cleaned_data_SN/odd_edu_SN.Rda")
 
 co_names <- as.character(odd_CO_2015$col_names)
 rw_names <- as.character(odd_RW_2019$col_names)
@@ -103,7 +106,6 @@ ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
   ggtitle("Odd Ratio in most recent years")
 
 
-source("functions_for_plotting.R")
 forester_df <- df_forester_country(odd_df, 3)
 
 # indent outcome if there is a number in odd_ratio column
@@ -125,4 +127,30 @@ forester(left_side_data = forester_df[,ncol(forester_df), drop=FALSE],
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
          file_path = here::here("forester_plot.png"))
+
+
+# comparison for education (hv121)
+edu_odd <- rbind(odd_edu_CO, odd_edu_RW, odd_edu_SN)
+edu_df <- df_edu_sort(edu_odd)
+
+# indent outcome if there is a number in odd_ratio column
+edu_df$Outcome <- ifelse(is.na(edu_df$odd_ratio), 
+                               edu_df$Outcome,
+                               paste0("   ", edu_df$Outcome))
+
+# use forester to create the table with forest plot
+forester(left_side_data = edu_df[,1, drop=FALSE],
+         estimate = edu_df$odd_ratio,
+         ci_low = edu_df$CI_lower,
+         ci_high = edu_df$CI_upper,
+         estimate_precision = 2,
+         null_line_at = 1,
+         ggplot_width = 40,
+         nudge_x = 0.5,
+         xlim = c(0.3,2.9),
+         estimate_col_name = "Odd Ratio (95% CI)",
+         arrows = TRUE,
+         arrow_labels = c("Non-orphan Better", "Orphan Better"),
+         point_sizes = 2.5,
+         file_path = here::here("edu_forester_plot.png"))
 

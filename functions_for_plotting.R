@@ -349,3 +349,23 @@ df_sortyear <- function(fieller_df) {
   
   forester_data
 }
+
+df_edu_sort <- function(odd_df) {
+  #' odd_df: dataframe for odds
+  
+  df <- odd_df[order(odd_df$country, odd_df$year), ]
+  forester_data <- data.frame()
+  unique_col <- unique(df$country)
+  
+  for (i in 1:length(unique_col)) {
+    new_df <- df[df$country == unique_col[i], ]
+    Outcome <- c(new_df$country[1], new_df$year)
+    slice_df <- data.frame(Outcome)
+    slice_df$odd_ratio <- c(NA, new_df$odd_ratio)
+    slice_df$CI_lower <- c(NA, new_df$CI_lower)
+    slice_df$CI_upper <- c(NA, new_df$CI_upper)
+    forester_data <- rbind(forester_data, slice_df)
+  }
+  
+  forester_data
+}

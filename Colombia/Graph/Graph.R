@@ -124,7 +124,7 @@ odd_CO_plot <- ggplot(odd_CO, aes(x = odd_ratio, y = column_labels)) +
   ggtitle("Odd Ratio for Colombia 2015") +
   theme_classic() 
 
-odd_CO_plot
+odd_CO_plot <- df_odd_ratio
 
 # odd with table
 
@@ -227,3 +227,33 @@ forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=F
          estimate_col_name = "Ratio with 95% CI",
          file_path = here::here("Colombia/fieller_plot_CO.png"), 
          render_as = "png")
+
+
+# education odd ratio plot
+df2000_edu <- df2000_new
+df2005_edu <- df2005_new
+df2010_edu <- df2010_new
+df2015_edu <- df2015_new
+
+df2000_edu$hv121[!is.na(df2000_new$hv121.1)] = df2000_new$hv121.1[!is.na(df2000_new$hv121.1)]
+df2005_edu$hv121[!is.na(df2005_new$hv121.1)] = df2005_new$hv121.1[!is.na(df2005_new$hv121.1)]
+df2010_edu$hv121[!is.na(df2010_new$hv121.1)] = df2010_new$hv121.1[!is.na(df2010_new$hv121.1)]
+df2015_edu$hv121[!is.na(df2015_new$hv121.1)] = df2015_new$hv121.1[!is.na(df2015_new$hv121.1)]
+
+col_edu <- c("hv121")
+odd_edu_CO1 <- df_odd_ratio(df2000_edu, col_edu, "Orphanhood")
+odd_edu_CO1$year <- "2000"
+
+odd_edu_CO2 <- df_odd_ratio(df2005_edu, col_edu, "Orphanhood")
+odd_edu_CO2$year <- "2005"
+
+odd_edu_CO3 <- df_odd_ratio(df2010_edu, col_edu, "Orphanhood")
+odd_edu_CO3$year <- "2010"
+
+odd_edu_CO4 <- df_odd_ratio(df2015_edu, col_edu, "Orphanhood")
+odd_edu_CO4$year <- "2015"
+
+odd_edu_CO <- rbind(odd_edu_CO1, odd_edu_CO2, odd_edu_CO3, odd_edu_CO4)
+odd_edu_CO$country <- "Colombia"
+
+save(odd_CO_2005, file = "Colombia/odd_edu_CO.Rda")

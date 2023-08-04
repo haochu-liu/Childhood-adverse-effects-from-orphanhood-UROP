@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Modelling health and education covariates
 
 ## Load health dataframes
@@ -11,14 +16,14 @@ load("Rwanda/df_2019.Rda")
 load("Rwanda/df_2014.Rda")
 load("Rwanda/df_2010.Rda")
 load("Rwanda/df_2005.Rda")
-load("Senegal/chdf2019.Rda")
-load("Senegal/chdf2018.Rda")
-load("Senegal/chdf2017.Rda")
-load("Senegal/chdf2016.Rda")
-load("Senegal/chdf2015.Rda")
-load("Senegal/chdf2014.Rda")
-load("Senegal/chdf2012.Rda")
-load("Senegal/chdf2010.Rda")
+load("Senegal/cleaned_data_SN/chdf2019.Rda")
+load("Senegal/cleaned_data_SN/chdf2018.Rda")
+load("Senegal/cleaned_data_SN/chdf2017.Rda")
+load("Senegal/cleaned_data_SN/chdf2016.Rda")
+load("Senegal/cleaned_data_SN/chdf2015.Rda")
+load("Senegal/cleaned_data_SN/chdf2014.Rda")
+load("Senegal/cleaned_data_SN/chdf2012.Rda")
+load("Senegal/cleaned_data_SN/chdf2010.Rda")
 load("Colombia/Cleaning data/ df2005_new.Rda")
 load("Colombia/Cleaning data/ df2010_new.Rda")
 
@@ -138,8 +143,6 @@ summary(lm_weight3_RW)
 
 ```{r}
 anova(lm_weight1_RW, lm_weight2_RW, lm_weight3_RW)
-
-drop1(lm_weight3_RW, test = "F")
 ```
 
 
@@ -165,8 +168,6 @@ summary(lm_weight3_SN)
 
 ```{r}
 anova(lm_weight1_SN, lm_weight2_SN, lm_weight3_SN)
-
-drop1(lm_weight3_SN, test = "F")
 ```
 
 
@@ -192,8 +193,6 @@ summary(lm_weight3_CO)
 
 ```{r}
 anova(lm_weight1_CO, lm_weight2_CO, lm_weight3_CO)
-
-drop1(lm_weight3_CO, test = "F")
 ```
 
 
@@ -221,8 +220,6 @@ summary(lm_height3_RW)
 
 ```{r}
 anova(lm_height1_RW, lm_height2_RW, lm_height3_RW)
-
-drop1(lm_height3_RW, test = "F")
 ```
 
 
@@ -248,8 +245,6 @@ summary(lm_height3_SN)
 
 ```{r}
 anova(lm_height1_SN, lm_height2_SN, lm_height3_SN)
-
-drop1(lm_height3_SN, test = "F")
 ```
 
 
@@ -275,8 +270,6 @@ summary(lm_height3_CO)
 
 ```{r}
 anova(lm_height1_CO, lm_height2_CO, lm_height3_CO)
-
-drop1(lm_height2_CO, test = "F")
 ```
 
 
@@ -288,14 +281,14 @@ load("Rwanda/df_2019.Rda")
 load("Rwanda/df_2014.Rda")
 load("Rwanda/df_2010.Rda")
 load("Rwanda/df_2005.Rda")
-load("Senegal/chdf2019.Rda")
-load("Senegal/chdf2018.Rda")
-load("Senegal/chdf2017.Rda")
-load("Senegal/chdf2016.Rda")
-load("Senegal/chdf2015.Rda")
-load("Senegal/chdf2014.Rda")
-load("Senegal/chdf2012.Rda")
-load("Senegal/chdf2010.Rda")
+load("Senegal/cleaned_data_SN/chdf2019.Rda")
+load("Senegal/cleaned_data_SN/chdf2018.Rda")
+load("Senegal/cleaned_data_SN/chdf2017.Rda")
+load("Senegal/cleaned_data_SN/chdf2016.Rda")
+load("Senegal/cleaned_data_SN/chdf2015.Rda")
+load("Senegal/cleaned_data_SN/chdf2014.Rda")
+load("Senegal/cleaned_data_SN/chdf2012.Rda")
+load("Senegal/cleaned_data_SN/chdf2010.Rda")
 load("Colombia/Cleaning data/ df2005_new.Rda")
 load("Colombia/Cleaning data/ df2010_new.Rda")
 load("Colombia/Cleaning data/ df2015_new.Rda")
@@ -427,8 +420,6 @@ summary(glm_edu3_RW)
 
 ```{r}
 anova(glm_edu1_RW, glm_edu2_RW, glm_edu3_RW)
-
-drop1(glm_edu1_RW)
 ```
 
 
@@ -454,8 +445,6 @@ summary(glm_edu3_SN)
 
 ```{r}
 anova(glm_edu1_SN, glm_edu2_SN, glm_edu3_SN)
-
-drop1(glm_edu1_SN)
 ```
 
 
@@ -481,8 +470,6 @@ summary(glm_edu3_CO)
 
 ```{r}
 anova(glm_edu1_CO, glm_edu2_CO, glm_edu3_CO)
-
-drop1(glm_edu1_CO)
 ```
 
 

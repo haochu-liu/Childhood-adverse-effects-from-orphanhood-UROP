@@ -169,3 +169,9 @@ fieller_fix_SN <- rbind(df_child)
 save(fieller_fix_SN,file="fieller_fix_SN.Rda")
 ```
 
+```{r}
+nrow(chdf2012[chdf2012$hv105>4&chdf2012$hv105<16,])
+nrow(chdf2012[chdf2012$hv105>16&chdf2012$hv105<18,])
+nrow(chdf2012[chdf2012$hv105<18,])
+```
+

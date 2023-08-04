@@ -196,7 +196,7 @@ odd_RW_2019 <- df_odd_ratio(df_2019, col_names, "Orphanhood")
 # oddplot
 odd_RW_2019$year <- year
 odd_RW_2019$country <- "Rwanda"
-odd_RW_2019$column_labels <- tolower(odd_RW_2019$column_labels)
+odd_RW_2019$column_labels <- "school attendance"
 
 # 2014
 year <- "2014"
@@ -206,7 +206,7 @@ odd_RW_2014 <- df_odd_ratio(df_2014, col_names, "Orphanhood")
 # oddplot
 odd_RW_2014$year <- year
 odd_RW_2014$country <- "Rwanda"
-odd_RW_2014$column_labels <- tolower(odd_RW_2014$column_labels)
+odd_RW_2014$column_labels <- "school attendance"
 
 # 2010
 year <- "2010"
@@ -216,7 +216,7 @@ odd_RW_2010 <- df_odd_ratio(df_2010, col_names, "Orphanhood")
 # oddplot
 odd_RW_2010$year <- year
 odd_RW_2010$country <- "Rwanda"
-odd_RW_2010$column_labels <- tolower(odd_RW_2010$column_labels)
+odd_RW_2010$column_labels <- "school attendance"
 
 # 2005
 year <- "2005"
@@ -226,7 +226,7 @@ odd_RW_2005 <- df_odd_ratio(df_2005, col_names, "Orphanhood")
 # oddplot
 odd_RW_2005$year <- year
 odd_RW_2005$country <- "Rwanda"
-odd_RW_2005$column_labels <- tolower(odd_RW_2005$column_labels)
+odd_RW_2005$column_labels <- "school attendance"
 
 odd_edu_RW <- rbind(odd_RW_2019, odd_RW_2014, odd_RW_2010, odd_RW_2005)
 

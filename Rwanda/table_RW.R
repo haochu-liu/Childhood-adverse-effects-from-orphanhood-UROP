@@ -4,7 +4,7 @@ load("Rwanda/df_2010.Rda")
 load("Rwanda/df_2005.Rda")
 
 
-col_names <- c("hv105", "Orphanhood")
+col_names <- c("hv105", "Orphanhood", "hv001", "hv002", "hvidx")
 df_2019 <- df_2019[, col_names]
 df_2014 <- df_2014[, col_names]
 df_2010 <- df_2010[, col_names]

@@ -2,6 +2,7 @@ library(rdhs)
 library(dplyr)
 library(labelled)
 library(Hmisc)
+library(tidyr)
 
 
 # survey list
@@ -129,6 +130,7 @@ label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2019) <- label
 
 # save file
+df_2019 <- df_2019 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2019, file="Rwanda/df_2019.Rda")
 
 
@@ -224,6 +226,7 @@ label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2014) <- label
 
 # save file
+df_2014 <- df_2014 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2014, file="Rwanda/df_2014.Rda")
 
 
@@ -319,6 +322,7 @@ label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2010) <- label
 
 # save file
+df_2010 <- df_2010 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2010, file="Rwanda/df_2010.Rda")
 
 
@@ -398,6 +402,7 @@ label$hc57 <- "Has anemia (child)"
 label(df_2005) <- label
 
 # save file
+df_2005 <- df_2005 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2005, file="Rwanda/df_2005.Rda")
 
 
@@ -475,6 +480,7 @@ label$hc57 <- "Has anemia (child)"
 label(df_2000) <- label
 
 # save file
+df_2000 <- df_2000 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2000, file="Rwanda/df_2000.Rda")
 
 
@@ -527,6 +533,7 @@ label$hv110.1 <- "School attendance for age 13-17"
 label(df_1992) <- label
 
 # save file
+df_1992 <- df_1992 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_1992, file="Rwanda/df_1992.Rda")
 
 

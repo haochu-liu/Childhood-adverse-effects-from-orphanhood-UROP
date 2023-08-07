@@ -62,3 +62,8 @@ label(df2000_new) <- label
 save(df2000_new, file = "Colombia/Cleaning data/ df2000_new.Rda")
 # load("Colombia/df2000_new.Rda")
 
+# hv001, hv002, hvidx, hv105, Orphanhood
+library(tidyr)
+df2000_new <- df2000_new %>% drop_na(c("hv001", "hv002", "hvidx", "hv105", "Orphanhood"))
+save(df2000_new, file = "Colombia/Cleaning data/ df2000_new.Rda")
+

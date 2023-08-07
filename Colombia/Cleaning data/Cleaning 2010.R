@@ -80,3 +80,7 @@ label$hc3 <- "child's height"
 label(df2010_new) <- label
 
 save(df2010_new, file = "Colombia/Cleaning data/ df2010_new.Rda")
+
+library(tidyr)
+df2010_new <- df2010_new %>% drop_na(c("hv001", "hv002", "hvidx", "hv105", "Orphanhood"))
+save(df2010_new, file = "Colombia/Cleaning data/ df2010_new.Rda")

@@ -82,3 +82,8 @@ label$hv105 <- "age"
 label(df2005_new) <- label
 
 save(df2005_new, file = "Colombia/Cleaning data/ df2005_new.Rda")
+
+library(tidyr)
+df2005_new <- df2005_new %>% drop_na(c("hv001", "hv002", "hvidx", "hv105", "Orphanhood"))
+save(df2005_new, file = "Colombia/Cleaning data/ df2005_new.Rda")
+

@@ -69,3 +69,8 @@ label$hv270 <- "poor household wealth" # <=2: poor
 label(df2015_new) <- label
 
 save(df2015_new, file = "Colombia/Cleaning data/ df2015_new.Rda")
+
+library(tidyr)
+df2015_new <- df2015_new %>% drop_na(c("hv001", "hv002", "hvidx", "hv105", "Orphanhood"))
+save(df2015_new, file = "Colombia/Cleaning data/ df2015_new.Rda")
+

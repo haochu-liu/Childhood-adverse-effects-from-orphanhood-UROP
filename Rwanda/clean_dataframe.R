@@ -2,6 +2,7 @@ library(rdhs)
 library(dplyr)
 library(labelled)
 library(Hmisc)
+library(tidyr)
 
 
 # survey list
@@ -45,7 +46,7 @@ df_2019 <- df_2019[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv
                        "ha40", "hb40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
                        "hv209", "hv210", "hv211", "hv212", "hv227", "hv221",
-                       "hv243a", "hv243b", "hv243e", "hv252", "hv106",
+                       "hv243a", "hv243b", "hv243e", "hv106",
                        "hv270", "hv121", "hv121",
                        "ha53", "hc53", "hb53",
                        "ha57", "hc57", "hb57",
@@ -106,7 +107,6 @@ df_2019$hc57 <- ifelse(df_2019$hc57<=3, 1, 0)
 df_2019$hb57[df_2019$hb57 > 4] <- NA
 df_2019$hb57 <- ifelse(df_2019$hb57<=3, 1, 0)
 df_2019$hml32[df_2019$hml32>1] <- NA
-df_2019$hv252[df_2019$hv252 == 9] <- NA
 df_2019$hv106[df_2019$hv106 >= 8] <- NA
 
 # labels
@@ -129,6 +129,7 @@ label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2019) <- label
 
 # save file
+df_2019 <- df_2019 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2019, file="Rwanda/df_2019.Rda")
 
 
@@ -141,7 +142,7 @@ df_2014 <- df_2014[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv
                        "ha40", "hb40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
                        "hv209", "hv210", "hv211", "hv212", "hv227", "hv221",
-                       "hv243a", "hv243b", "hv252", "hv106",
+                       "hv243a", "hv243b", "hv106",
                        "hv270", "hv121", "hv121",
                        "ha53", "hc53", "hb53",
                        "ha57", "hc57", "hb57",
@@ -201,7 +202,6 @@ df_2014$hc57 <- ifelse(df_2014$hc57<=3, 1, 0)
 df_2014$hb57[df_2014$hb57 > 4] <- NA
 df_2014$hb57 <- ifelse(df_2014$hb57<=3, 1, 0)
 df_2014$hml32[df_2014$hml32>1] <- NA
-df_2014$hv252[df_2014$hv252 == 9] <- NA
 df_2014$hv106[df_2014$hv106 >= 8] <- NA
 
 # labels
@@ -224,6 +224,7 @@ label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2014) <- label
 
 # save file
+df_2014 <- df_2014 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2014, file="Rwanda/df_2014.Rda")
 
 
@@ -236,7 +237,7 @@ df_2010 <- df_2010[, c("hvidx", "hv001", "hv002", "hv111", "hv113", "hv217", "hv
                        "ha40", "hb40",
                        "hv025", "hv201", "hv205", "hv206", "hv207", "hv208",
                        "hv209", "hv210", "hv211", "hv212", "hv227", "hv221",
-                       "hv243a", "hv243b", "hv252", "hv106",
+                       "hv243a", "hv243b", "hv106",
                        "hv270", "hv121", "hv121",
                        "ha53", "hc53", "hb53",
                        "ha57", "hc57", "hb57",
@@ -296,7 +297,6 @@ df_2010$hc57 <- ifelse(df_2010$hc57<=3, 1, 0)
 df_2010$hb57[df_2010$hb57 > 4] <- NA
 df_2010$hb57 <- ifelse(df_2010$hb57<=3, 1, 0)
 df_2010$hml32[df_2010$hml32>1] <- NA
-df_2010$hv252[df_2010$hv252 == 9] <- NA
 df_2010$hv106[df_2010$hv106 >= 8] <- NA
 
 # labels
@@ -319,6 +319,7 @@ label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2010) <- label
 
 # save file
+df_2010 <- df_2010 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2010, file="Rwanda/df_2010.Rda")
 
 
@@ -398,6 +399,7 @@ label$hc57 <- "Has anemia (child)"
 label(df_2005) <- label
 
 # save file
+df_2005 <- df_2005 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2005, file="Rwanda/df_2005.Rda")
 
 
@@ -475,6 +477,7 @@ label$hc57 <- "Has anemia (child)"
 label(df_2000) <- label
 
 # save file
+df_2000 <- df_2000 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_2000, file="Rwanda/df_2000.Rda")
 
 
@@ -527,6 +530,7 @@ label$hv110.1 <- "School attendance for age 13-17"
 label(df_1992) <- label
 
 # save file
+df_1992 <- df_1992 %>% drop_na(c("hv105", "Orphanhood", "hv001", "hv002", "hvidx"))
 save(df_1992, file="Rwanda/df_1992.Rda")
 
 

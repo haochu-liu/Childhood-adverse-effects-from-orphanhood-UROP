@@ -125,11 +125,11 @@ forester_df <- df_forester_country(odd_df, 3)
 
 # indent outcome if there is a number in odd_ratio column
 forester_df$Outcomes <- ifelse(is.na(forester_df$odd_ratio), 
-                         forester_df$group,
-                         paste0("   ", forester_df$group))
+                         forester_df$Outcomes,
+                         paste0("   ", forester_df$Outcomes))
 
 # use forester to create the table with forest plot
-forester(left_side_data = forester_df[,ncol(forester_df), drop=FALSE],
+forester(left_side_data = forester_df[,"Outcomes", drop=FALSE],
          estimate = forester_df$odd_ratio,
          ci_low = forester_df$CI_lower,
          ci_high = forester_df$CI_upper,
@@ -141,7 +141,7 @@ forester(left_side_data = forester_df[,ncol(forester_df), drop=FALSE],
          estimate_col_name = "Odd Ratio (95% CI)",
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
-         file_path = here::here("forester_plot.png"))
+         file_path = here::here("figures/forest_hd.png"))
 
 
 # comparison for education (hv121)
@@ -149,12 +149,12 @@ edu_odd <- rbind(odd_edu_CO, odd_edu_RW, odd_edu_SN)
 edu_df <- df_edu_sort(edu_odd)
 
 # indent outcome if there is a number in odd_ratio column
-edu_df$Outcome <- ifelse(is.na(edu_df$odd_ratio), 
+edu_df$Outcomes <- ifelse(is.na(edu_df$odd_ratio), 
                                edu_df$Outcome,
                                paste0("   ", edu_df$Outcome))
 
 # use forester to create the table with forest plot
-forester(left_side_data = edu_df[,1, drop=FALSE],
+forester(left_side_data = edu_df[,"Outcomes", drop=FALSE],
          estimate = edu_df$odd_ratio,
          ci_low = edu_df$CI_lower,
          ci_high = edu_df$CI_upper,
@@ -167,5 +167,5 @@ forester(left_side_data = edu_df[,1, drop=FALSE],
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
          point_sizes = 2.5,
-         file_path = here::here("edu_forester_plot.png"))
+         file_path = here::here("figures/forest_edu.png"))
 

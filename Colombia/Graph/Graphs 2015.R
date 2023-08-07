@@ -35,12 +35,6 @@ ggplot(bar_CO_2015, aes(fill = orphan, x = column_labels, y=percentage)) +
 # df_boxplot(df2015_new, col_name_c, col_orphan, "hv105")
 
 # odd
-col_name_2015b <- c("hv025","hv201","hv205", "hv206",
-                    "hv207", "hv208", "hv209", "hv210",
-                    "hv201","hv205",
-                    "hv211", "hv212", "hv221",
-                    "hv243a", "hv243e", "hv270",
-                    "hv121", "hv121.1")
 odd_CO_2015 <- df_odd_ratio(df2015_new, col_name_2015b, "Orphanhood")
 
 odd_CO_2015$year <- "2015"

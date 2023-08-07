@@ -416,17 +416,17 @@ col_label_list <- c(
   "Has telephone",
   "Poor household wealth",
   "School attendance",
-  "Highest educational level",
+  "Highest education level",
   "Has malaria",
   "Has mobile",
   "Has computer",
   "Has piped or tubed water",
   "Has toilet facility",
-  "Woman's height in centimeters (1 decimal)",
-  "Child's height in centimeters (1 decimal)",
-  "Woman's weight in kilograms (1 decimal)",
-  "Child's weight in kilograms (1 decimal)",
-  "Woman's age in years ",
+  "Woman's height in centimeters",
+  "Child's height in centimeters",
+  "Woman's weight in kilograms",
+  "Child's weight in kilograms",
+  "Woman's age in years",
   "Child's age in months"
 )
 heatmap_df <- df_isna(df_list, col_name_list, col_label_list, year_list)
@@ -440,7 +440,7 @@ heatmap_SN<-ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
                            override.aes=list(shape=15, size=7)),
          fill=guide_legend(title="Proportion of\nchildren with\nmissing outcomes")) +
   ggtitle("Senegal") +
-  theme(axis.title.y=element_blank())+
+  theme(axis.title.y=element_blank()) +
   scale_x_discrete(limits=col_label_list) +
   coord_flip()
 
@@ -448,4 +448,7 @@ continuous_2016<-select(chdf2016,c("hc1","BMI","hc2","hc3","Orphanhood","hv105")
 continuous_2017<-select(chdf2017,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
 continuous_2018<-select(chdf2018,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
 continuous_2019<-select(chdf2019,c("hc1","BMI","hc2","hc3","Orphanhood","hv105"))
+
+
+
 

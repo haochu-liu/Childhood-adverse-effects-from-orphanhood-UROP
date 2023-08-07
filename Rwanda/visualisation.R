@@ -42,7 +42,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv243e", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 box_col <- c("ha3", "hc3", "ha2", "hc2", "ha40", "ha53", "hc53")
 bar_df <- df_barplot(df_2019, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2019, box_col, "Orphanhood", "hv105")
@@ -130,7 +130,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 box_col <- c("ha3", "hc3", "hb3", "ha2", "hc2", "hb2", "ha40", "hb40", "ha53", "hc53")
 bar_df <- df_barplot(df_2014, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2014, box_col, "Orphanhood", "hv105")
@@ -241,7 +241,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 box_col <- c("ha3", "hc3", "hb3", "ha2", "hc2", "hb2", "ha40", "hb40", "ha53", "hc53")
 bar_df <- df_barplot(df_2010, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2010, box_col, "Orphanhood", "hv105")
@@ -352,7 +352,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv270",
-             "hv121", "hv121.1", "ha57", "hc57")
+             "hv121", "ha57", "hc57")
 box_col <- c("ha3", "hc3", "ha2", "hc2", "ha40", "ha53", "hc53")
 bar_df <- df_barplot(df_2005, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2005, box_col, "Orphanhood", "hv105")
@@ -459,7 +459,7 @@ col_name_list <- c("hv025", "hv201", "hv205", "hv206",
                    "hv207", "hv208", "hv209", "hv210",
                    "hv211", "hv212", "hv227", "hv221",
                    "hv243a", "hv243b", "hv243e", "hv270",
-                   "hv121", "hv121.1", "hv106", "ha57", "hc57",
+                   "hv121", "hv106", "ha57", "hc57",
                    "hml32", "ha3", "hc3", "hb3", "ha2", "hc2", "hb2",
                    "hc1", "ha40", "hb40", "ha53", "hc53")
 col_label_list <- c(
@@ -479,8 +479,7 @@ col_label_list <- c(
   "Has watch",
   "Has a computer",
   "Poor household wealth",
-  "School attendance for age 7-12 (compulsory)",
-  "School attendance for age 13-17",
+  "School attendance",
   "Highest educational level attained",
   "Has anemia (woman)",
   "Has anemia (child)",
@@ -520,7 +519,7 @@ odd_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv243e", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 odd_df <- df_odd_ratio(df_2019, odd_col, "Orphanhood")
 
 ggplot(odd_df, aes(x=odd_ratio, y=column_labels)) + 

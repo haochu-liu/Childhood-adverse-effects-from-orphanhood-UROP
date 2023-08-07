@@ -147,3 +147,11 @@ hl_country <- ggplot(hl_country_df, aes(fill=orphanhood, x=level, y=percentage))
   theme_classic()
 print(hl_country)
 
+
+odd_edu_SN<-df_odd_ratio(chdf2010,"hv121","Orphanhood")
+odd_edu_SN<-rbind(odd_edu_SN,df_odd_ratio(chdf2012,"hv121","Orphanhood"),df_odd_ratio(chdf2014,"hv121","Orphanhood"),
+                  df_odd_ratio(chdf2015,"hv121","Orphanhood"),df_odd_ratio(chdf2016,"hv121","Orphanhood"),
+                  df_odd_ratio(chdf2017,"hv121","Orphanhood"),df_odd_ratio(chdf2018,"hv121","Orphanhood"),
+                  df_odd_ratio(chdf2019,"hv121","Orphanhood"))
+odd_edu_SN["year"]<-c("2010","2012","2014","2015","2016","2017","2018","2019")
+odd_edu_SN["country"]<-"Senegal"

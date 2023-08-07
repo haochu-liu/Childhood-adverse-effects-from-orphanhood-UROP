@@ -1,3 +1,8 @@
+library(labelled)
+library(dplyr)
+
+
+
 load("Rwanda/df_2019.Rda")
 load("Rwanda/df_2014.Rda")
 load("Rwanda/df_2010.Rda")
@@ -71,4 +76,6 @@ df_household$"2005" <- c(nrow(df_2005 %>% distinct(hv001, hv002, .keep_all = TRU
                          nrow(na.omit(df_2005) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 
 
+df_household$"2019"[2] / df_household$"2019"[1]
+df_orphan$"2019"[1] / df_children$"2019"[1]
 

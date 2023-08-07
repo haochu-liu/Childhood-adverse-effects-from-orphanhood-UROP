@@ -484,17 +484,17 @@ col_label_list <- c(
   "Has anemia (woman)",
   "Has anemia (child)",
   "Has malaria",
-  "Woman's height in centimeters (1 decimal)",
-  "Child's height in centimeters (1 decimal)",
-  "Man's height in centimeters (1 decimal)",
-  "Woman's weight in kilograms (1 decimal)",
-  "Child's weight in kilograms (1 decimal)",
-  "Man's weight in kilograms (1 decimal)",
+  "Woman's height in centimeters",
+  "Child's height in centimeters",
+  "Man's height in centimeters",
+  "Woman's weight in kilograms",
+  "Child's weight in kilograms",
+  "Man's weight in kilograms",
   "Child's age in months",
   "Woman's body mass index",
   "Man's body mass index",
-  "Woman's hemoglobin level (g/dl - 1 decimal)",
-  "Child's hemoglobin level (g/dl - 1 decimal)"
+  "Woman's hemoglobin level (g/dl)",
+  "Child's hemoglobin level (g/dl)"
 )
 heatmap_df <- df_isna(df_list, col_name_list, col_label_list, year_list)
 

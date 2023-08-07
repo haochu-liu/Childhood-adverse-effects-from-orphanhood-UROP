@@ -151,8 +151,8 @@ df_forester_country <- function(odd_df, number_of_countries) {
   b <- a - 1
   
   for (i in 1:n) {
-    Outcome <- c(df$column_labels[1+a*(i-1)], df$country[1:a])
-    slice_df <- data.frame(Outcome)
+    Outcomes <- c(df$column_labels[1+a*(i-1)], df$country[1:a])
+    slice_df <- data.frame(Outcomes)
     slice_df$odd_ratio <- c(NA, df$odd_ratio[(a*i-b):(a*i)])
     slice_df$CI_lower <- c(NA, df$CI_lower[(a*i-b):(a*i)])
     slice_df$CI_upper <- c(NA, df$CI_upper[(a*i-b):(a*i)])
@@ -172,8 +172,8 @@ df_forester_year <- function(odd_df) {
   
   for (i in 1:length(unique_col)) {
     new_df <- df[df$col_names == unique_col[i], ]
-    Outcome <- c(new_df$column_labels[1], new_df$year)
-    slice_df <- data.frame(Outcome)
+    Outcomes <- c(new_df$column_labels[1], new_df$year)
+    slice_df <- data.frame(Outcomes)
     slice_df$odd_ratio <- c(NA, new_df$odd_ratio)
     slice_df$CI_lower <- c(NA, new_df$CI_lower)
     slice_df$CI_upper <- c(NA, new_df$CI_upper)

@@ -9,21 +9,8 @@ library(ggplot2)
 bar_CO <- rbind(bar_CO_2015, bar_CO_2010, bar_CO_2005, bar_CO_2000)
 save(bar_CO, file = "Colombia/bar_CO.Rda")
 
-bar_CO_plot <- ggplot(bar_CO, aes(fill=orphan, x=column_labels, y=percentage)) +
-  geom_col(width=0.5, position=position_dodge(0.5)) +
-  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
-                width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "Questions") +
-  ggtitle("Colombia") +
-  facet_wrap(~year) +
-  coord_flip(ylim=c(0, 1)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
 
-bar_CO_plot
-
-
-library(ggpubr)
+# library(ggpubr)
 # ggarrange(g1, g2, g3, g4, 
           #labels = c("2015", "2010", "2005", "2000"),
           #ncol = 2, nrow = 2)
@@ -40,13 +27,6 @@ allyear_bar<-ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) 
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-# box
-ggarrange(box_2005_ha2, box_2010_ha2, 
-          box_2005_ha3, box_2010_ha3,
-          box_2005_hc2, box_2010_hc2,
-          box_2005_hc3, box_2010_hc3,
-          box_2005_ha40, box_2010_ha40,
-          ncol = 2, nrow = 5)
 
 # heat map for NA
 
@@ -55,7 +35,7 @@ data <- list("2000" = df2000_new,
              "2005" = df2005_new,
              "2010" = df2010_new,
              "2015" = df2015_new)
-col_name <- c("hv025", "hv026","hv201", "hv205", "hv206",
+col_name <- c("hv025", "hv201", "hv205", "hv206",
               "hv207", "hv208", "hv209", "hv210",
               "hv211", "hv212", "hv221",
               "hv243a", "hv243e", "hv270",
@@ -65,7 +45,6 @@ col_name <- c("hv025", "hv026","hv201", "hv205", "hv206",
 
 col_label <- c(
   "Lives in urban area",
-  "Place of residence",
   "Has piped or tube water",
   "Has flush or pit toilet",
   "Has electricity",
@@ -79,12 +58,12 @@ col_label <- c(
   "Has mobile telephone",
   "Has a computer",
   "Poor household wealth",
-  "School attendance for age 5-16 (compulsory)",
-  "School attendance for age 17",
-  "Woman's weight in kilograms (1 decimal)",
-  "Woman's height in centimeters (1 decimal)",
-  "Child's weight in kilograms (1 decimal)",
-  "Child's height in centimeters (1 decimal)",
+  "School attendance for children age 5-16",
+  "School attendance for children age 17",
+  "Woman's weight in kilograms",
+  "Woman's height in centimeters",
+  "Child's weight in kilograms",
+  "Child's height in centimeters",
   "Woman's body mass index",
   "Child's age in months",
   "Highest education level attained")
@@ -104,10 +83,11 @@ ggplot(df_heatmap, aes(label, year, fill=na_percentage)) +
   ggtitle("Colombia") +
   coord_flip()
 
+ggsave("heatmap_CO.png",
+       path = "figures", 
+       height = 5.6, width = 8.5, dpi = 700)
 
 # odd ratio
-# ggarrange(or2000,or2005,or2010,or2015,
-#          ncol = 2, nrow = 2)
 
 odd_CO <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
 save(odd_CO, file = "Colombia/odd_CO.Rda")

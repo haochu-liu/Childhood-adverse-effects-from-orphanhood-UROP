@@ -101,37 +101,6 @@ save(odd_RW_2005, file="Rwanda/odd_RW_2005.Rda")
 
 
 
-source("Box-cox.R")
-# 2019
-year <- "2019"
-load("Rwanda/df_2019.Rda")
-val_labels(df_2019) <- NULL
-fielle_child_2019 <- fieller_child_df(df_2019, "Rwanda", year)
-fielle_woman_2019 <- fieller_woman_df(df_2019, "Rwanda", year)
-
-# 2014
-year <- "2014"
-load("Rwanda/df_2014.Rda")
-val_labels(df_2014) <- NULL
-fielle_child_2014 <- fieller_child_df(df_2014, "Rwanda", year)
-fielle_woman_2014 <- fieller_woman_df(df_2014, "Rwanda", year)
-
-# 2010
-year <- "2010"
-load("Rwanda/df_2010.Rda")
-val_labels(df_2010) <- NULL
-fielle_child_2010 <- fieller_child_df(df_2010, "Rwanda", year)
-fielle_woman_2010 <- fieller_woman_df(df_2010, "Rwanda", year)
-
-# 2005
-year <- "2005"
-load("Rwanda/df_2005.Rda")
-val_labels(df_2005) <- NULL
-fielle_child_2005 <- fieller_child_df(df_2005, "Rwanda", year)
-fielle_woman_2005 <- fieller_woman_df(df_2005, "Rwanda", year)
-
-
-
 # 2019
 year <- "2019"
 load("Rwanda/df_2019.Rda")

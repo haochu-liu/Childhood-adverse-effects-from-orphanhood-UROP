@@ -40,6 +40,10 @@ att_year_CO <- ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
   theme_classic()
 print(att_year_CO)
 
+ggsave("bar_CO_attendence.png",
+       path = "figures", 
+       height = 5.6, width = 8.5, dpi = 700)
+
 # multiple years barplots of highest level of education
 hl_year_CO <- ggplot(hl_year_df, aes(fill=orphanhood, x=level, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -53,4 +57,7 @@ hl_year_CO <- ggplot(hl_year_df, aes(fill=orphanhood, x=level, y=percentage)) +
   theme_classic()
 print(hl_year_CO)
 
+ggsave("bar_CO_level15.png",
+       path = "figures", 
+       height = 5.6, width = 8.5, dpi = 700)
 

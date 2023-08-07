@@ -100,48 +100,6 @@ save(bar_RW_2005, file="Rwanda/bar_RW_2005.Rda")
 save(odd_RW_2005, file="Rwanda/odd_RW_2005.Rda")
 
 
-# 2000
-year <- "2000"
-load("Rwanda/df_2000.Rda")
-col_names <- c("hv025", "hv201", "hv205", "hv206",
-               "hv207", "hv208", "hv209", "hv210",
-               "hv211", "hv212", "hv227", "hv221")
-bar_RW_2000 <- df_barplot(df_2000, col_names, "Orphanhood")
-odd_RW_2000 <- df_odd_ratio(df_2000, col_names, "Orphanhood")
-# barplot
-bar_RW_2000$year <- year
-bar_RW_2000$country <- "Rwanda"
-bar_RW_2000$column_labels <- tolower(bar_RW_2000$column_labels)
-# oddplot
-odd_RW_2000$year <- year
-odd_RW_2000$country <- "Rwanda"
-odd_RW_2000$column_labels <- tolower(odd_RW_2000$column_labels)
-
-save(bar_RW_2000, file="Rwanda/bar_RW_2000.Rda")
-save(odd_RW_2000, file="Rwanda/odd_RW_2000.Rda")
-
-
-# 1992
-year <- "1992"
-load("Rwanda/df_1992.Rda")
-col_names <- c("hv025", "hv201", "hv205", "hv206",
-               "hv207", "hv209", "hv210",
-               "hv211", "hv212")
-bar_RW_1992 <- df_barplot(df_1992, col_names, "Orphanhood")
-odd_RW_1992 <- df_odd_ratio(df_1992, col_names, "Orphanhood")
-# barplot
-bar_RW_1992$year <- year
-bar_RW_1992$country <- "Rwanda"
-bar_RW_1992$column_labels <- tolower(bar_RW_1992$column_labels)
-# oddplot
-odd_RW_1992$year <- year
-odd_RW_1992$country <- "Rwanda"
-odd_RW_1992$column_labels <- tolower(odd_RW_1992$column_labels)
-
-save(bar_RW_1992, file="Rwanda/bar_RW_1992.Rda")
-save(odd_RW_1992, file="Rwanda/odd_RW_1992.Rda")
-
-
 
 source("Box-cox.R")
 # 2019
@@ -171,19 +129,6 @@ load("Rwanda/df_2005.Rda")
 val_labels(df_2005) <- NULL
 fielle_child_2005 <- fieller_child_df(df_2005, "Rwanda", year)
 fielle_woman_2005 <- fieller_woman_df(df_2005, "Rwanda", year)
-
-# 2000
-year <- "2000"
-load("Rwanda/df_2000.Rda")
-val_labels(df_2000) <- NULL
-fielle_child_2000 <- fieller_child_df(df_2000, "Rwanda", year)
-
-fieller_RW <- rbind(fielle_child_2019, fielle_woman_2019,
-                    fielle_child_2014, fielle_woman_2014,
-                    fielle_child_2010, fielle_woman_2010,
-                    fielle_child_2005, fielle_woman_2005,
-                    fielle_child_2000)
-save(fieller_RW, file="Rwanda/fieller_RW.Rda")
 
 
 

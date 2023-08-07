@@ -9,23 +9,23 @@ library(scales)
 
 
 # lineplot for orphanhood
-load("Rwanda/survey_list.Rda")
-survey_list <- as.data.frame(survey_list)
-colnames(survey_list) <- c("Rwanda", "1992", "2000", "2005", "2007", "2010",
-                           "2013", "2014", "2017", "2019")
-year_list <- c("1992", "2000", "2005", "2010", "2014", "2019")
-years <- as.Date(year_list, format = "%Y")
-orphan_history <- data.frame(years)
-orphan_history$under_18 <- as.numeric(survey_list[3, year_list])
-orphan_history$orphan <- as.numeric(survey_list[4, year_list])
-orphan_history$percentage <- mapply('/', as.numeric(orphan_history$orphan),
-                                    as.numeric(orphan_history$under_18))
-
-plot(orphan_history$years, orphan_history$percentage,
-     type="b", lwd=2, lty = 2, col="#00AFBB", bty="l", pch=20, cex=2,
-     xlab="Year", ylab="# of orphans / # of underages", main="Rwanda")
-abline(v = as.Date(c("1994"), format = "%Y"), col="#FC4E07", lwd=3)
-text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
+# load("Rwanda/survey_list.Rda")
+# survey_list <- as.data.frame(survey_list)
+# colnames(survey_list) <- c("Rwanda", "1992", "2000", "2005", "2007", "2010",
+#                            "2013", "2014", "2017", "2019")
+# year_list <- c("1992", "2000", "2005", "2010", "2014", "2019")
+# years <- as.Date(year_list, format = "%Y")
+# orphan_history <- data.frame(years)
+# orphan_history$under_18 <- as.numeric(survey_list[3, year_list])
+# orphan_history$orphan <- as.numeric(survey_list[4, year_list])
+# orphan_history$percentage <- mapply('/', as.numeric(orphan_history$orphan),
+#                                     as.numeric(orphan_history$under_18))
+# 
+# plot(orphan_history$years, orphan_history$percentage,
+#      type="b", lwd=2, lty = 2, col="#00AFBB", bty="l", pch=20, cex=2,
+#      xlab="Year", ylab="# of orphans / # of underages", main="Rwanda")
+# abline(v = as.Date(c("1994"), format = "%Y"), col="#FC4E07", lwd=3)
+# text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
 
 
 # import functions
@@ -511,6 +511,8 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   theme(axis.title.y=element_blank()) +
   ggtitle("Rwanda") +
   coord_flip()
+ggsave("heatmap_RW.png",
+       path="figures", dpi=700, height = 5.6, width = 8.5)
 
 
 # odd plots

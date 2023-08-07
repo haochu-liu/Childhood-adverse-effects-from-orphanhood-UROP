@@ -69,65 +69,74 @@ df2015 <- data.frame(df2015)
 # sum(is.na(df2005$hv227))==nrow(df2005)
 
 # summary
-val_labels(df2000_new) <- NULL
-val_labels(df2005_new) <- NULL
-val_labels(df2010_new) <- NULL
-val_labels(df2015_new) <- NULL
-
-nrow(df2000_new[df2000_new$hv105<18,])
-nrow(df2000_new[df2000_new$hv105<5,])
-nrow(df2000_new[df2000_new$hv105>=5 & df2000_new$hv105<16,])
-nrow(df2000_new[df2000_new$hv105>=16 & df2000_new$hv105<18,])
-
-nrow(df2005_new[df2005_new$hv105<18,])
-nrow(df2005_new[df2005_new$hv105<5,])
-nrow(df2005_new[df2005_new$hv105>=5 & df2005_new$hv105<16,])
-nrow(df2005_new[df2005_new$hv105>=16 & df2005_new$hv105<18,])
-
-nrow(df2010_new[df2010_new$hv105<18,])
-nrow(df2010_new[df2010_new$hv105<5,])
-nrow(df2010_new[df2010_new$hv105>=5 & df2010_new$hv105<16,])
-nrow(df2010_new[df2010_new$hv105>=16 & df2010_new$hv105<18,])
-
-nrow(df2015_new[df2015_new$hv105<18,])
-nrow(df2015_new[df2015_new$hv105<5,])
-nrow(df2015_new[df2015_new$hv105>=5 & df2015_new$hv105<16,])
-nrow(df2015_new[df2015_new$hv105>=16 & df2015_new$hv105<18,])
-
-nrow(df2000_new[df2000_new$hv105<18 & df2000_new$Orphanhood == "orphan",])
-nrow(df2000_new[df2000_new$hv105<5 & df2000_new$Orphanhood == "orphan",])
-nrow(df2000_new[df2000_new$hv105>=5 & df2000_new$hv105<16 & df2000_new$Orphanhood == "orphan",])
-nrow(df2000_new[df2000_new$hv105>=16 & df2000_new$hv105<18 & df2000_new$Orphanhood == "orphan",])
-
-nrow(df2005_new[df2005_new$hv105<18 & df2005_new$Orphanhood == "orphan",])
-nrow(df2005_new[df2005_new$hv105<5 & df2005_new$Orphanhood == "orphan",])
-nrow(df2005_new[df2005_new$hv105>=5 & df2005_new$hv105<16 & df2005_new$Orphanhood == "orphan",])
-nrow(df2005_new[df2005_new$hv105>=16 & df2005_new$hv105<18 & df2005_new$Orphanhood == "orphan",])
-
-nrow(df2010_new[df2010_new$hv105<18 & df2010_new$Orphanhood == "orphan",])
-nrow(df2010_new[df2010_new$hv105<5 & df2010_new$Orphanhood == "orphan",])
-nrow(df2010_new[df2010_new$hv105>=5 & df2010_new$hv105<16 & df2010_new$Orphanhood == "orphan",])
-nrow(df2010_new[df2010_new$hv105>=16 & df2010_new$hv105<18 & df2010_new$Orphanhood == "orphan",])
-
-nrow(df2015_new[df2015_new$hv105<18 & df2015_new$Orphanhood == "orphan",])
-nrow(df2015_new[df2015_new$hv105<5 & df2015_new$Orphanhood == "orphan",])
-nrow(df2015_new[df2015_new$hv105>=5 & df2015_new$hv105<16 & df2015_new$Orphanhood == "orphan",])
-nrow(df2015_new[df2015_new$hv105>=16 & df2015_new$hv105<18 & df2015_new$Orphanhood == "orphan",])
 
 ###
 year <- c("household", "household with orphan")
 df_household <- data.frame(year)
-df2000_new$Orphanhood[df2000_new$Orphanhood == "non-orphan"] <- NA
-df_household$"2000" <- c(nrow(df2000_new %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(df2000_new) %>% distinct(hv001, hv002, .keep_all = TRUE)))
-df2005_new$Orphanhood[df2005_new$Orphanhood == "non-orphan"] <- NA
-df_household$"2005" <- c(nrow(df2005_new %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(df2005_new) %>% distinct(hv001, hv002, .keep_all = TRUE)))
-df2010_new$Orphanhood[df2010_new$Orphanhood == "non-orphan"] <- NA
-df_household$"2010" <- c(nrow(df2010_new %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(df2010_new) %>% distinct(hv001, hv002, .keep_all = TRUE)))
-df2015_new$Orphanhood[df2015_new$Orphanhood == "non-orphan"] <- NA
-df_household$"2015" <- c(nrow(df2015_new %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(df2015_new) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+df2000_hd <- df2000_new[,c("hv001","hv002","hvidx","hv105","Orphanhood")] 
+df2005_hd <- df2005_new[,c("hv001","hv002","hvidx","hv105","Orphanhood")] 
+df2010_hd <- df2010_new[,c("hv001","hv002","hvidx","hv105","Orphanhood")] 
+df2015_hd <- df2015_new[,c("hv001","hv002","hvidx","hv105","Orphanhood")] 
+
+library(haven)
+library(labelled)
+val_labels(df2000_hd) <- NULL
+val_labels(df2005_hd) <- NULL
+val_labels(df2010_hd) <- NULL
+val_labels(df2015_hd) <- NULL
+
+col <- c("Children under 18", "Children aged 0-4 years",
+          "Children aged 5-15 years", "Children aged 16-18 years",
+         "Orphan under 18", "Orphan aged 0-4 years",
+         "Orphan aged 5-15 years", "Orphan aged 16-18 years")
+df_data <- data.frame(col)
+df_data$"2000" <- c(sum(df2000_hd$hv105<18),
+                    sum(df2000_hd$hv105<5),
+                    sum(df2000_hd$hv105>=5 & df2000_hd$hv105<16),
+                    sum(df2000_hd$hv105>=16 & df2000_hd$hv105<18),
+                    sum(df2000_hd$hv105<18 & df2000_hd$Orphanhood=="orphan"),
+                    sum(df2000_hd$hv105<5 & df2000_hd$Orphanhood=="orphan"),
+                    sum(df2000_hd$hv105>=5 & df2000_hd$hv105<16 & df2000_hd$Orphanhood=="orphan"),
+                    sum(df2000_hd$hv105>=16 & df2000_hd$hv105<18 & df2000_hd$Orphanhood=="orphan"))
+df_data$"2005" <- c(sum(df2005_hd$hv105<18),
+                    sum(df2005_hd$hv105<5),
+                    sum(df2005_hd$hv105>=5 & df2005_hd$hv105<16),
+                    sum(df2005_hd$hv105>=16 & df2005_hd$hv105<18),
+                    sum(df2005_hd$hv105<18 & df2005_hd$Orphanhood=="orphan"),
+                    sum(df2005_hd$hv105<5 & df2005_hd$Orphanhood=="orphan"),
+                    sum(df2005_hd$hv105>=5 & df2005_hd$hv105<16 & df2005_hd$Orphanhood=="orphan"),
+                    sum(df2005_hd$hv105>=16 & df2005_hd$hv105<18 & df2005_hd$Orphanhood=="orphan"))
+df_data$"2010" <- c(sum(df2010_hd$hv105<18),
+                    sum(df2010_hd$hv105<5),
+                    sum(df2010_hd$hv105>=5 & df2010_hd$hv105<16),
+                    sum(df2010_hd$hv105>=16 & df2010_hd$hv105<18),
+                    sum(df2010_hd$hv105<18 & df2010_hd$Orphanhood=="orphan"),
+                    sum(df2010_hd$hv105<5 & df2010_hd$Orphanhood=="orphan"),
+                    sum(df2010_hd$hv105>=5 & df2010_hd$hv105<16 & df2010_hd$Orphanhood=="orphan"),
+                    sum(df2010_hd$hv105>=16 & df2010_hd$hv105<18 & df2010_hd$Orphanhood=="orphan"))
+df_data$"2015" <- c(sum(df2015_hd$hv105<18),
+                    sum(df2015_hd$hv105<5),
+                    sum(df2015_hd$hv105>=5 & df2015_hd$hv105<16),
+                    sum(df2015_hd$hv105>=16 & df2015_hd$hv105<18),
+                    sum(df2015_hd$hv105<18 & df2015_hd$Orphanhood=="orphan"),
+                    sum(df2015_hd$hv105<5 & df2015_hd$Orphanhood=="orphan"),
+                    sum(df2015_hd$hv105>=5 & df2015_hd$hv105<16 & df2015_hd$Orphanhood=="orphan"),
+                    sum(df2015_hd$hv105>=16 & df2015_hd$hv105<18 & df2015_hd$Orphanhood=="orphan"))
+
+View(df_data)
+
+
+df2000_hd$Orphanhood[df2000_hd$Orphanhood == "non-orphan"] <- NA
+df_household$"2000" <- c(nrow(df2000_hd %>% distinct(hv001, hv002, .keep_all = TRUE)),
+                         nrow(na.omit(df2000_hd) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+df2005_hd$Orphanhood[df2005_hd$Orphanhood == "non-orphan"] <- NA
+df_household$"2005" <- c(nrow(df2005_hd %>% distinct(hv001, hv002, .keep_all = TRUE)),
+                         nrow(na.omit(df2005_hd) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+df2010_hd$Orphanhood[df2010_hd$Orphanhood == "non-orphan"] <- NA
+df_household$"2010" <- c(nrow(df2010_hd %>% distinct(hv001, hv002, .keep_all = TRUE)),
+                         nrow(na.omit(df2010_hd) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+df2015_hd$Orphanhood[df2015_hd$Orphanhood == "non-orphan"] <- NA
+df_household$"2015" <- c(nrow(df2015_hd %>% distinct(hv001, hv002, .keep_all = TRUE)),
+                         nrow(na.omit(df2015_hd) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 View(df_household)
 

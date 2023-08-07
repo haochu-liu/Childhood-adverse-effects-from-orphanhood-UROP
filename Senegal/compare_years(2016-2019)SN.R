@@ -56,6 +56,16 @@ ggplot(appliance_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   theme_classic() +
   ggtitle("Orphanhood Data of 4 years in Senegal(Appliance)")
 
+ggplot(appliance_df_SN, aes(fill=orphan, x=year, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  ggtitle("Orphanhood Data of 4 years in Senegal(Appliance)")
 
 #odd ratio plot
 odd2016$year<-"2016"

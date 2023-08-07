@@ -506,7 +506,7 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   geom_point(data=heatmap_df, aes(size="Question missing"), shape=NA, colour="grey") +
   guides(size=guide_legend("Not applicable",
                            override.aes=list(shape=15, size=7)),
-         fill=guide_legend(title="Proportion of \nchildren with missing outcomes")) +
+         fill=guide_legend(title="Proportion of \nchildren with \nmissing outcomes")) +
   scale_x_discrete(limits=col_label_list) +
   theme(axis.title.y=element_blank()) +
   ggtitle("Rwanda") +

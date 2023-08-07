@@ -12,8 +12,8 @@ source("functions_for_plotting.R")
 
 load("Rwanda/bar_RW_2019.Rda")
 load("Rwanda/odd_RW_2019.Rda")
-load("Colombia/bar_CO_2015.Rda")
-load("Colombia/odd_CO_2015.Rda")
+load("Colombia/Cleaning data/bar_CO_2015.Rda")
+load("Colombia/Cleaning data/odd_CO_2015.Rda")
 load("Senegal/cleaned_data_SN/bar_SN_2019.Rda")
 load("Senegal/cleaned_data_SN/odd_SN_2019.Rda")
 load("Colombia/odd_edu_CO.Rda")
@@ -36,12 +36,15 @@ odd_SN_2019 <- odd_SN_2019[is.element(odd_SN_2019$col_names, in_names), ]
 
 bar_df <- rbind(bar_CO_2015, bar_RW_2019, bar_SN_2019)
 odd_df <- rbind(odd_CO_2015, odd_RW_2019, odd_SN_2019)
+bar_df$column_labels[bar_df$column_names=="hv221"] <- "has telephone (land-line)"
 
-#4 categories
+#5 categories
+
+amenities_df<-bar_df[bar_df$column_names %in% c('hv201','hv205','hv207'),]
 vehicle_df<-bar_df[bar_df$column_names %in% c('hv210','hv211','hv212'),]
 wealth_df<-bar_df[bar_df$column_names %in% c('hv025','hv270'),]
-communication_df<-bar_df[bar_df$column_names %in% c('hv221','hv243a','hv243e'),]
-appliance_df<-bar_df[bar_df$column_names %in% c('hv206','hv207','hv208','hv209'),]
+communication_df<-bar_df[bar_df$column_names %in% c('hv221','hv243a','hv207'),]
+appliance_df<-bar_df[bar_df$column_names %in% c('hv243e','hv227','hv208','hv209'),]
 
 ggplot(vehicle_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -52,7 +55,7 @@ ggplot(vehicle_df, aes(fill=orphan, x=country, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data of Most Recent Year(Vehicle)")
+  ggtitle("Household Data in Most Recent Year(Vehicle)")
 
 ggplot(wealth_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -63,7 +66,7 @@ ggplot(wealth_df, aes(fill=orphan, x=country, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data of Most Recent Year(Wealth)")
+  ggtitle("Household Data in Most Recent Year(Wealth Index and Residence)")
 
 ggplot(communication_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -74,7 +77,7 @@ ggplot(communication_df, aes(fill=orphan, x=country, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data of Most Recent Year(Communication)")
+  ggtitle("Household Data in Most Recent Year(Communication Devices)")
 
 ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -85,7 +88,18 @@ ggplot(appliance_df, aes(fill=orphan, x=country, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data of Most Recent Year(Appliance)")
+  ggtitle("Household Data in Most Recent Year(Additional Household Items)")
+
+ggplot(amenities_df, aes(fill=orphan, x=country, y=percentage)) +
+  geom_col(width=0.5, position=position_dodge(0.5)) +
+  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
+                width=0.4, colour="black", position = position_dodge(.5)) +
+  ylim(c(0,1))+
+  labs(x = "Questions") +
+  facet_wrap(~column_labels) +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_classic() +
+  ggtitle("Household Data in Most Recent Year(Basic Household Amenities)")
 
 
 # odd plot for three countries

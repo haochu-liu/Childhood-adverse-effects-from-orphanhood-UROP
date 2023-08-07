@@ -24,7 +24,7 @@ ggplot(bar_CO_2000, aes(fill = orphan, x = column_labels, y=percentage)) +
 
 bar_CO_2000$year <- "2000"
 bar_CO_2000$country <- "Colombia"
-save(bar_CO_2000, file = "Colombia/bar_CO_2000.Rda")
+save(bar_CO_2000, file = "Colombia/Cleaning data/bar_CO_2000.Rda")
 
 # odd
 odd_CO_2000 <- df_odd_ratio(df2000_new, col_name_2000b, "Orphanhood")
@@ -50,5 +50,5 @@ ggplot(odd_CO_2000, aes(x = odd_ratio, y = column_labels)) +
 
 odd_CO_2000$year <- "2000"
 odd_CO_2000$country <- "Colombia"
-save(odd_CO_2000, file = "Colombia/odd_CO_2000.Rda")
+save(odd_CO_2000, file = "Colombia/Cleaning data/odd_CO_2000.Rda")
 

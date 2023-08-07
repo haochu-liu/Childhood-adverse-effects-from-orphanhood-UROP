@@ -18,7 +18,7 @@ bar_CO_2015 <- df_barplot(df2015_new, col_name_2015b, "Orphanhood")
 
 bar_CO_2015$year <- "2015"
 bar_CO_2015$country <- "Colombia"
-save(bar_CO_2015, file = "Colombia/bar_CO_2015.Rda")
+save(bar_CO_2015, file = "Colombia/Cleaning data/bar_CO_2015.Rda")
 
 ggplot(bar_CO_2015, aes(fill = orphan, x = column_labels, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -39,7 +39,7 @@ odd_CO_2015 <- df_odd_ratio(df2015_new, col_name_2015b, "Orphanhood")
 
 odd_CO_2015$year <- "2015"
 odd_CO_2015$country <- "Colombia"
-save(odd_CO_2015, file = "Colombia/odd_CO_2015.Rda")
+save(odd_CO_2015, file = "Colombia/Cleaning data/odd_CO_2015.Rda")
 
 or2015 <- ggplot(odd_CO_2015, aes(x = odd_ratio, y = column_labels)) + 
     geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
@@ -61,3 +61,4 @@ or2015 <- ggplot(odd_CO_2015, aes(x = odd_ratio, y = column_labels)) +
         axis.title.x = element_text(size = 12, colour = "black"))
 
 or2015
+

@@ -29,19 +29,27 @@ allyear_bar<-ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)) 
 
 
 # heat map for NA
+df2000_edu <- df2000_new
+df2005_edu <- df2005_new
+df2010_edu <- df2010_new
+df2015_edu <- df2015_new
+
+df2000_edu$hv121[!is.na(df2000_new$hv121.1)] = df2000_new$hv121.1[!is.na(df2000_new$hv121.1)]
+df2005_edu$hv121[!is.na(df2005_new$hv121.1)] = df2005_new$hv121.1[!is.na(df2005_new$hv121.1)]
+df2010_edu$hv121[!is.na(df2010_new$hv121.1)] = df2010_new$hv121.1[!is.na(df2010_new$hv121.1)]
+df2015_edu$hv121[!is.na(df2015_new$hv121.1)] = df2015_new$hv121.1[!is.na(df2015_new$hv121.1)]
 
 year <- c("2000", "2005", "2010", "2015")
-data <- list("2000" = df2000_new,
-             "2005" = df2005_new,
-             "2010" = df2010_new,
-             "2015" = df2015_new)
+data <- list("2000" = df2000_edu,
+             "2005" = df2005_edu,
+             "2010" = df2010_edu,
+             "2015" = df2015_edu)
 col_name <- c("hv025", "hv201", "hv205", "hv206",
               "hv207", "hv208", "hv209", "hv210",
               "hv211", "hv212", "hv221",
               "hv243a", "hv243e", "hv270",
-              "hv121", "hv121.1", 
-              "ha2", "ha3", "hc2","hc3", "ha40",
-              "hc1","hv106")
+              "hv121","hv106",
+              "ha2", "ha3", "ha40", "hc2", "hc3", "hc1")
 
 col_label <- c(
   "Lives in urban area",
@@ -58,15 +66,14 @@ col_label <- c(
   "Has mobile telephone",
   "Has a computer",
   "Poor household wealth",
-  "School attendance for children age 5-16",
-  "School attendance for children age 17",
+  "School attendance",
+  "Highest education level attained",
   "Woman's weight in kilograms",
   "Woman's height in centimeters",
+  "Woman's body mass index",
   "Child's weight in kilograms",
   "Child's height in centimeters",
-  "Woman's body mass index",
-  "Child's age in months",
-  "Highest education level attained")
+  "Child's age in months")
 
 df_heatmap <- df_isna(data, col_name, col_label, year)
 
@@ -77,7 +84,7 @@ ggplot(df_heatmap, aes(label, year, fill=na_percentage)) +
   geom_point(data=df_heatmap, aes(size="Question missing"), shape=NA, colour="grey") +
   guides(size=guide_legend("Not applicable",
                            override.aes=list(shape=15, size=7)),
-         fill=guide_legend(title="Proportion of children with missing outcomes")) +
+         fill=guide_legend(title="Proportion of\nchildren with\nmissing outcomes")) +
   theme(axis.title.y=element_blank()) +
   scale_x_discrete(limits=col_label) +
   ggtitle("Colombia") +
@@ -91,39 +98,6 @@ ggsave("heatmap_CO.png",
 
 odd_CO <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
 save(odd_CO, file = "Colombia/odd_CO.Rda")
-
-odd_CO_plot <- ggplot(odd_CO, aes(x = odd_ratio, y = column_labels)) + 
-  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
-  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
-                   0.25, color = "gray50") +
-  geom_point(shape = 18, size = 3, color = "orange") +
-  theme_bw() +
-  theme(panel.grid.minor = element_blank()) +
-  ylab("Outcomes") +
-  xlab("Odds ratio (95% CI)") +
-  ggtitle("Odd Ratio for Colombia 2015") +
-  theme_classic() 
-
-odd_CO_plot <- df_odd_ratio
-
-# odd with table
-
-years <- c("2000", "2005", "2010", "2015")
-table <- df_forester(allyear_CO_odd, col_label, years)
-
-# indent outcome if there is a number in odd_ratio column
-table$Outcomes <- ifelse(is.na(table$Odd_Ratio), 
-                         table$Outcomes,
-                         paste0("   ", table$Outcomes))
-
-# use forester to create the table with forest plot
-forester(left_side_data = table[,1],
-         estimate = table$Odd_Ratio,
-         ci_low = table$`CI_lower`,
-         ci_high = table$`CI_upper`,
-         display = FALSE,
-         xlim = c(-100, 25),
-         file_path = here::here("Colombia/forester_plot.png"))
 
 # compare years -- bar
 

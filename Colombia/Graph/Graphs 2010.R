@@ -6,7 +6,7 @@ library(ggplot2)
 library(Hmisc)
 library(labelled)
 # bar plot
-col_name_2010b <- c("hv025","hv201","hv205", 
+col_name_2010b <- c("hv025","hv201","hv205", "hv206",
                     "hv207", "hv208", "hv209", "hv210",
                     "hv211", "hv212", "hv221",
                     "hv243a", "hv270",

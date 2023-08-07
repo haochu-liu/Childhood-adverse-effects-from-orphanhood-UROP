@@ -76,6 +76,8 @@ label$ha2 <- "woman's weight"
 label$ha3 <- "woman's height"
 label$hc2 <- "child's weight"
 label$hc3 <- "child's height"
+label$hv221 <- "has telephone (land-line)"
+label$hv243a <- "has mobile telephone"
 
 label(df2010_new) <- label
 

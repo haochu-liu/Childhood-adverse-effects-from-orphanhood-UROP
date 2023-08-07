@@ -75,8 +75,19 @@ odd2018$year<-"2018"
 odd2019$year<-"2019"
 odd_SN<-rbind(odd2016,odd2017,odd2018,odd2019)
 odd_SN$country<-"Senegal"
+
+odd_SN$column_labels[odd_SN$col_names=="hv221"] <- "has telephone (land-line)"
+odd_SN$column_labels[odd_SN$col_names=="hv205"] <- "has flush or pit toilet"
+
 odd_SN<-odd_SN[is.na(odd_SN$odd_ratio)==FALSE,]
+
+odd_SN$column_labels<-tolower(odd_SN$column_labels)
+
+odd_SN<-odd_SN[odd_SN$col_names!="hv121",]
+odd_SN<-odd_SN[odd_SN$col_names!="hml35",]
 save(odd_SN,file="Senegal/cleaned_data_SN/odd_SN.Rda")
+
+
 
 bar_SN_2019<-dfbar2019
 odd_SN_2019<-dfodd2019

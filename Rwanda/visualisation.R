@@ -9,23 +9,23 @@ library(scales)
 
 
 # lineplot for orphanhood
-load("Rwanda/survey_list.Rda")
-survey_list <- as.data.frame(survey_list)
-colnames(survey_list) <- c("Rwanda", "1992", "2000", "2005", "2007", "2010",
-                           "2013", "2014", "2017", "2019")
-year_list <- c("1992", "2000", "2005", "2010", "2014", "2019")
-years <- as.Date(year_list, format = "%Y")
-orphan_history <- data.frame(years)
-orphan_history$under_18 <- as.numeric(survey_list[3, year_list])
-orphan_history$orphan <- as.numeric(survey_list[4, year_list])
-orphan_history$percentage <- mapply('/', as.numeric(orphan_history$orphan),
-                                    as.numeric(orphan_history$under_18))
-
-plot(orphan_history$years, orphan_history$percentage,
-     type="b", lwd=2, lty = 2, col="#00AFBB", bty="l", pch=20, cex=2,
-     xlab="Year", ylab="# of orphans / # of underages", main="Rwanda")
-abline(v = as.Date(c("1994"), format = "%Y"), col="#FC4E07", lwd=3)
-text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
+# load("Rwanda/survey_list.Rda")
+# survey_list <- as.data.frame(survey_list)
+# colnames(survey_list) <- c("Rwanda", "1992", "2000", "2005", "2007", "2010",
+#                            "2013", "2014", "2017", "2019")
+# year_list <- c("1992", "2000", "2005", "2010", "2014", "2019")
+# years <- as.Date(year_list, format = "%Y")
+# orphan_history <- data.frame(years)
+# orphan_history$under_18 <- as.numeric(survey_list[3, year_list])
+# orphan_history$orphan <- as.numeric(survey_list[4, year_list])
+# orphan_history$percentage <- mapply('/', as.numeric(orphan_history$orphan),
+#                                     as.numeric(orphan_history$under_18))
+# 
+# plot(orphan_history$years, orphan_history$percentage,
+#      type="b", lwd=2, lty = 2, col="#00AFBB", bty="l", pch=20, cex=2,
+#      xlab="Year", ylab="# of orphans / # of underages", main="Rwanda")
+# abline(v = as.Date(c("1994"), format = "%Y"), col="#FC4E07", lwd=3)
+# text(x=as.Date(c("1994"), format = "%Y"), y=0.2, 'Genocide')
 
 
 # import functions
@@ -42,7 +42,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv243e", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 box_col <- c("ha3", "hc3", "ha2", "hc2", "ha40", "ha53", "hc53")
 bar_df <- df_barplot(df_2019, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2019, box_col, "Orphanhood", "hv105")
@@ -130,7 +130,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 box_col <- c("ha3", "hc3", "hb3", "ha2", "hc2", "hb2", "ha40", "hb40", "ha53", "hc53")
 bar_df <- df_barplot(df_2014, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2014, box_col, "Orphanhood", "hv105")
@@ -241,7 +241,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 box_col <- c("ha3", "hc3", "hb3", "ha2", "hc2", "hb2", "ha40", "hb40", "ha53", "hc53")
 bar_df <- df_barplot(df_2010, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2010, box_col, "Orphanhood", "hv105")
@@ -352,7 +352,7 @@ bar_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv270",
-             "hv121", "hv121.1", "ha57", "hc57")
+             "hv121", "ha57", "hc57")
 box_col <- c("ha3", "hc3", "ha2", "hc2", "ha40", "ha53", "hc53")
 bar_df <- df_barplot(df_2005, bar_col, "Orphanhood")
 box_df <- df_boxplot(df_2005, box_col, "Orphanhood", "hv105")
@@ -459,7 +459,7 @@ col_name_list <- c("hv025", "hv201", "hv205", "hv206",
                    "hv207", "hv208", "hv209", "hv210",
                    "hv211", "hv212", "hv227", "hv221",
                    "hv243a", "hv243b", "hv243e", "hv270",
-                   "hv121", "hv121.1", "hv106", "ha57", "hc57",
+                   "hv121", "hv106", "ha57", "hc57",
                    "hml32", "ha3", "hc3", "hb3", "ha2", "hc2", "hb2",
                    "hc1", "ha40", "hb40", "ha53", "hc53")
 col_label_list <- c(
@@ -479,8 +479,7 @@ col_label_list <- c(
   "Has watch",
   "Has a computer",
   "Poor household wealth",
-  "School attendance for age 7-12 (compulsory)",
-  "School attendance for age 13-17",
+  "School attendance",
   "Highest educational level attained",
   "Has anemia (woman)",
   "Has anemia (child)",
@@ -506,11 +505,13 @@ ggplot(heatmap_df, aes(label, year, fill=na_percentage)) +
   geom_point(data=heatmap_df, aes(size="Question missing"), shape=NA, colour="grey") +
   guides(size=guide_legend("Not applicable",
                            override.aes=list(shape=15, size=7)),
-         fill=guide_legend(title="Proportion of \nchildren with missing outcomes")) +
+         fill=guide_legend(title="Proportion of \nchildren with \nmissing outcomes")) +
   scale_x_discrete(limits=col_label_list) +
   theme(axis.title.y=element_blank()) +
   ggtitle("Rwanda") +
   coord_flip()
+ggsave("heatmap_RW.png",
+       path="figures", dpi=700, height = 5.6, width = 8.5)
 
 
 # odd plots
@@ -518,7 +519,7 @@ odd_col <- c("hv025", "hv201", "hv205", "hv206",
              "hv207", "hv208", "hv209", "hv210",
              "hv211", "hv212", "hv227", "hv221",
              "hv243a", "hv243b", "hv243e", "hv270",
-             "hv121", "hv121.1", "ha57", "hc57", "hml32")
+             "hv121", "ha57", "hc57", "hml32")
 odd_df <- df_odd_ratio(df_2019, odd_col, "Orphanhood")
 
 ggplot(odd_df, aes(x=odd_ratio, y=column_labels)) + 

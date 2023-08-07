@@ -1,72 +1,13 @@
 #plotting
-#2005
-
-#run the dataframe
-col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
-            "hv227","hv221",
-            "hv121",
-            "hv270")
-dfbar2005<-df_barplot(chdf2005,col_name,"Orphanhood")
-dfbar2005$year <- 2005
-bar_years <- dfbar2005
-
-
-# barplot
-bar2005<-ggplot(dfbar2005, aes(fill=orphan, x=column_labels, y=percentage)) +
-  geom_col(width=0.5, position=position_dodge(0.5)) +
-  geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
-                width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "Questions") +
-  ggtitle(paste("Senegal", 2005)) +
-  coord_flip(ylim=c(0, 1)) +
-  scale_y_continuous(expand = c(0, 0)) +
-  theme_classic()
-
-# boxplot
-dfbox2005<-df_boxplot(chdf2005,"BMI","Orphanhood","hv105")
-BMI05<-ggplot(data=dfbox2005,mapping=aes(x=Orphanhood,y=BMI))+
-  geom_boxplot(width=0.2, position = position_dodge(0.9))+
-  geom_violin(aes(fill=Orphanhood),
-              width=0.8, alpha=0.5, position = position_dodge(0.9))+
-  ylim(c(5,35))+geom_boxplot(outlier.colour = "red", outlier.shape = 1)+
-  coord_flip()+
-  ggtitle("Senegal 2005(Children under 5)")+theme_bw()
-print(BMI05)
-
-#odd ratio plot
-
-odd2005<-df_odd_ratio(chdf2005,col_name,"Orphanhood")
-
-ggplot(odd2005, aes(x = odd_ratio, y = column_labels)) + 
-  geom_vline(xintercept = 1, color = "red", linetype = "dashed", cex = 0.5, alpha = 0.5) +
-  geom_errorbarh(aes(xmax = CI_upper, xmin = CI_lower), size = 0.25, height = 
-                   0.25, color = "gray50") +
-  geom_point(shape = 18, size = 3, color = "orange") +
-  theme_bw()+
-  theme(panel.grid.minor = element_blank()) +
-  ylab("Outcomes") +
-  xlab("Odds ratio (95% CI)") +
-  ggtitle("Odd Ratio for Senegal 2005") +
-  theme(panel.border = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), 
-        axis.line = element_line(colour = "black"),
-        axis.text.y = element_text(size = 12, colour = "black"),
-        axis.text.x.bottom = element_text(size = 12, colour = "black"),
-        axis.title.x = element_text(size = 12, colour = "black"))+
-  scale_x_continuous(trans='log2')+
-  theme(axis.title.y=element_blank())
-  
 
 #2010
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2010<-df_barplot(chdf2010,col_name,"Orphanhood")
 dfbar2010$year <- 2010
-bar_years <- rbind(bar_years,dfbar2010)
+bar_years <- dfbar2010
 
 
 # barplot
@@ -108,7 +49,7 @@ ggplot(odd2010, aes(x = odd_ratio, y = column_labels)) +
 #2012
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2012<-df_barplot(chdf2012,col_name,"Orphanhood")
 dfbar2012$year <- 2012
@@ -153,7 +94,7 @@ ggplot(odd2012, aes(x = odd_ratio, y = column_labels)) +
 #2014
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2014<-df_barplot(chdf2014,col_name,"Orphanhood")
 dfbar2014$year <- 2014
@@ -198,7 +139,7 @@ ggplot(odd2014, aes(x = odd_ratio, y = column_labels)) +
 #2015
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2015<-df_barplot(chdf2015,col_name,"Orphanhood")
 dfbar2015$year <- 2015
@@ -241,7 +182,7 @@ ggplot(odd2015, aes(x = odd_ratio, y = column_labels)) +
 #2016
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2016<-df_barplot(chdf2016,col_name,"Orphanhood")
 dfbar2016$year <- 2016
@@ -284,7 +225,7 @@ ggplot(odd2016, aes(x = odd_ratio, y = column_labels)) +
 #2017
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a","hv243e",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2017<-df_barplot(chdf2017,col_name,"Orphanhood")
 dfbar2017$year <- 2017
@@ -328,7 +269,7 @@ ggplot(odd2017, aes(x = odd_ratio, y = column_labels)) +
 #2018
 col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a","hv243e",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2018<-df_barplot(chdf2018,col_name,"Orphanhood")
 dfbar2018$year <- 2018
@@ -370,9 +311,9 @@ ggplot(odd2018, aes(x = odd_ratio, y = column_labels)) +
   theme(axis.title.y=element_blank())
 
 #2019
-col_name<-c("hv025","hv201","hv205","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
+col_name<-c("hv025","hv206","hv207","hv208","hv209","hv210","hv211","hv212",
             "hv227","hv221","hv243a","hv243e",
-            "hv121","hml35",
+            "hv121","hml35","hv201","hv205",
             "hv270")
 dfbar2019<-df_barplot(chdf2019,col_name,"Orphanhood")
 dfbar2019$year <- 2019
@@ -428,8 +369,8 @@ allyear_bar <- ggplot(bar_years, aes(fill=orphan, x=column_labels, y=percentage)
   scale_y_continuous(expand = c(0, 0)) +
   theme_classic()
 
-year_list <- c("2005","2010", "2012", "2014", "2015", "2016","2017","2018","2019")
-df_list <- list("2005" = chdf2005,
+year_list <- c("2010", "2012", "2014", "2015", "2016","2017","2018","2019")
+df_list <- list(
                 "2010" = chdf2010,
                 "2012" = chdf2012,
                 "2014" = chdf2014,
@@ -454,6 +395,8 @@ col_name_list <- c("hv025",
                    "hml35", 
                    "hv243a",
                    "hv243e",
+                   "hv201",
+                   "hv205",
                    "ha3",
                    "hc3",
                    "ha2", 
@@ -473,10 +416,12 @@ col_label_list <- c(
   "Has telephone",
   "Poor household wealth",
   "School attendance",
-  "highest educational level",
+  "Highest educational level",
   "Has malaria",
-  "has mobile",
-  "has computer",
+  "Has mobile",
+  "Has computer",
+  "Has piped or tubed water",
+  "Has toilet facility",
   "Woman's height in centimeters (1 decimal)",
   "Child's height in centimeters (1 decimal)",
   "Woman's weight in kilograms (1 decimal)",
@@ -486,7 +431,7 @@ col_label_list <- c(
 )
 heatmap_df <- df_isna(df_list, col_name_list, col_label_list, year_list)
 
-ggplot(heatmap_df, aes(label, year, fill=na_percentage)) + 
+heatmap_SN<-ggplot(heatmap_df, aes(label, year, fill=na_percentage)) + 
   geom_tile(aes(fill=na_percentage), colour="white") +
   scale_fill_gradientn(colours=RColorBrewer::brewer.pal(7, "YlOrBr"),
                        na.value="grey") +

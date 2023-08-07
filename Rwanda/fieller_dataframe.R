@@ -19,8 +19,6 @@ val_labels(df_2010) <- NULL
 load("Rwanda/df_2005.Rda")
 val_labels(df_2005) <- NULL
 
-load("Rwanda/df_2000.Rda")
-val_labels(df_2000) <- NULL
 
 # weight (woman): lambda = 0
 # height (woman): lambda = 2
@@ -46,8 +44,7 @@ df_woman <- rbind(df_woman_lfix(df_2019, "Rwanda", "2019", lambda_h, lambda_w),
 df_child <- rbind(df_child_lfix(df_2019, "Rwanda", "2019", lambda_h1, lambda_h2, lambda_w1, lambda_w2),
                   df_child_lfix(df_2014, "Rwanda", "2014", lambda_h1, lambda_h2, lambda_w1, lambda_w2),
                   df_child_lfix(df_2010, "Rwanda", "2010", lambda_h1, lambda_h2, lambda_w1, lambda_w2),
-                  df_child_lfix(df_2005, "Rwanda", "2005", lambda_h1, lambda_h2, lambda_w1, lambda_w2),
-                  df_child_lfix(df_2000, "Rwanda", "2000", lambda_h1, lambda_h2, lambda_w1, lambda_w2))
+                  df_child_lfix(df_2005, "Rwanda", "2005", lambda_h1, lambda_h2, lambda_w1, lambda_w2))
 
 fieller_fix_RW <- rbind(df_woman, df_child)
 

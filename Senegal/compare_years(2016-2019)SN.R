@@ -93,5 +93,6 @@ odd_SN<-odd_SN[odd_SN$col_names!="hml35",]
 save(odd_SN,file="Senegal/cleaned_data_SN/odd_SN.Rda")
 
 bar_SN_2019<-dfbar2019
-odd_SN_2019<-dfodd2019
+odd_SN_2019<-odd_SN[odd_SN$year==2019,]
+save(odd_SN_2019,file="Senegal/cleaned_data_SN/odd_SN_2019.Rda")
 

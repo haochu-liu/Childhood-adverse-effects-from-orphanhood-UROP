@@ -10,7 +10,7 @@ library(forester)
 
 load("Rwanda/odd_RW.Rda")
 load("Colombia/odd_CO.Rda")
-load("Senegal/odd_SN.Rda")
+load("Senegal/cleaned_data_SN/odd_SN.Rda")
 
 source("functions_for_plotting.R")
 RW_df <- odd_RW
@@ -19,8 +19,8 @@ SN_df <- df_forester_year(odd_SN)
 
 # indent outcome if there is a number in odd_ratio column
 CO_df$Outcomes <- ifelse(is.na(CO_df$odd_ratio), 
-                               CO_df$Outcome,
-                               paste0("   ", CO_df$Outcome))
+                               CO_df$Outcomes,
+                               paste0("   ", CO_df$Outcomes))
 
 # use forester to create the table with forest plot
 forester(left_side_data = CO_df[,1, drop=FALSE],
@@ -41,8 +41,8 @@ forester(left_side_data = CO_df[,1, drop=FALSE],
 
 # indent outcome if there is a number in odd_ratio column
 SN_df$Outcomes <- ifelse(is.na(SN_df$odd_ratio), 
-                         SN_df$Outcome,
-                         paste0("   ", SN_df$Outcome))
+                         SN_df$Outcomes,
+                         paste0("   ", SN_df$Outcomes))
 
 # use forester to create the table with forest plot
 forester(left_side_data = SN_df[,1, drop=FALSE],
@@ -62,8 +62,8 @@ forester(left_side_data = SN_df[,1, drop=FALSE],
 
 # indent outcome if there is a number in odd_ratio column
 RW_df$Outcomes <- ifelse(is.na(RW_df$odd_ratio), 
-                         RW_df$Outcome,
-                         paste0("   ", RW_df$Outcome))
+                         RW_df$Outcomes,
+                         paste0("   ", RW_df$Outcomes))
 
 # use forester to create the table with forest plot
 forester(left_side_data = RW_df[,1, drop=FALSE],

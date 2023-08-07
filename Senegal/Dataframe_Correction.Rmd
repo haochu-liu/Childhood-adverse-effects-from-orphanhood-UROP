@@ -20,37 +20,38 @@ library(ggplot2)
 ```
 
 ```{r}
-chdf2019<-subset(SN19HM,hv105<18)
+chdf2005<-subset(SN05HM,hv105<18)
 
-chdf2019<-select(chdf2019,hv001,hv002,hvidx,
+chdf2005<-select(chdf2005,hv001,hv002,hvidx,
                  hv111,hv113,
                  hv110,hv217,hv105,hv104,hv025,
                  hv201,hv205,hv206,hv207,hv208,hv209,hv210,hv211,hv212,hv227,hv221,
-                 hv243a,hv243b,hv243e,
+                 #hv243a,hv243b,
                  #education
                  hv106,hv107,hv121,
                  #wealth index
                  hv270,
                  #smoke
-                 hv252,
+                 #hv252,
                  #malaria
-                 hml35,hv253,
+                 #hml35,
+                 #hv253,
                  #health
                  hc1,hc2,hc3,
                  ha1,ha2,ha3)
 
-#chdf2019["hml35"]<-NA
-#chdf2019<-subset(chdf2019,is.na(hv111)==FALSE)
-#colnames(chdf2019)[6]<-"hv121"
+#chdf2005["hml35"]<-NA
+#chdf2005<-subset(chdf2005,is.na(hv111)==FALSE)
+#colnames(chdf2005)[6]<-"hv121"
 
 ```
 
 
 ```{r}
-chdf2019["Orphanhood"] <- ifelse(chdf2019$hv111 == 0 | chdf2019$hv113 == 0, 
+chdf2005["Orphanhood"] <- ifelse(chdf2005$hv111 == 0 | chdf2005$hv113 == 0, 
                                    "orphan", "non-orphan")
 
-#colnames(chdf2019)<-c("cluster number","household number","line number",
+#colnames(chdf2005)<-c("cluster number","household number","line number",
 #                      "mother alive","father alive",
 #                      "school attendence","relationship structure","age","gender","type of #place of residence","source of drinking water",
 #                      "type of toilet facility","has electricity","has radio","has #television","has refrigerator","has bicycle","has motorcycle","has car","has bednet","has #phone")
@@ -59,7 +60,7 @@ chdf2019["Orphanhood"] <- ifelse(chdf2019$hv111 == 0 | chdf2019$hv113 == 0,
 
 ```{r}
 #clean the data
-chdf2019<-replace_with_na(chdf2019,replace=list(hv111 = c(8,9),
+chdf2005<-replace_with_na(chdf2005,replace=list(hv111 = c(8,9),
                                       hv113 = c(8,9),
                                       hv121 = c(9),
                                       hv201 = c(97,99),
@@ -90,88 +91,54 @@ chdf2019<-replace_with_na(chdf2019,replace=list(hv111 = c(8,9),
 
 ```{r}
 #organise binary data
-chdf2019["hv121"] <- ifelse(chdf2019$hv121 == 1 | chdf2019$hv121 == 2, 
+chdf2005["hv121"] <- ifelse(chdf2005$hv121 == 1 | chdf2005$hv121 == 2, 
                                    1, 0)
-chdf2019["hv025"] <- ifelse(chdf2019$hv025 == 1, 
+chdf2005["hv025"] <- ifelse(chdf2005$hv025 == 1, 
                                    1, 0)
-chdf2019["hv270"] <- ifelse(chdf2019$hv270<3,1,0)
-chdf2019["hv201"] <- ifelse(chdf2019$hv201<22,1,0)
-chdf2019["hv205"] <- ifelse(chdf2019$hv205<24,1,0)
+chdf2005["hv270"] <- ifelse(chdf2005$hv270<3,1,0)
+chdf2005["hv201"] <- ifelse(chdf2005$hv201<22,1,0)
+chdf2005["hv205"] <- ifelse(chdf2005$hv205<24,1,0)
 
 ```
 
 ```{r}
-for (x in 1:nrow(chdf2019)){
-  if (chdf2019$hv105[x]<5){
-    chdf2019$BMI[x]<-(chdf2019$hc2[x]/10)/(chdf2019$hc3[x]/1000)**2
-    chdf2019$heightage[x]<-(chdf2019$hc3[x]/1000)/(chdf2019$hc1[x]/12)
-    chdf2019$weightage[x]<-(chdf2019$hc2[x]/10)/(chdf2019$hc1[x]/12)
+for (x in 1:nrow(chdf2005)){
+  if (chdf2005$hv105[x]<5){
+    chdf2005$BMI[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc3[x]/1000)**2
+    chdf2005$heightage[x]<-(chdf2005$hc3[x]/1000)/(chdf2005$hc1[x]/12)
+    chdf2005$weightage[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc1[x]/12)
   }
   else{
-    chdf2019$BMI[x]<-(chdf2019$hc2[x]/10)/(chdf2019$hc3[x]/1000)**2
-    chdf2019$heightage[x]<-(chdf2019$hc3[x]/1000)/(chdf2019$hc1[x])
-    chdf2019$weightage[x]<-(chdf2019$hc2[x]/10)/(chdf2019$hc1[x])
+    chdf2005$BMI[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc3[x]/1000)**2
+    chdf2005$heightage[x]<-(chdf2005$hc3[x]/1000)/(chdf2005$hc1[x])
+    chdf2005$weightage[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc1[x])
   }
 }
 ```
 
 ```{r}
 #change the label
-chdf2019$hv001 <- labelled(chdf2019$hv001, label = "cluster number")
-chdf2019$hv270 <- labelled(chdf2019$hv270, label = "poor household wealth")
-chdf2019$hv002 <- labelled(chdf2019$hv002, label = "household number")
-chdf2019$hvidx <- labelled(chdf2019$hvidx, label = "line number")
-chdf2019$hv110 <- labelled(chdf2019$hv110, label = "school attendence")
-chdf2019$hv121 <- labelled(chdf2019$hv121, label = "school attendence")
-chdf2019$hv201 <- labelled(chdf2019$hv201, label = "has piped or tube water")
-chdf2019$hv205 <- labelled(chdf2019$hv205, label = "has toilet facility")
-chdf2019$hv105 <- labelled(chdf2019$hv105, label = "age")
-chdf2019$hv104 <- labelled(chdf2019$hv104, label = "gender")
-chdf2019$hv025 <- labelled(chdf2019$hv025, label = "lives in urban area")
-chdf2019$hv221 <- labelled(chdf2019$hv221, label = "has telephone(land-line)")
-chdf2019$hv243b <- labelled(chdf2019$hv243b, label = "has watch")
-chdf2019$hc1 <- labelled(chdf2019$hc1, label = "age in months(under 5)")
-chdf2019$hc2 <- labelled(chdf2019$hc2, label = "weight(under 5)")
-chdf2019$hc3 <- labelled(chdf2019$hc3, label = "height(under 5)")
-chdf2019$ha1 <- labelled(chdf2019$ha1, label = "age in years(female)")
-chdf2019$ha2 <- labelled(chdf2019$ha2, label = "weight(female)")
-chdf2019$ha3 <- labelled(chdf2019$ha3, label = "height(female)")
-chdf2019$hv227 <- labelled(chdf2019$hv227, label = "has mosquito bed net for sleeping")
-chdf2019$hml35 <- labelled(chdf2019$hml35, label = "malaria rapid test")
-chdf2019$Orphanhood <- labelled(chdf2019$Orphanhood, label = "orphanhood")
+chdf2005$hv001 <- labelled(chdf2005$hv001, label = "cluster number")
+chdf2005$hv270 <- labelled(chdf2005$hv270, label = "poor household wealth")
+chdf2005$hv002 <- labelled(chdf2005$hv002, label = "household number")
+chdf2005$hvidx <- labelled(chdf2005$hvidx, label = "line number")
+chdf2005$hv110 <- labelled(chdf2005$hv110, label = "school attendence")
+chdf2005$hv121 <- labelled(chdf2005$hv121, label = "school attendence")
+chdf2005$hv201 <- labelled(chdf2005$hv201, label = "has piped or tube water")
+chdf2005$hv205 <- labelled(chdf2005$hv205, label = "has toilet facility")
+chdf2005$hv105 <- labelled(chdf2005$hv105, label = "age")
+chdf2005$hv104 <- labelled(chdf2005$hv104, label = "gender")
+chdf2005$hv025 <- labelled(chdf2005$hv025, label = "lives in urban area")
+chdf2005$hv221 <- labelled(chdf2005$hv221, label = "has telephone(land-line)")
+#chdf2005$hv243b <- labelled(chdf2005$hv243b, label = "has watch")
+chdf2005$hc1 <- labelled(chdf2005$hc1, label = "age in months(under 5)")
+chdf2005$hc2 <- labelled(chdf2005$hc2, label = "weight(under 5)")
+chdf2005$hc3 <- labelled(chdf2005$hc3, label = "height(under 5)")
+chdf2005$ha1 <- labelled(chdf2005$ha1, label = "age in years(female)")
+chdf2005$ha2 <- labelled(chdf2005$ha2, label = "weight(female)")
+chdf2005$ha3 <- labelled(chdf2005$ha3, label = "height(female)")
+#chdf2005$hv227 <- labelled(chdf2005$hv227, label = "has mosquito bed net for sleeping")
+#chdf2005$hml35 <- labelled(chdf2005$hml35, label = "malaria rapid test")
+chdf2005$Orphanhood <- labelled(chdf2005$Orphanhood, label = "orphanhood")
 
 ```
-
-```{r}
-fieller_SN1 <- fieller_child_df(chdf2010, "Senegal", "2010")
-fieller_SN2 <- fieller_child_df(chdf2012, "Senegal", "2012")
-fieller_SN3 <- fieller_child_df(chdf2014, "Senegal", "2014")
-fieller_SN4 <- fieller_child_df(chdf2015, "Senegal", "2015")
-fieller_SN5 <- fieller_child_df(chdf2016, "Senegal", "2016")
-fieller_SN6 <- fieller_child_df(chdf2017, "Senegal", "2017")
-fieller_SN7 <- fieller_child_df(chdf2018, "Senegal", "2018")
-fieller_SN8 <- fieller_child_df(chdf2019, "Senegal", "2019")
-fieller_SN <- rbind(fieller_SN1, fieller_SN2, fieller_SN3, fieller_SN4,fieller_SN5, fieller_SN6, fieller_SN7, fieller_SN8)
-save(fieller_SN,file="fieller_SN.Rda")
-```
-
-```{r}
-df_child <- rbind(df_child_lfix(chdf2010, "Senegal", "2010", 1,1,1,1),
-                  df_child_lfix(chdf2012, "Senegal", "2012", 1,2,1,1),
-                  df_child_lfix(chdf2014, "Senegal", "2014", 2,2,1,1),
-                  df_child_lfix(chdf2015, "Senegal", "2015", 1,1,1,1),
-                  df_child_lfix(chdf2016, "Senegal", "2016", 2,2,1,1),
-                  df_child_lfix(chdf2017, "Senegal", "2017", 2,2,1,1),
-                  df_child_lfix(chdf2018, "Senegal", "2018", 2,1,1,0),
-                  df_child_lfix(chdf2019, "Senegal", "2019", 2,1,1,0))
-
-fieller_fix_SN <- rbind(df_child)
-save(fieller_fix_SN,file="fieller_fix_SN.Rda")
-```
-
-```{r}
-nrow(chdf2012[chdf2012$hv105>4&chdf2012$hv105<16,])
-nrow(chdf2012[chdf2012$hv105>16&chdf2012$hv105<18,])
-nrow(chdf2012[chdf2012$hv105<18,])
-```
-

@@ -100,28 +100,41 @@ chdfhousehold$"2019" <- c(nrow(chdf2019 %>% distinct(hv001, hv002, .keep_all = T
                          nrow(subset(chdf2019,is.na(chdf2019$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2018$Orphanhood[chdf2018$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2018" <- c(nrow(chdf2018 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2018) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2018,is.na(chdf2018$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2017$Orphanhood[chdf2017$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2017" <- c(nrow(chdf2017 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2017) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2017,is.na(chdf2017$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2016$Orphanhood[chdf2016$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2016" <- c(nrow(chdf2016 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2016) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2016,is.na(chdf2016$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2015$Orphanhood[chdf2015$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2015" <- c(nrow(chdf2015 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2015) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2015,is.na(chdf2015$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2014$Orphanhood[chdf2014$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2014" <- c(nrow(chdf2014 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2014) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2014,is.na(chdf2014$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2012$Orphanhood[chdf2012$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2012" <- c(nrow(chdf2012 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2012) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2012,is.na(chdf2012$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2010$Orphanhood[chdf2010$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2010" <- c(nrow(chdf2010 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2010) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2010,is.na(chdf2010$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
 chdf2005$Orphanhood[chdf2005$Orphanhood == "non-orphan"] <- NA
 chdfhousehold$"2005" <- c(nrow(chdf2005 %>% distinct(hv001, hv002, .keep_all = TRUE)),
-                         nrow(na.omit(chdf2005) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+                         nrow(subset(chdf2005,is.na(chdf2005$Orphanhood)==FALSE) %>% distinct(hv001, hv002, .keep_all = TRUE)))
+write.csv(chdfhousehold, "/Users/yujialuan/Desktop/UROP/chdfhousehold_SN.csv", row.names=FALSE)
+```
+
+```{r}
+save(chdf2005,file="chdf2005.Rda")
+save(chdf2010,file="chdf2010.Rda")
+save(chdf2012,file="chdf2012.Rda")
+save(chdf2014,file="chdf2014.Rda")
+save(chdf2015,file="chdf2015.Rda")
+save(chdf2016,file="chdf2016.Rda")
+save(chdf2017,file="chdf2017.Rda")
+save(chdf2018,file="chdf2018.Rda")
+save(chdf2019,file="chdf2019.Rda")
 ```
 
 

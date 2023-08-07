@@ -65,7 +65,7 @@ ggplot(wealth_df, aes(fill=orphan, x=year, y=percentage)) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
   ggtitle("Household Data in Rwanda (Wealth index and residence)")
-ggsave("bar_RW_wealth.png.png",
+ggsave("bar_RW_wealth.png",
        path="figures", dpi=700, height = 5.6, width = 8.5)
 
 ggplot(basic_df, aes(fill=orphan, x=year, y=percentage)) +
@@ -90,7 +90,7 @@ ggplot(communication_df, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Household Data in Rwanda (Communication devices)")
+  ggtitle("Household Data in Rwanda (Communication Devices)")
 ggsave("bar_RW_communication.png",
        path="figures", dpi=700, height = 5.6, width = 8.5)
 
@@ -103,7 +103,7 @@ ggplot(appliance_df, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Household Data in Rwanda (Additional household items)")
+  ggtitle("Household Data in Rwanda (Additional Household Items)")
 ggsave("bar_RW_items.png",
        path="figures", dpi=700, height = 5.6, width = 8.5)
 

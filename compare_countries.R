@@ -37,6 +37,7 @@ odd_SN_2019 <- odd_SN_2019[is.element(odd_SN_2019$col_names, in_names), ]
 bar_df <- rbind(bar_CO_2015, bar_RW_2019, bar_SN_2019)
 odd_df <- rbind(odd_CO_2015, odd_RW_2019, odd_SN_2019)
 bar_df$column_labels[bar_df$column_names=="hv221"] <- "has telephone (land-line)"
+bar_df$column_labels[bar_df$column_names=="hv205"] <- "has flush or pit toilet"
 
 #5 categories
 
@@ -44,7 +45,7 @@ amenities_df<-bar_df[bar_df$column_names %in% c('hv201','hv205','hv207'),]
 vehicle_df<-bar_df[bar_df$column_names %in% c('hv210','hv211','hv212'),]
 wealth_df<-bar_df[bar_df$column_names %in% c('hv025','hv270'),]
 communication_df<-bar_df[bar_df$column_names %in% c('hv221','hv243a','hv207'),]
-appliance_df<-bar_df[bar_df$column_names %in% c('hv243e','hv227','hv208','hv209'),]
+appliance_df<-bar_df[bar_df$column_names %in% c('hv243e','hv227','hv208','hv209','hv243b'),]
 
 ggplot(vehicle_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +

@@ -22,7 +22,8 @@ ggplot(vehicle_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data in Senegal(Vehicle)")
+  ggtitle("Household Data in Senegal(Vehicle)")
+ggsave("bar_SN_vehicle.png",path="/Users/yujialuan/Desktop/UROP/Childhood-adverse-effects-from-orphanhood-UROP/figures",height=5.6,width=8.5,dpi=700)
 
 ggplot(wealth_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -33,7 +34,8 @@ ggplot(wealth_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data in Senegal(Wealth Index and Residence)")
+  ggtitle("Household Data in Senegal(Wealth Index and Residence)")
+ggsave("bar_SN_wealth.png",path="/Users/yujialuan/Desktop/UROP/Childhood-adverse-effects-from-orphanhood-UROP/figures",height=5.6,width=8.5,dpi=700)
 
 ggplot(communication_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -44,7 +46,8 @@ ggplot(communication_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data in Senegal(Communication Devices)")
+  ggtitle("Household Data in Senegal(Communication Devices)")
+ggsave("bar_SN_communication.png",path="/Users/yujialuan/Desktop/UROP/Childhood-adverse-effects-from-orphanhood-UROP/figures",height=5.6,width=8.5,dpi=700)
 
 ggplot(appliance_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -55,7 +58,8 @@ ggplot(appliance_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data in Senegal(Additional Household Items)")
+  ggtitle("Household Data in Senegal(Additional Household Items)")
+ggsave("bar_SN_items.png",path="/Users/yujialuan/Desktop/UROP/Childhood-adverse-effects-from-orphanhood-UROP/figures",height=5.6,width=8.5,dpi=700)
 
 ggplot(amenities_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
@@ -66,7 +70,8 @@ ggplot(amenities_df_SN, aes(fill=orphan, x=year, y=percentage)) +
   facet_wrap(~column_labels) +
   #scale_y_continuous(expand = c(0, 0)) +
   theme_classic() +
-  ggtitle("Orphanhood Data in Senegal(Basic Household Amenities)")
+  ggtitle("Household Data in Senegal(Basic Household Amenities)")
+ggsave("bar_SN_basics.png",path="/Users/yujialuan/Desktop/UROP/Childhood-adverse-effects-from-orphanhood-UROP/figures",height=5.6,width=8.5,dpi=700)
 
 #odd ratio plot
 odd2016$year<-"2016"
@@ -86,8 +91,6 @@ odd_SN$column_labels<-tolower(odd_SN$column_labels)
 odd_SN<-odd_SN[odd_SN$col_names!="hv121",]
 odd_SN<-odd_SN[odd_SN$col_names!="hml35",]
 save(odd_SN,file="Senegal/cleaned_data_SN/odd_SN.Rda")
-
-
 
 bar_SN_2019<-dfbar2019
 odd_SN_2019<-dfodd2019

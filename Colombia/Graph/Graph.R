@@ -173,7 +173,7 @@ ggplot(basic_df_CO, aes(fill=orphan, x=year, y=percentage)) +
   theme_classic() +
   ggtitle("Household Data of in Colombia (Basic Household Amenities)")
 
-ggsave("bar_CO_items.png",
+ggsave("bar_CO_basics.png",
        path = "figures", 
        height = 5.6, width = 8.5, dpi = 700)
 

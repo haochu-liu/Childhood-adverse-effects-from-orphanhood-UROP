@@ -7,8 +7,7 @@ library(Hmisc)
 library(labelled)
 # bar plot
 col_name_2000b <- c("hv025", "hv026","hv201","hv205", "hv206",
-                    "hv207", "hv208", "hv209", "hv221",
-                    "hv121", "hv121.1")
+                    "hv207", "hv208", "hv209", "hv221", "hv121")
 
 bar_CO_2000 <- df_barplot(df2000_new, col_name_2000b, "Orphanhood")
 

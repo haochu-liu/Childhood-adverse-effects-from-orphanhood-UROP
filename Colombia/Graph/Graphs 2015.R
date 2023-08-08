@@ -11,8 +11,7 @@ library(labelled)
 col_name_2015b <- c("hv025","hv201","hv205", "hv206",
                     "hv207", "hv208", "hv209", "hv210",
                     "hv211", "hv212", "hv221",
-                    "hv243a", "hv243e", "hv270",
-                    "hv121", "hv121.1")
+                    "hv243a", "hv243e", "hv270", "hv121")
 
 bar_CO_2015 <- df_barplot(df2015_new, col_name_2015b, "Orphanhood")
 

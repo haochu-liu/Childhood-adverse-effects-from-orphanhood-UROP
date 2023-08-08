@@ -10,8 +10,7 @@ library(haven)
 col_name_2005b <- c("hv025","hv026","hv201","hv205", "hv206",
                     "hv207", "hv208", "hv209", 
                     "hv211", "hv212", "hv221",
-                    "hv243e","hv270",
-                    "hv121", "hv121.1")
+                    "hv243e","hv270", "hv121")
 
 bar_CO_2005 <- df_barplot(df2005_new, col_name_2005b, "Orphanhood")
 

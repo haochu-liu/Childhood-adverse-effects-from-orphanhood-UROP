@@ -27,18 +27,6 @@ allyear_bar<-ggplot(bar_CO, aes(fill=orphan, x=column_labels, y=percentage)) +
   theme_classic()
 
 
-# heat map for NA
-df2000_edu <- df2000_new
-df2005_edu <- df2005_new
-df2010_edu <- df2010_new
-df2015_edu <- df2015_new
-
-df2000_edu$hv121[!is.na(df2000_new$hv121.1)] = df2000_new$hv121.1[!is.na(df2000_new$hv121.1)]
-df2005_edu$hv121[!is.na(df2005_new$hv121.1)] = df2005_new$hv121.1[!is.na(df2005_new$hv121.1)]
-df2010_edu$hv121[!is.na(df2010_new$hv121.1)] = df2010_new$hv121.1[!is.na(df2010_new$hv121.1)]
-df2015_edu$hv121[!is.na(df2015_new$hv121.1)] = df2015_new$hv121.1[!is.na(df2015_new$hv121.1)]
-
-
 # odd ratio
 
 odd_CO <- rbind(odd_CO_2015, odd_CO_2010, odd_CO_2005, odd_CO_2000)
@@ -48,12 +36,12 @@ odd_CO <- odd_CO[odd_CO$col_names %in% c("hv025", "hv201", "hv205", "hv206", "hv
 save(odd_CO, file = "Colombia/odd_CO.Rda")
 
 
-## plotting heatmap
+# heatmap for NA
 year <- c("2000", "2005", "2010", "2015")
-data <- list("2000" = df2000_edu,
-             "2005" = df2005_edu,
-             "2010" = df2010_edu,
-             "2015" = df2015_edu)
+data <- list("2000" = df2000_new,
+             "2005" = df2005_new,
+             "2010" = df2010_new,
+             "2015" = df2015_new)
 col_name <- c("hv025", "hv201", "hv205", "hv206",
               "hv207", "hv208", "hv209", "hv210",
               "hv211", "hv212", "hv221",
@@ -190,36 +178,36 @@ ggsave("bar_CO_items.png",
        height = 5.6, width = 8.5, dpi = 700)
 
 # fieller
-source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/functions_for_plotting.R")
-library(forester)
-
-fieller_CO1 <- fieller_child_df(df2005_new, "Colombia", "2005")
-fieller_CO2 <- fieller_child_df(df2010_new, "Colombia", "2010")
-fieller_CO3 <- fieller_woman_df(df2005_new, "Colombia", "2005")
-fieller_CO4 <- fieller_woman_df(df2010_new, "Colombia", "2010")
-fieller_CO <- rbind(fieller_CO1, fieller_CO2, fieller_CO3, fieller_CO4)
-
-save(fieller_CO, file = "Colombia/fieller_CO.Rda")
-
-
-# indent outcome if there is a number in ratio column
-fieller_CO <- df_yearsort(fieller_CO, 2)
-fieller_CO$Outcome <- ifelse(is.na(fieller_CO$ratio), 
-                         fieller_CO$Outcome,
-                         paste0("   ", fieller_CO$Outcome))
-
-# use forester to create the table with forest plot
-forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=FALSE],
-         estimate = fieller_CO$ratio,
-         ci_low = fieller_CO$CI_lower,
-         ci_high = fieller_CO$CI_upper,
-         estimate_precision = 4,
-         null_line_at = 1,
-         ggplot_width = 40,
-         nudge_x = 0.5,
-         estimate_col_name = "Ratio with 95% CI",
-         file_path = here::here("Colombia/fieller_plot_CO.png"), 
-         render_as = "png")
+# source("~/Desktop/Childhood-adverse-effects-from-orphanhood-UROP/functions_for_plotting.R")
+# library(forester)
+# 
+# fieller_CO1 <- fieller_child_df(df2005_new, "Colombia", "2005")
+# fieller_CO2 <- fieller_child_df(df2010_new, "Colombia", "2010")
+# fieller_CO3 <- fieller_woman_df(df2005_new, "Colombia", "2005")
+# fieller_CO4 <- fieller_woman_df(df2010_new, "Colombia", "2010")
+# fieller_CO <- rbind(fieller_CO1, fieller_CO2, fieller_CO3, fieller_CO4)
+# 
+# save(fieller_CO, file = "Colombia/fieller_CO.Rda")
+# 
+# 
+# # indent outcome if there is a number in ratio column
+# fieller_CO <- df_yearsort(fieller_CO, 2)
+# fieller_CO$Outcome <- ifelse(is.na(fieller_CO$ratio), 
+#                          fieller_CO$Outcome,
+#                          paste0("   ", fieller_CO$Outcome))
+# 
+# # use forester to create the table with forest plot
+# forester(left_side_data = fieller_CO[,c("Outcome","p_value","parameter"), drop=FALSE],
+#          estimate = fieller_CO$ratio,
+#          ci_low = fieller_CO$CI_lower,
+#          ci_high = fieller_CO$CI_upper,
+#          estimate_precision = 4,
+#          null_line_at = 1,
+#          ggplot_width = 40,
+#          nudge_x = 0.5,
+#          estimate_col_name = "Ratio with 95% CI",
+#          file_path = here::here("Colombia/fieller_plot_CO.png"), 
+#          render_as = "png")
 
 library(MASS)
 library(labelled)
@@ -254,27 +242,18 @@ save(fieller_fix_CO, file = "Colombia/fieller_fix_CO.Rda")
 
 
 # education odd ratio plot
-df2000_edu <- df2000_new
-df2005_edu <- df2005_new
-df2010_edu <- df2010_new
-df2015_edu <- df2015_new
-
-df2000_edu$hv121[!is.na(df2000_new$hv121.1)] = df2000_new$hv121.1[!is.na(df2000_new$hv121.1)]
-df2005_edu$hv121[!is.na(df2005_new$hv121.1)] = df2005_new$hv121.1[!is.na(df2005_new$hv121.1)]
-df2010_edu$hv121[!is.na(df2010_new$hv121.1)] = df2010_new$hv121.1[!is.na(df2010_new$hv121.1)]
-df2015_edu$hv121[!is.na(df2015_new$hv121.1)] = df2015_new$hv121.1[!is.na(df2015_new$hv121.1)]
 
 col_edu <- c("hv121")
-odd_edu_CO1 <- df_odd_ratio(df2000_edu, col_edu, "Orphanhood")
+odd_edu_CO1 <- df_odd_ratio(df2000_new, col_edu, "Orphanhood")
 odd_edu_CO1$year <- "2000"
 
-odd_edu_CO2 <- df_odd_ratio(df2005_edu, col_edu, "Orphanhood")
+odd_edu_CO2 <- df_odd_ratio(df2005_new, col_edu, "Orphanhood")
 odd_edu_CO2$year <- "2005"
 
-odd_edu_CO3 <- df_odd_ratio(df2010_edu, col_edu, "Orphanhood")
+odd_edu_CO3 <- df_odd_ratio(df2010_new, col_edu, "Orphanhood")
 odd_edu_CO3$year <- "2010"
 
-odd_edu_CO4 <- df_odd_ratio(df2015_edu, col_edu, "Orphanhood")
+odd_edu_CO4 <- df_odd_ratio(df2015_new, col_edu, "Orphanhood")
 odd_edu_CO4$year <- "2015"
 
 odd_edu_CO <- rbind(odd_edu_CO1, odd_edu_CO2, odd_edu_CO3, odd_edu_CO4)

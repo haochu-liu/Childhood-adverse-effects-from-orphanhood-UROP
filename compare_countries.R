@@ -118,7 +118,7 @@ ggplot(odd_df, aes(x=column_labels, y=odd_ratio, ymin=CI_lower, ymax=CI_upper,
   coord_flip() +
   theme_minimal() +
   annotation_logticks(sides="b") +
-  ggtitle("Odd Ratio in most recent years")
+  ggtitle("Odds Ratio in most recent years")
 
 
 forester_df <- df_forester_country(odd_df, 3)
@@ -138,7 +138,7 @@ forester(left_side_data = forester_df[,"Outcomes", drop=FALSE],
          ggplot_width = 40,
          nudge_x = 0.5,
          xlim = c(0.2,2.6),
-         estimate_col_name = "Odd Ratio (95% CI)",
+         estimate_col_name = "Odds Ratio (95% CI)",
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
          file_path = here::here("figures/forest_hd.png"))
@@ -163,7 +163,7 @@ forester(left_side_data = edu_df[,"Outcomes", drop=FALSE],
          ggplot_width = 40,
          nudge_x = 0.5,
          xlim = c(0.3,2.9),
-         estimate_col_name = "Odd Ratio (95% CI)",
+         estimate_col_name = "Odds Ratio (95% CI)",
          arrows = TRUE,
          arrow_labels = c("Non-orphan Better", "Orphan Better"),
          point_sizes = 2.5,

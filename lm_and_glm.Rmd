@@ -3,6 +3,7 @@ output:
   html_document: default
   pdf_document: default
 ---
+
 # Modelling health and education covariates
 
 ## Load health dataframes
@@ -118,7 +119,6 @@ df_CO <- df_CO %>% rename(
 )
 ```
 
-
 ## Fit weight data
 
 ### Rwanda
@@ -145,7 +145,6 @@ summary(lm_weight3_RW)
 anova(lm_weight1_RW, lm_weight2_RW, lm_weight3_RW)
 ```
 
-
 ### Senegal
 
 ```{r}
@@ -170,7 +169,6 @@ summary(lm_weight3_SN)
 anova(lm_weight1_SN, lm_weight2_SN, lm_weight3_SN)
 ```
 
-
 ### Colombia
 
 ```{r}
@@ -194,7 +192,6 @@ summary(lm_weight3_CO)
 ```{r}
 anova(lm_weight1_CO, lm_weight2_CO, lm_weight3_CO)
 ```
-
 
 ## Fit height data
 
@@ -222,7 +219,6 @@ summary(lm_height3_RW)
 anova(lm_height1_RW, lm_height2_RW, lm_height3_RW)
 ```
 
-
 ### Senegal
 
 ```{r}
@@ -247,7 +243,6 @@ summary(lm_height3_SN)
 anova(lm_height1_SN, lm_height2_SN, lm_height3_SN)
 ```
 
-
 ### Colombia
 
 ```{r}
@@ -271,8 +266,6 @@ summary(lm_height3_CO)
 ```{r}
 anova(lm_height1_CO, lm_height2_CO, lm_height3_CO)
 ```
-
-
 
 ## Load education dataframes
 
@@ -410,6 +403,7 @@ summary(glm_edu1_RW)
 glm_edu2_RW <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
               data=df_RW, family = "binomial")
 summary(glm_edu2_RW)
+confint(glm_edu2_RW)
 ```
 
 ```{r}
@@ -421,7 +415,6 @@ summary(glm_edu3_RW)
 ```{r}
 anova(glm_edu1_RW, glm_edu2_RW, glm_edu3_RW)
 ```
-
 
 ### Senegal
 
@@ -435,6 +428,7 @@ summary(glm_edu1_SN)
 glm_edu2_SN <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
               data=df_SN, family = "binomial")
 summary(glm_edu2_SN)
+confint(glm_edu2_SN)
 ```
 
 ```{r}
@@ -446,7 +440,6 @@ summary(glm_edu3_SN)
 ```{r}
 anova(glm_edu1_SN, glm_edu2_SN, glm_edu3_SN)
 ```
-
 
 ### Colombia
 
@@ -460,6 +453,7 @@ summary(glm_edu1_CO)
 glm_edu2_CO <- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
               data=df_CO, family = "binomial")
 summary(glm_edu2_CO)
+confint(glm_edu2_CO)
 ```
 
 ```{r}
@@ -471,11 +465,3 @@ summary(glm_edu3_CO)
 ```{r}
 anova(glm_edu1_CO, glm_edu2_CO, glm_edu3_CO)
 ```
-
-
-
-
-
-
-
-

@@ -7,7 +7,7 @@ save(bar_SN_years,file="Senegal/bar_SN_years.Rda")
 
 bar_SN_years<-bar_SN_years[bar_SN_years$year %in% c('2016','2017','2018','2019'),]
 
-amenities_df_SN<-bar_SN_years[bar_SN_years$column_names %in% c('hv201','hv205','hv207'),]
+amenities_df_SN<-bar_SN_years[bar_SN_years$column_names %in% c('hv201','hv205','hv206'),]
 vehicle_df_SN<-bar_SN_years[bar_SN_years$column_names %in% c('hv210','hv211','hv212'),]
 wealth_df_SN<-bar_SN_years[bar_SN_years$column_names %in% c('hv025','hv270'),]
 communication_df_SN<-bar_SN_years[bar_SN_years$column_names %in% c('hv221','hv243a','hv207'),]

@@ -9,7 +9,7 @@ df2005_new <- df2005[, c("hvidx","hv001","hv002",
                          "hv025","hv026",
                          "hv201","hv205","hv206","hv207","hv208","hv209","hv210","hv221",
                          "hv211","hv212","shh12i","hv270",
-                         "hv106","hv107","hv121","hv121"
+                         "hv106","hv107","hv121"
 )]
 # orphanhood
 df2005_new["Orphanhood"] <- ifelse(df2005$hv111 == 0 | df2005$hv113 == 0, 
@@ -55,12 +55,7 @@ df2005_new$hv212[df2005_new$hv212 == 9] <- NA
 df2005_new$hv270 <- ifelse(df2005_new$hv270 <= 2, 1, 0)
 
 df2005_new$hv121[df2005_new$hv121 == 9] <- NA
-df2005_new$hv121[df2005_new$hv105 < 5 | df2005_new$hv105 > 16] <- NA
 df2005_new$hv121 <- ifelse(df2005_new$hv121 >= 1, 1, 0)
-
-df2005_new$hv121.1[df2005_new$hv121.1 == 9] <- NA
-df2005_new$hv121.1[df2005_new$hv105 == 17] <- NA
-df2005_new$hv121.1 <- ifelse(df2005_new$hv121.1 >= 1, 1, 0)
 
 # labels
 library(Hmisc)
@@ -70,8 +65,7 @@ label$hv025 <- "lives in urban area" # 1: urban, 2: rural
 label$hv026 <- "place of residence" # 1: city 2: other
 label$hv201 <- "has piped or tube water" # <=13
 label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
-label$hv121 <- "school attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
-label$hv121.1 <- "school attendance for age 17"
+label$hv121 <- "school attendance" # 0: no, >=1: attend
 label$hv270 <- "poor household wealth" # <=2: poor
 label$ha2 <- "woman's weight"
 label$ha3 <- "woman's height"

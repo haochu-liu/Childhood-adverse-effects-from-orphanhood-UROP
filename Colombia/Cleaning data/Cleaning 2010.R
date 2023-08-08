@@ -9,7 +9,7 @@ df2010_new <- df2010[, c("hvidx","hv001","hv002",
                          "hv025",
                          "hv201","hv205","hv206","hv207","hv208","hv209","hv221",
                          "hv210","hv211","hv212","hv270","hv243a",
-                         "hv106","hv107","hv121","hv121",
+                         "hv106","hv107","hv121",
                          "hc70","hc71","hc72"
 )]
 # orphanhood
@@ -55,12 +55,7 @@ df2010_new$hv212[df2010_new$hv212 == 9] <- NA
 df2010_new$hv270 <- ifelse(df2010_new$hv270 <= 2, 1, 0)
 
 df2010_new$hv121[df2010_new$hv121 == 9] <- NA
-df2010_new$hv121[df2010_new$hv105 < 5 | df2010_new$hv105 > 16] <- NA
 df2010_new$hv121 <- ifelse(df2010_new$hv121 >= 1, 1, 0)
-
-df2010_new$hv121.1[df2010_new$hv121.1 == 9] <- NA
-df2010_new$hv121.1[df2010_new$hv105 == 17] <- NA
-df2010_new$hv121.1 <- ifelse(df2010_new$hv121.1 >= 1, 1, 0)
 
 # labels
 library(Hmisc)
@@ -69,8 +64,7 @@ label$ha40 <- "woman's body mass index"
 label$hv025 <- "lives in urban area" # 1: urban, 2: rural
 label$hv201 <- "has piped or tube water" # <=13
 label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
-label$hv121 <- "school attendance for age 5-16 (compulsory)" # 0: no, >=1: attend
-label$hv121.1 <- "school attendance for age 17"
+label$hv121 <- "school attendance" # 0: no, >=1: attend
 label$hv270 <- "poor household wealth" # <=2: poor
 label$ha2 <- "woman's weight"
 label$ha3 <- "woman's height"

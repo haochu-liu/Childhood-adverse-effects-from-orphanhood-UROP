@@ -19,7 +19,6 @@ recent_df_SN<-chdf2019
 edu_bar_df<-function(df,year,country){
   #' df: input dataframe
   #' column_name: school attendence, highest educational level
-  df<-df_2019
   edu_df<-df[,c("hv121","hv106","hv105","Orphanhood")]
   edu_df<-remove_var_label(edu_df)
   edu_df<-na.omit(edu_df)

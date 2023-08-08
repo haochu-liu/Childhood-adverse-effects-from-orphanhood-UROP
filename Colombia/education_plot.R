@@ -19,18 +19,18 @@ hl_year_df <- rbind(edu_bar_df(df2000_new, 2000, "Colombia")[[2]],
                     edu_bar_df(df2015_new, 2015, "Colombia")[[2]])
 
 
-# multiple years barplots of school attendence
+# multiple years barplots of school attendance
 att_year_CO <- ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "School attendence") +
-  ggtitle("Colombia School Attendence") +
+  labs(x = "School attendance") +
+  ggtitle("Colombia School attendance") +
   ylim(0, 1)+
   theme_classic()
 print(att_year_CO)
 
-ggsave("bar_CO_attendence.png",
+ggsave("bar_CO_attendance.png",
        path = "figures", 
        height = 5.6, width = 8.5, dpi = 700)
 

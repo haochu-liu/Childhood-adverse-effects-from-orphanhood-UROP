@@ -27,14 +27,12 @@ df_binary <- function(vec_response, data){
     
     f <- paste(vec_response[i], str)
     
-    
     model <<- glm(f, data=data)
     coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
     p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
     
     bin_df <- rbind(bin_df,c(vec_response[i], coeff, p_val))
   }
-  
   bin_df
 }
 

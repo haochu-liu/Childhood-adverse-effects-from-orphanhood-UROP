@@ -100,8 +100,8 @@ att_year_SN<-ggplot(att_year_df, aes(fill=orphan, x=year, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "School attendence") +
-  ggtitle("Senegal School Attendence(2016-2019)") +
+  labs(x = "School attendance") +
+  ggtitle("Senegal School Attendance(2016-2019)") +
   ylim(0, 1)+
   theme_classic()
 print(att_year_SN)
@@ -125,8 +125,8 @@ att_country<-ggplot(att_country_df, aes(fill=orphan, x=country, y=percentage)) +
   geom_col(width=0.5, position=position_dodge(0.5)) +
   geom_errorbar(aes(ymin=CI_lower, ymax=CI_upper),
                 width=0.4, colour="black", position = position_dodge(.5)) +
-  labs(x = "School attendence") +
-  ggtitle("School Attendence(3 Countries Most Recent Year)") +
+  labs(x = "School attendance") +
+  ggtitle("School Attendance(3 Countries Most Recent Year)") +
   ylim(0, 1)+
   theme_classic()
 print(att_country)

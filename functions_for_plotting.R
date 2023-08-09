@@ -369,24 +369,3 @@ df_edu_sort <- function(odd_df) {
   
   forester_data
 }
-
-df_binary <- function(vec_response, data){
-  # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105)
-  
-  str <- "~ Orphanhood + hv104 + hv105"
-  bin_df <- data.frame()
-  colnames(bin_df) <- c("Outcomes","Coeff","P_val")
-  
-  for (i in 1:length(vec_response)){
-    
-    f <- paste(vec_response[i], str)
-    
-    model <- glm(f, data=data)
-    coeff <- coef(summary(model))["Orphanhood","Estimate"]
-    p_val <- coef(summary(model))["Orphanhood","Pr(>|t|)"]
-    
-    bin_df <- rbind(bin_df,c(vec_response[i], coeff, p_val))
-  }
-  
-  bin_df
-}

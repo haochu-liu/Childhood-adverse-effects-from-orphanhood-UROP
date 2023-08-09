@@ -423,8 +423,9 @@ df_ordered <- function(vec_response, data){
     f <- paste(vec_response[i], str)
     
     model <- polr(f, data=data, Hess = TRUE)
-    coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
-    p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
+    ctable <- coef(summary(model))
+    coeff <- ctable["Orphanhoodorphan","Value"]
+    p_val <- pnorm(abs(ctable["Orphanhoodorphan", "t value"]), lower.tail = FALSE) * 2
     
     order_df <- rbind(order_df,c(vec_response[i], coeff, p_val))
   }

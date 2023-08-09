@@ -374,19 +374,61 @@ df_binary <- function(vec_response, data){
   # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105)
   
   str <- "~ Orphanhood + hv104 + hv105"
-  bin_df <- data.frame()
-  colnames(bin_df) <- c("Outcomes","Coeff","P_val")
+  bin_df <- data.frame(matrix(nrow = 0, ncol = 3))
   
   for (i in 1:length(vec_response)){
     
     f <- paste(vec_response[i], str)
     
     model <- glm(f, data=data)
-    coeff <- coef(summary(model))["Orphanhood","Estimate"]
-    p_val <- coef(summary(model))["Orphanhood","Pr(>|t|)"]
+    coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
+    p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
     
     bin_df <- rbind(bin_df,c(vec_response[i], coeff, p_val))
   }
   
+  colnames(bin_df) <- c("Outcomes","Coeff","P_val")
   bin_df
+}
+
+df_cont <- function(vec_response, data){
+  # glm : response ~ Orphanhood + Sex (hv104) + Age (hc1) + Age^2
+  
+  str <- "~ Orphanhood + hv104 + hc1 + I(hc1^2)"
+  cont_df <- data.frame(matrix(nrow = 0, ncol = 3))
+  
+  for (i in 1:length(vec_response)){
+    
+    f <- paste(vec_response[i], str)
+    
+    model <- glm(f, data=data)
+    coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
+    p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
+    
+    cont_df <- rbind(cont_df,c(vec_response[i], coeff, p_val))
+  }
+  
+  colnames(cont_df) <- c("Outcomes","Coeff","P_val")
+  cont_df
+}
+
+df_ordered <- function(vec_response, data){
+  # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
+  
+  str <- "~ Orphanhood + hv104 + hv105"
+  order_df <- data.frame(matrix(nrow = 0, ncol = 3))
+  
+  for (i in 1:length(vec_response)){
+    
+    f <- paste(vec_response[i], str)
+    
+    model <- polr(f, data=data, Hess = TRUE)
+    coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
+    p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
+    
+    order_df <- rbind(order_df,c(vec_response[i], coeff, p_val))
+  }
+  
+  colnames(order_df) <- c("Outcomes","Coeff","P_val")
+  order_df
 }

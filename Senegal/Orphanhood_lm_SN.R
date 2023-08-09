@@ -38,3 +38,4 @@ df_binary <- function(vec_response, data){
 
 val_labels(df2015_new) <- NULL
 bin_df_SN<-df_binary(log_name,df_SN)
+cont_df_SN<-df_cont(con_name,df_SN)

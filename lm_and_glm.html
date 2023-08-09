@@ -1208,23 +1208,23 @@ summary(glm_edu1_RW)</code></pre>
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                -1.000e+02  4.690e+00 -21.333  &lt; 2e-16 ***
-## Orphanhoodorphan            3.647e-01  1.420e-01   2.569  0.01020 *  
-## Age                        -2.029e-01  4.481e-03 -45.284  &lt; 2e-16 ***
-## Sexfemale                   8.502e-02  2.691e-02   3.159  0.00158 ** 
-## Poverty                    -5.319e-01  2.717e-02 -19.578  &lt; 2e-16 ***
-## year                        5.195e-02  2.333e-03  22.268  &lt; 2e-16 ***
-## Orphanhoodorphan:Sexfemale -4.064e-02  5.239e-02  -0.776  0.43790    
-## Orphanhoodorphan:Poverty    3.771e-01  5.280e-02   7.142 9.19e-13 ***
-## Orphanhoodorphan:Age       -6.489e-02  9.771e-03  -6.641 3.11e-11 ***
+## (Intercept)                -1.160e+02  3.161e+00 -36.693  &lt; 2e-16 ***
+## Orphanhoodorphan            2.432e+00  6.473e-02  37.572  &lt; 2e-16 ***
+## Age                         3.598e-01  2.299e-03 156.523  &lt; 2e-16 ***
+## Sexfemale                   6.432e-02  1.696e-02   3.793 0.000149 ***
+## Poverty                    -4.859e-01  1.732e-02 -28.059  &lt; 2e-16 ***
+## year                        5.656e-02  1.570e-03  36.012  &lt; 2e-16 ***
+## Orphanhoodorphan:Sexfemale -6.086e-02  4.125e-02  -1.476 0.140076    
+## Orphanhoodorphan:Poverty    3.042e-01  4.151e-02   7.328 2.34e-13 ***
+## Orphanhoodorphan:Age       -2.960e-01  5.065e-03 -58.445  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 53794  on 61942  degrees of freedom
-## Residual deviance: 49021  on 61934  degrees of freedom
-## AIC: 49039
+##     Null deviance: 148220  on 107899  degrees of freedom
+## Residual deviance: 102351  on 107891  degrees of freedom
+## AIC: 102369
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <pre class="r"><code>glm_edu2_RW &lt;- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
@@ -1237,22 +1237,31 @@ summary(glm_edu2_RW)</code></pre>
 ## 
 ## Coefficients:
 ##                    Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)      -99.676434   4.680443 -21.296  &lt; 2e-16 ***
-## Orphanhoodorphan  -0.362061   0.026876 -13.471  &lt; 2e-16 ***
-## Age               -0.216866   0.003973 -54.592  &lt; 2e-16 ***
-## Sexfemale          0.074392   0.023048   3.228  0.00125 ** 
-## Poverty           -0.430458   0.023314 -18.464  &lt; 2e-16 ***
-## year               0.051833   0.002329  22.259  &lt; 2e-16 ***
+## (Intercept)      -1.145e+02  3.095e+00 -36.986  &lt; 2e-16 ***
+## Orphanhoodorphan -4.791e-01  2.485e-02 -19.280  &lt; 2e-16 ***
+## Age               3.124e-01  1.962e-03 159.258  &lt; 2e-16 ***
+## Sexfemale         5.175e-02  1.520e-02   3.404 0.000663 ***
+## Poverty          -4.075e-01  1.547e-02 -26.347  &lt; 2e-16 ***
+## year              5.595e-02  1.538e-03  36.380  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 53794  on 61942  degrees of freedom
-## Residual deviance: 49127  on 61937  degrees of freedom
-## AIC: 49139
+##     Null deviance: 148220  on 107899  degrees of freedom
+## Residual deviance: 105586  on 107894  degrees of freedom
+## AIC: 105598
 ## 
-## Number of Fisher Scoring iterations: 5</code></pre>
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>confint(glm_edu2_RW)</code></pre>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                          2.5 %        97.5 %
+## (Intercept)      -120.55628626 -108.42194712
+## Orphanhoodorphan   -0.52783389   -0.43041145
+## Age                 0.30856934    0.31625956
+## Sexfemale           0.02195797    0.08155012
+## Poverty            -0.43784423   -0.37721004
+## year                0.05293613    0.05896486</code></pre>
 <pre class="r"><code>glm_edu3_RW &lt;- glm(school_attainment ~ Age + Sex + Poverty + year,
               data=df_RW, family = &quot;binomial&quot;)
 summary(glm_edu3_RW)</code></pre>
@@ -1263,21 +1272,21 @@ summary(glm_edu3_RW)</code></pre>
 ## 
 ## Coefficients:
 ##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -1.131e+02  4.566e+00 -24.767  &lt; 2e-16 ***
-## Age         -2.252e-01  3.921e-03 -57.441  &lt; 2e-16 ***
-## Sexfemale    7.275e-02  2.300e-02   3.163  0.00156 ** 
-## Poverty     -4.508e-01  2.322e-02 -19.415  &lt; 2e-16 ***
-## year         5.852e-02  2.272e-03  25.757  &lt; 2e-16 ***
+## (Intercept) -1.232e+02  3.058e+00  -40.29  &lt; 2e-16 ***
+## Age          3.023e-01  1.866e-03  162.01  &lt; 2e-16 ***
+## Sexfemale    5.067e-02  1.517e-02    3.34 0.000839 ***
+## Poverty     -4.230e-01  1.542e-02  -27.43  &lt; 2e-16 ***
+## year         6.030e-02  1.519e-03   39.69  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 53794  on 61942  degrees of freedom
-## Residual deviance: 49304  on 61938  degrees of freedom
-## AIC: 49314
+##     Null deviance: 148220  on 107899  degrees of freedom
+## Residual deviance: 105953  on 107895  degrees of freedom
+## AIC: 105963
 ## 
-## Number of Fisher Scoring iterations: 5</code></pre>
+## Number of Fisher Scoring iterations: 4</code></pre>
 <pre class="r"><code>anova(glm_edu1_RW, glm_edu2_RW, glm_edu3_RW)</code></pre>
 <pre><code>## Analysis of Deviance Table
 ## 
@@ -1286,9 +1295,9 @@ summary(glm_edu3_RW)</code></pre>
 ## Model 2: school_attainment ~ Orphanhood + Age + Sex + Poverty + year
 ## Model 3: school_attainment ~ Age + Sex + Poverty + year
 ##   Resid. Df Resid. Dev Df Deviance
-## 1     61934      49021            
-## 2     61937      49127 -3  -106.41
-## 3     61938      49304 -1  -176.75</code></pre>
+## 1    107891     102351            
+## 2    107894     105586 -3  -3234.5
+## 3    107895     105953 -1   -367.9</code></pre>
 </div>
 <div id="senegal-2" class="section level3">
 <h3>Senegal</h3>
@@ -1348,6 +1357,15 @@ summary(glm_edu2_SN)</code></pre>
 ## AIC: 216780
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>confint(glm_edu2_SN)</code></pre>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                          2.5 %       97.5 %
+## (Intercept)      -27.923340946 -14.11172730
+## Orphanhoodorphan  -0.219352647  -0.14050552
+## Age                0.250161855   0.25499901
+## Sex                0.030452874   0.07190332
+## Poverty           -0.710528012  -0.66880834
+## year               0.005825661   0.01268082</code></pre>
 <pre class="r"><code>glm_edu3_SN &lt;- glm(school_attainment ~ Age + Sex + Poverty + year,
               data=df_SN, family = &quot;binomial&quot;)
 summary(glm_edu3_SN)</code></pre>
@@ -1398,25 +1416,25 @@ summary(glm_edu1_CO)</code></pre>
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                -1.545e+02  3.812e+00 -40.525  &lt; 2e-16 ***
-## Orphanhoodorphan            2.382e+00  8.334e-02  28.585  &lt; 2e-16 ***
-## Age                         5.244e-01  2.493e-03 210.399  &lt; 2e-16 ***
-## Sexfemale                   8.956e-02  1.491e-02   6.007 1.89e-09 ***
-## Poverty                    -3.133e-01  1.529e-02 -20.486  &lt; 2e-16 ***
-## year                        7.549e-02  1.896e-03  39.811  &lt; 2e-16 ***
-## Orphanhoodorphan:Sexfemale -7.968e-03  5.627e-02  -0.142   0.8874    
-## Orphanhoodorphan:Poverty   -1.440e-01  5.943e-02  -2.422   0.0154 *  
-## Orphanhoodorphan:Age       -3.162e-01  7.093e-03 -44.574  &lt; 2e-16 ***
+## (Intercept)                -1.266e+02  3.313e+00 -38.209  &lt; 2e-16 ***
+## Orphanhoodorphan            2.331e+00  7.548e-02  30.883  &lt; 2e-16 ***
+## Age                         3.758e-01  1.760e-03 213.549  &lt; 2e-16 ***
+## Sexfemale                   6.287e-02  1.302e-02   4.828 1.38e-06 ***
+## Poverty                    -2.798e-01  1.334e-02 -20.969  &lt; 2e-16 ***
+## year                        6.199e-02  1.648e-03  37.605  &lt; 2e-16 ***
+## Orphanhoodorphan:Sexfemale  7.590e-03  4.913e-02   0.154 0.877235    
+## Orphanhoodorphan:Poverty   -2.016e-01  5.184e-02  -3.888 0.000101 ***
+## Orphanhoodorphan:Age       -2.638e-01  5.666e-03 -46.563  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 229649  on 177866  degrees of freedom
-## Residual deviance: 123463  on 177858  degrees of freedom
-## AIC: 123481
+##     Null deviance: 243014  on 188042  degrees of freedom
+## Residual deviance: 158230  on 188034  degrees of freedom
+## AIC: 158248
 ## 
-## Number of Fisher Scoring iterations: 6</code></pre>
+## Number of Fisher Scoring iterations: 5</code></pre>
 <pre class="r"><code>glm_edu2_CO &lt;- glm(school_attainment ~ Orphanhood + Age + Sex + Poverty + year,
               data=df_CO, family = &quot;binomial&quot;)
 summary(glm_edu2_CO)</code></pre>
@@ -1427,22 +1445,31 @@ summary(glm_edu2_CO)</code></pre>
 ## 
 ## Coefficients:
 ##                    Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)      -1.513e+02  3.779e+00 -40.040  &lt; 2e-16 ***
-## Orphanhoodorphan -3.268e-01  3.465e-02  -9.433  &lt; 2e-16 ***
-## Age               4.991e-01  2.314e-03 215.681  &lt; 2e-16 ***
-## Sexfemale         8.658e-02  1.427e-02   6.066 1.31e-09 ***
-## Poverty          -3.159e-01  1.466e-02 -21.545  &lt; 2e-16 ***
-## year              7.398e-02  1.880e-03  39.359  &lt; 2e-16 ***
+## (Intercept)      -1.237e+02  3.287e+00 -37.641  &lt; 2e-16 ***
+## Orphanhoodorphan -2.899e-01  2.901e-02  -9.991  &lt; 2e-16 ***
+## Age               3.567e-01  1.646e-03 216.691  &lt; 2e-16 ***
+## Sexfemale         6.119e-02  1.247e-02   4.907 9.26e-07 ***
+## Poverty          -2.861e-01  1.280e-02 -22.353  &lt; 2e-16 ***
+## year              6.062e-02  1.635e-03  37.071  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 229649  on 177866  degrees of freedom
-## Residual deviance: 125048  on 177861  degrees of freedom
-## AIC: 125060
+##     Null deviance: 243014  on 188042  degrees of freedom
+## Residual deviance: 160128  on 188037  degrees of freedom
+## AIC: 160140
 ## 
-## Number of Fisher Scoring iterations: 6</code></pre>
+## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>confint(glm_edu2_CO)</code></pre>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                          2.5 %        97.5 %
+## (Intercept)      -130.17044761 -117.28569831
+## Orphanhoodorphan   -0.34661633   -0.23288584
+## Age                 0.35346075    0.35991312
+## Sexfemale           0.03674862    0.08563051
+## Poverty            -0.31118365   -0.26101387
+## year                0.05741941    0.06382984</code></pre>
 <pre class="r"><code>glm_edu3_CO &lt;- glm(school_attainment ~ Age + Sex + Poverty + year,
               data=df_CO, family = &quot;binomial&quot;)
 summary(glm_edu3_CO)</code></pre>
@@ -1453,21 +1480,21 @@ summary(glm_edu3_CO)</code></pre>
 ## 
 ## Coefficients:
 ##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -1.525e+02  3.776e+00  -40.38  &lt; 2e-16 ***
-## Age          4.967e-01  2.295e-03  216.48  &lt; 2e-16 ***
-## Sexfemale    8.690e-02  1.427e-02    6.09 1.13e-09 ***
-## Poverty     -3.183e-01  1.465e-02  -21.72  &lt; 2e-16 ***
-## year         7.456e-02  1.878e-03   39.70  &lt; 2e-16 ***
+## (Intercept) -1.248e+02  3.284e+00 -38.001  &lt; 2e-16 ***
+## Age          3.546e-01  1.629e-03 217.699  &lt; 2e-16 ***
+## Sexfemale    6.144e-02  1.247e-02   4.929 8.28e-07 ***
+## Poverty     -2.883e-01  1.279e-02 -22.539  &lt; 2e-16 ***
+## year         6.116e-02  1.634e-03  37.431  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 229649  on 177866  degrees of freedom
-## Residual deviance: 125135  on 177862  degrees of freedom
-## AIC: 125145
+##     Null deviance: 243014  on 188042  degrees of freedom
+## Residual deviance: 160226  on 188038  degrees of freedom
+## AIC: 160236
 ## 
-## Number of Fisher Scoring iterations: 6</code></pre>
+## Number of Fisher Scoring iterations: 5</code></pre>
 <pre class="r"><code>anova(glm_edu1_CO, glm_edu2_CO, glm_edu3_CO)</code></pre>
 <pre><code>## Analysis of Deviance Table
 ## 
@@ -1476,9 +1503,9 @@ summary(glm_edu3_CO)</code></pre>
 ## Model 2: school_attainment ~ Orphanhood + Age + Sex + Poverty + year
 ## Model 3: school_attainment ~ Age + Sex + Poverty + year
 ##   Resid. Df Resid. Dev Df Deviance
-## 1    177858     123463            
-## 2    177861     125048 -3 -1585.13
-## 3    177862     125135 -1   -87.01</code></pre>
+## 1    188034     158230            
+## 2    188037     160128 -3 -1897.65
+## 3    188038     160226 -1   -97.53</code></pre>
 </div>
 </div>
 </div>

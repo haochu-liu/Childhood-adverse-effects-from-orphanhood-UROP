@@ -83,6 +83,10 @@ col_2010 <- c(c("Orphanhood", "hv105", "hv104", "hc1"), cont_vec)
 
 df_2015 <- df2015_CO[, col_2015]
 df_2010 <- df2010_new[, col_2010]
+label <- as.list(label(df_2010))
+label$hc2 <- "child's weight in kilograms (1 decimal)"
+label$hc3 <- "child's height in centimeters (1 decimal)"
+label(df_2010) <- label
 
 val_labels(df_2015) <- NULL
 val_labels(df_2010) <- NULL

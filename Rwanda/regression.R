@@ -127,6 +127,7 @@ ord_table <- df_ordered(ord_names, data)
 
 regression_table_RW <- rbind(bin_table, con_table, ord_table)
 regression_table_RW$Labels <- tolower(regression_table_RW$Labels)
+regression_table_RW$fill <- "Rwanda 2019"
 save(regression_table_RW, file = "Rwanda/regression_table_RW.Rda")
 write.csv(regression_table_RW, file = "Rwanda/regression_table_RW.csv")
 

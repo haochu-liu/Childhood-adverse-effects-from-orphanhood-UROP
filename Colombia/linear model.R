@@ -65,7 +65,7 @@ label$hv025 <- "lives in urban area" # 1: urban, 2: rural
 label$hv201 <- "has piped or tube water" # <=13
 label$hv205 <- "has flush or pit toilet" # <=21: flush/pit, >21: not have
 label$hv121 <- "school attendance" # 0: no, >=1: attend
-label$hv270 <- "poor household wealth" # <=2: poor
+label$hv270 <- "household wealth index"
 
 label(df2015_CO) <- label
 
@@ -93,9 +93,17 @@ val_labels(df_2010) <- NULL
 
 # linear model
 bin_table <- df_binary(bin_vec,df_2015)
+bin_table$fill <- "Colombia 2015"
 cont_table <- df_cont(cont_vec, df_2010)
+cont_table$fill <- "Colombia 2010"
 ord_table <- df_ordered(ord_vec, df2015_CO[,col_2015])
+ord_table$fill <- "Colombia 2015"
 
 regression_table_CO <- rbind(bin_table, cont_table, ord_table)
 save(regression_table_CO, file = "Colombia/regression_table_CO.Rda")
 write.csv(regression_table_CO, file = "Colombia/regression_table_CO.csv")
+
+# coeff table
+coeff_hv207_CO <- df_bin_coeff("hv207", df2015_CO)
+coeff_hv207_CO$fill <- "Colombia 2015"
+save(regression_table_CO, file = "Colombia/coeff_hv207_CO.Rda")

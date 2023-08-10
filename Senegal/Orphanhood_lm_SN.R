@@ -55,7 +55,7 @@ df_ordered <- function(vec_response, data){
     f <- paste(vec_response[i], str)
     model <- polr(f, data=data, Hess = TRUE,method="logistic")
     ctable <- coef(summary(model))
-    coeff <- ctable["Orphanhoodorphan","Value"]
+    coeff<-coef(summary(model))["Orphanhoodorphan","Estimate"]
     p_val <- pnorm(abs(ctable["Orphanhoodorphan", "t value"]), lower.tail = FALSE) * 2
     
     order_df <- rbind(order_df,c(vec_response[i], coeff, p_val))
@@ -84,7 +84,7 @@ df_ordered <- function(vec_response, data){
   vec_response<-cat_name
   for (i in 1:length(vec_response)){
     
-    i<-1
+    i<-2
     f <- paste(vec_response[i], str)
     df <- df_SN[, c(vec_response[i], "Orphanhood", "hv104", "hv105")]
     df <- unlabelled(df)
@@ -92,18 +92,18 @@ df_ordered <- function(vec_response, data){
     g = sample(1:11000, 500, replace=F)
     
     df1<-df_SN[g,]
-    model1 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105, data=df1,
+    model1 <- polr(as.factor(hv270)~ Orphanhood + hv104 + hv105, data=df_SN,
                    Hess=TRUE, method = c("logistic"))
     
     startval<-c(model1$coefficients,model1$zeta)
     
-    model2 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105,data=df_SN,
-                   Hess=TRUE, method = c("logistic"),start=startval)
+    model2 <- polr(as.factor(hv270)~ Orphanhood + hv104 + hv105,data=df_SN,
+                   Hess=TRUE, method = c("logistic"), start=startval)
     
 
     ctable <- coef(summary(model))
     ci <- confint.default(model)
-    coeff <- ctable["Orphanhoodorphan", "Value"]
+    coeff<-coef(summary(model))["Orphanhoodorphan","Estimate"]
     p_val <- pnorm(abs(ctable["Orphanhoodorphan", "t value"]), lower.tail = FALSE) * 2
     ci_lower <- ci[1, 1]
     ci_upper <- ci[1, 2]
@@ -112,9 +112,9 @@ df_ordered <- function(vec_response, data){
   }
   
   colnames(order_df) <- c("Outcomes", "Coeff", "P_val", "CI_lower", "CI_upper")
-  order_df_SN
+  order_df
 }
-
+order_df_SN<-order_df
 df_SN<-df_SN[df_SN$hv106!="higher",]
 df_SN<-df_SN[is.na(df_SN$hv104)!=TRUE,]
 df_SN<-df_SN[is.na(df_SN$hv105)!=TRUE,]
@@ -123,7 +123,9 @@ model1 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105, data=df_SN,
                Hess=TRUE, method = c("logistic"))
 
 startval<-c(model1$coefficients,model1$zeta)
-model2 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105, data=df_SN,
+model2 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105, data=df_SN1,
                Hess=TRUE, method = c("logistic"),start=startval)
 
 
+regression_table_SN<-rbind(bin_df_SN,cont_df_SN,order_df_SN)
+save(regression_table_SN,file="regression_table_SN.Rda")

@@ -8,6 +8,7 @@ source("functions_for_plotting.R")
 
 
 # 2019
+download_2019 <- get_datasets("RWPR81DT.ZIP")
 df_2019 <- readRDS(download_2019$RWPR81DT)
 df_2019 <- data.frame(df_2019)
 
@@ -124,7 +125,8 @@ con_table <- df_cont(con_names, data)
 data <- df_2019[, c(explain_names, ord_names)]
 ord_table <- df_ordered(ord_names, data)
 
-
+regression_table_RW <- rbind(bin_table, con_table, ord_table)
+save(regression_table_RW, file = "Rwanda/regression_table_RW.Rda")
 
 
 

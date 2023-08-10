@@ -374,7 +374,7 @@ df_binary <- function(vec_response, data){
   # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105)
   
   str <- "~ Orphanhood + hv104 + hv105"
-  bin_df <- data.frame(matrix(nrow = 0, ncol = 5))
+  bin_df <- data.frame(matrix(nrow = 0, ncol = 6))
   
   for (i in 1:length(vec_response)){
     
@@ -386,11 +386,12 @@ df_binary <- function(vec_response, data){
     p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|z|)"]
     ci_lower <- ci[2, 1]
     ci_upper <- ci[2, 2]
+    label <- label(data[,vec_response[i]])
     
-    bin_df <- rbind(bin_df,c(vec_response[i], coeff, p_val, ci_lower, ci_upper))
+    bin_df <- rbind(bin_df,c(vec_response[i], label, coeff, p_val, ci_lower, ci_upper))
   }
   
-  colnames(bin_df) <- c("Outcomes", "Coeff", "P_val", "CI_lower", "CI_upper")
+  colnames(bin_df) <- c("Outcomes", "Labels", "Coeff", "P_val", "CI_lower", "CI_upper")
   bin_df
 }
 
@@ -398,7 +399,7 @@ df_cont <- function(vec_response, data){
   # glm : response ~ Orphanhood + Sex (hv104) + Age (hc1) + Age^2
   
   str <- "~ Orphanhood + hv104 + hc1 + I(hc1^2)"
-  cont_df <- data.frame(matrix(nrow = 0, ncol = 5))
+  cont_df <- data.frame(matrix(nrow = 0, ncol = 6))
   
   for (i in 1:length(vec_response)){
     
@@ -410,11 +411,12 @@ df_cont <- function(vec_response, data){
     p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
     ci_lower <- ci[2, 1]
     ci_upper <- ci[2, 2]
+    label <- label(data[,vec_response[i]])
     
-    cont_df <- rbind(cont_df, c(vec_response[i], coeff, p_val, ci_lower, ci_upper))
+    cont_df <- rbind(cont_df, c(vec_response[i], label, coeff, p_val, ci_lower, ci_upper))
   }
   
-  colnames(cont_df) <- c("Outcomes", "Coeff", "P_val", "CI_lower", "CI_upper")
+  colnames(cont_df) <- c("Outcomes", "Labels", "Coeff", "P_val", "CI_lower", "CI_upper")
   cont_df
 }
 
@@ -422,7 +424,7 @@ df_ordered <- function(vec_response, data){
   # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
   
   str <- "~ Orphanhood + hv104 + hv105"
-  order_df <- data.frame(matrix(nrow = 0, ncol = 5))
+  order_df <- data.frame(matrix(nrow = 0, ncol = 6))
   
   for (i in 1:length(vec_response)){
     
@@ -437,10 +439,11 @@ df_ordered <- function(vec_response, data){
     p_val <- pnorm(abs(ctable["Orphanhoodorphan", "t value"]), lower.tail = FALSE) * 2
     ci_lower <- ci[1, 1]
     ci_upper <- ci[1, 2]
+    label <- label(data[,vec_response[i]])
     
-    order_df <- rbind(order_df,c(vec_response[i], coeff, p_val, ci_lower, ci_upper))
+    order_df <- rbind(order_df,c(vec_response[i], label, coeff, p_val, ci_lower, ci_upper))
   }
   
-  colnames(order_df) <- c("Outcomes", "Coeff", "P_val", "CI_lower", "CI_upper")
+  colnames(order_df) <- c("Outcomes", "Labels", "Coeff", "P_val", "CI_lower", "CI_upper")
   order_df
 }

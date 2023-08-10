@@ -126,4 +126,15 @@ model2 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105, data=df_SN1,
 
 
 regression_table_SN<-rbind(bin_df_SN,cont_df_SN,order_df_SN)
+regression_table_SN["fill"]<-"Senegal 2019"
+
+regression_table_SN$Labels<-tolower(regression_table_SN$Labels)
+
+regression_table_SN[14,"Labels"]<-"has flush or pit toilet"
+regression_table_SN[15,"Labels"]<-"child's weight in kilograms (1 decimal)"
+regression_table_SN[16,"Labels"]<-"child's height in centimeters (1 decimal)"
+regression_table_SN[18,"Labels"]<-"household wealth index"
+
+
+
 save(regression_table_SN,file="regression_table_SN.Rda")

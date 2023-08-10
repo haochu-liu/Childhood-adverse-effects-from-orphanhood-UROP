@@ -94,3 +94,4 @@ ord_table <- df_ordered(ord_vec, df2015_CO[,col_2015])
 
 regression_table_CO <- rbind(bin_table, cont_table, ord_table)
 save(regression_table_CO, file = "Colombia/regression_table_CO.Rda")
+write.csv(regression_table_CO, file = "Colombia/regression_table_CO.csv")

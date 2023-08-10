@@ -448,4 +448,71 @@ df_ordered <- function(vec_response, data){
   order_df
 }
 
+df_bin_coeff <- function(response, data){
+  # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105)
+  
+  str <- "~ Orphanhood + hv104 + hv105"
+  f <- paste(response, str)
+  model <- lm(f, data=data)
+  
+  coeff_df <- data.frame(matrix(nrow = 0, ncol = 4))
+  
+  ci <- confint(model)
+  coeff <- coef(summary(model))
+  r1 <- c("Orphanhood", coeff["Orphanhoodorphan","Estimate"], ci[2, 1], ci[2, 2])
+  r2 <- c("Sex", coeff["hv104","Estimate"], ci[3, 1], ci[3, 2])
+  r3 <- c("Age (in years)", coeff["hv105","Estimate"], ci[4, 1], ci[4, 2])
+  
+  coeff_df <- rbind(coeff_df, r1, r2, r3)
+  
+  colnames(coeff_df) <- c("Predictors", "Coeff", "CI_lower", "CI_upper")
+  coeff_df
+}
 
+df_cont_coeff <- function(response, data){
+  # glm : response ~ Orphanhood + Sex (hv104) + Age (hc1) + Age^2
+  
+  str <- "~ Orphanhood + hv104 + hc1 + I(hc1^2)"
+  f <- paste(response, str)
+  model <- lm(f, data=data)
+  
+  coeff_df <- data.frame(matrix(nrow = 0, ncol = 4))
+  
+  ci <- confint(model)
+  coeff <- coef(summary(model))
+  r1 <- c("Orphanhood", coeff["Orphanhoodorphan","Estimate"], ci[2, 1], ci[2, 2])
+  r2 <- c("Sex", coeff["hv104","Estimate"], ci[3, 1], ci[3, 2])
+  r3 <- c("Age (in months)", coeff["hc1","Estimate"], ci[4, 1], ci[4, 2])
+  r4 <- c("Age^2", coeff["I(hc1^2)","Estimate"], ci[5, 1], ci[5, 2])
+  
+  coeff_df <- rbind(coeff_df, r1, r2, r3, r4)
+  
+  colnames(coeff_df) <- c("Predictors", "Coeff", "CI_lower", "CI_upper")
+  coeff_df
+}
+
+df_ordered_coeff <- function(response, data){
+  # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
+  
+  str <- "~ Orphanhood + hv104 + hv105"
+  f <- paste(response, str)
+  
+  df <- data[, c(response, "Orphanhood", "hv104", "hv105")]
+  df <- unlabelled(df)
+  
+  model <- polr(f, data=df, Hess = TRUE)
+  
+  coeff_df <- data.frame(matrix(nrow = 0, ncol = 4))
+  
+  coeff <- coef(summary(model))
+  ci <- confint.default(model)
+  
+  r1 <- c("Orphanhood", coeff["Orphanhoodorphan","Value"], ci[1, 1], ci[1, 2])
+  r2 <- c("Sex", coeff["hv104female","Value"], ci[2, 1], ci[2, 2])
+  r3 <- c("Age (in years)", coeff["hv105","Value"], ci[3, 1], ci[3, 2])
+  
+  coeff_df <- rbind(coeff_df, r1, r2, r3)
+  
+  colnames(coeff_df) <- c("Predictors", "Coeff", "CI_lower", "CI_upper")
+  coeff_df
+}

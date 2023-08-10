@@ -41,6 +41,35 @@ df_binary <- function(vec_response, data){
   bin_df
 }
 
+df_cont <- function(vec_response, data){
+  # glm : response ~ Orphanhood + Sex (hv104) + Age (hc1) + Age^2
+  
+  data<-df_SN
+  str <- "~ Orphanhood + hv104 + hc1 + I(hc1^2)"
+  cont_df <- data.frame(matrix(nrow = 0, ncol = 6))
+  vec_response<-con_name
+  
+  for (i in 1:length(vec_response)){
+    
+    i<-1
+    f <- paste(vec_response[i], str)
+    
+    model <- lm(f, data=data)
+    ci <- confint(model)
+    coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
+    p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
+    ci_lower <- ci[2, 1]
+    ci_upper <- ci[2, 2]
+    label <- label(data[,vec_response[i]])
+    
+    cont_df <- rbind(cont_df, c(vec_response[i], label, coeff, p_val, ci_lower, ci_upper))
+  }
+  
+  colnames(cont_df) <- c("Outcomes", "Labels", "Coeff", "P_val", "CI_lower", "CI_upper")
+  cont_df
+}
+
+
 df_ordered <- function(vec_response, data){
   # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
   
@@ -138,3 +167,6 @@ regression_table_SN[18,"Labels"]<-"household wealth index"
 
 
 save(regression_table_SN,file="regression_table_SN.Rda")
+
+bin_coeff_SN<-df_bin_coeff(log_name,df_SN)
+con_coeff_SN<-df_cont_coeff(con_name,df_SN)

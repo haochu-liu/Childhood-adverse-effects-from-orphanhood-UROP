@@ -82,7 +82,7 @@ label$hb40 <- "man's body mass index"
 label$hv025 <- "Lives in urban area" # 1: urban, 2: rural
 label$hv201 <- "Has piped or tube water" # <=21: piped/tube, >21: not have
 label$hv205 <- "Has flush or pit toilet" # <=23: flush/pit, >23: not have
-label$hv270 <- "Poor household wealth" # <=2: poor
+label$hv270 <- "household wealth index" # <=2: poor
 label$hv121 <- "School attendance" # 0: no, >=1: attend
 label$ha53 <- "woman's hemoglobin level (g/dl - 1 decimal)"
 label$hc53 <- "child's hemoglobin level (g/dl - 1 decimal)"
@@ -127,6 +127,7 @@ ord_table <- df_ordered(ord_names, data)
 
 regression_table_RW <- rbind(bin_table, con_table, ord_table)
 regression_table_RW$Labels <- tolower(regression_table_RW$Labels)
+regression_table_RW$fill <- "Rwanda 2019"
 save(regression_table_RW, file = "Rwanda/regression_table_RW.Rda")
 write.csv(regression_table_RW, file = "Rwanda/regression_table_RW.csv")
 

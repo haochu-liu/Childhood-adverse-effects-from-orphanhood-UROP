@@ -447,3 +447,5 @@ df_ordered <- function(vec_response, data){
   colnames(order_df) <- c("Outcomes", "Labels", "Coeff", "P_val", "CI_lower", "CI_upper")
   order_df
 }
+
+

@@ -21,13 +21,13 @@ library(MASS)
 ```
 
 ```{r}
-chdf2005<-subset(SN05HM,hv105<18)
+df_SN<-subset(SN19HM,hv105<18)
 
-chdf2005<-select(chdf2005,hv001,hv002,hvidx,
+df_SN<-select(df_SN,hv001,hv002,hvidx,
                  hv111,hv113,
                  hv110,hv217,hv105,hv104,hv025,
                  hv201,hv205,hv206,hv207,hv208,hv209,hv210,hv211,hv212,hv227,hv221,
-                 #hv243a,hv243b,
+                 hv243a,hv243e,
                  #education
                  hv106,hv107,hv121,
                  #wealth index
@@ -41,18 +41,18 @@ chdf2005<-select(chdf2005,hv001,hv002,hvidx,
                  hc1,hc2,hc3,
                  ha1,ha2,ha3)
 
-#chdf2005["hml35"]<-NA
-#chdf2005<-subset(chdf2005,is.na(hv111)==FALSE)
-#colnames(chdf2005)[6]<-"hv121"
+#df_SN["hml35"]<-NA
+#df_SN<-subset(df_SN,is.na(hv111)==FALSE)
+#colnames(df_SN)[6]<-"hv121"
 
 ```
 
 
 ```{r}
-chdf2005["Orphanhood"] <- ifelse(chdf2005$hv111 == 0 | chdf2005$hv113 == 0, 
+df_SN["Orphanhood"] <- ifelse(df_SN$hv111 == 0 | df_SN$hv113 == 0, 
                                    "orphan", "non-orphan")
 
-#colnames(chdf2005)<-c("cluster number","household number","line number",
+#colnames(df_SN)<-c("cluster number","household number","line number",
 #                      "mother alive","father alive",
 #                      "school attendence","relationship structure","age","gender","type of #place of residence","source of drinking water",
 #                      "type of toilet facility","has electricity","has radio","has #television","has refrigerator","has bicycle","has motorcycle","has car","has bednet","has #phone")
@@ -61,7 +61,7 @@ chdf2005["Orphanhood"] <- ifelse(chdf2005$hv111 == 0 | chdf2005$hv113 == 0,
 
 ```{r}
 #clean the data
-chdf2005<-replace_with_na(chdf2005,replace=list(hv111 = c(8,9),
+df_SN<-replace_with_na(df_SN,replace=list(hv111 = c(8,9),
                                       hv113 = c(8,9),
                                       hv121 = c(9),
                                       hv201 = c(97,99),
@@ -92,54 +92,54 @@ chdf2005<-replace_with_na(chdf2005,replace=list(hv111 = c(8,9),
 
 ```{r}
 #organise binary data
-chdf2005["hv121"] <- ifelse(chdf2005$hv121 == 1 | chdf2005$hv121 == 2, 
+df_SN["hv121"] <- ifelse(df_SN$hv121 == 1 | df_SN$hv121 == 2, 
                                    1, 0)
-chdf2005["hv025"] <- ifelse(chdf2005$hv025 == 1, 
+df_SN["hv025"] <- ifelse(df_SN$hv025 == 1, 
                                    1, 0)
-chdf2005["hv270"] <- ifelse(chdf2005$hv270<3,1,0)
-chdf2005["hv201"] <- ifelse(chdf2005$hv201<22,1,0)
-chdf2005["hv205"] <- ifelse(chdf2005$hv205<24,1,0)
+#df_SN["hv270"] <- ifelse(df_SN$hv270<3,1,0)
+df_SN["hv201"] <- ifelse(df_SN$hv201<22,1,0)
+df_SN["hv205"] <- ifelse(df_SN$hv205<24,1,0)
 
 ```
 
 ```{r}
-for (x in 1:nrow(chdf2005)){
-  if (chdf2005$hv105[x]<5){
-    chdf2005$BMI[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc3[x]/1000)**2
-    chdf2005$heightage[x]<-(chdf2005$hc3[x]/1000)/(chdf2005$hc1[x]/12)
-    chdf2005$weightage[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc1[x]/12)
+for (x in 1:nrow(df_SN)){
+  if (df_SN$hv105[x]<5){
+    df_SN$BMI[x]<-(df_SN$hc2[x]/10)/(df_SN$hc3[x]/1000)**2
+    df_SN$heightage[x]<-(df_SN$hc3[x]/1000)/(df_SN$hc1[x]/12)
+    df_SN$weightage[x]<-(df_SN$hc2[x]/10)/(df_SN$hc1[x]/12)
   }
   else{
-    chdf2005$BMI[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc3[x]/1000)**2
-    chdf2005$heightage[x]<-(chdf2005$hc3[x]/1000)/(chdf2005$hc1[x])
-    chdf2005$weightage[x]<-(chdf2005$hc2[x]/10)/(chdf2005$hc1[x])
+    df_SN$BMI[x]<-(df_SN$hc2[x]/10)/(df_SN$hc3[x]/1000)**2
+    df_SN$heightage[x]<-(df_SN$hc3[x]/1000)/(df_SN$hc1[x])
+    df_SN$weightage[x]<-(df_SN$hc2[x]/10)/(df_SN$hc1[x])
   }
 }
 ```
 
 ```{r}
 #change the label
-chdf2005$hv001 <- labelled(chdf2005$hv001, label = "cluster number")
-chdf2005$hv270 <- labelled(chdf2005$hv270, label = "poor household wealth")
-chdf2005$hv002 <- labelled(chdf2005$hv002, label = "household number")
-chdf2005$hvidx <- labelled(chdf2005$hvidx, label = "line number")
-chdf2005$hv110 <- labelled(chdf2005$hv110, label = "school attendence")
-chdf2005$hv121 <- labelled(chdf2005$hv121, label = "school attendence")
-chdf2005$hv201 <- labelled(chdf2005$hv201, label = "has piped or tube water")
-chdf2005$hv205 <- labelled(chdf2005$hv205, label = "has toilet facility")
-chdf2005$hv105 <- labelled(chdf2005$hv105, label = "age")
-chdf2005$hv104 <- labelled(chdf2005$hv104, label = "gender")
-chdf2005$hv025 <- labelled(chdf2005$hv025, label = "lives in urban area")
-chdf2005$hv221 <- labelled(chdf2005$hv221, label = "has telephone(land-line)")
-#chdf2005$hv243b <- labelled(chdf2005$hv243b, label = "has watch")
-chdf2005$hc1 <- labelled(chdf2005$hc1, label = "age in months(under 5)")
-chdf2005$hc2 <- labelled(chdf2005$hc2, label = "weight(under 5)")
-chdf2005$hc3 <- labelled(chdf2005$hc3, label = "height(under 5)")
-chdf2005$ha1 <- labelled(chdf2005$ha1, label = "age in years(female)")
-chdf2005$ha2 <- labelled(chdf2005$ha2, label = "weight(female)")
-chdf2005$ha3 <- labelled(chdf2005$ha3, label = "height(female)")
-#chdf2005$hv227 <- labelled(chdf2005$hv227, label = "has mosquito bed net for sleeping")
-#chdf2005$hml35 <- labelled(chdf2005$hml35, label = "malaria rapid test")
-chdf2005$Orphanhood <- labelled(chdf2005$Orphanhood, label = "orphanhood")
+df_SN$hv001 <- labelled(df_SN$hv001, label = "cluster number")
+df_SN$hv270 <- labelled(df_SN$hv270, label = "poor household wealth")
+df_SN$hv002 <- labelled(df_SN$hv002, label = "household number")
+df_SN$hvidx <- labelled(df_SN$hvidx, label = "line number")
+df_SN$hv110 <- labelled(df_SN$hv110, label = "school attendence")
+df_SN$hv121 <- labelled(df_SN$hv121, label = "school attendence")
+df_SN$hv201 <- labelled(df_SN$hv201, label = "has piped or tube water")
+df_SN$hv205 <- labelled(df_SN$hv205, label = "has toilet facility")
+df_SN$hv105 <- labelled(df_SN$hv105, label = "age")
+df_SN$hv104 <- labelled(df_SN$hv104, label = "gender")
+df_SN$hv025 <- labelled(df_SN$hv025, label = "lives in urban area")
+df_SN$hv221 <- labelled(df_SN$hv221, label = "has telephone(land-line)")
+#df_SN$hv243b <- labelled(df_SN$hv243b, label = "has watch")
+df_SN$hc1 <- labelled(df_SN$hc1, label = "age in months(under 5)")
+df_SN$hc2 <- labelled(df_SN$hc2, label = "weight(under 5)")
+df_SN$hc3 <- labelled(df_SN$hc3, label = "height(under 5)")
+df_SN$ha1 <- labelled(df_SN$ha1, label = "age in years(female)")
+df_SN$ha2 <- labelled(df_SN$ha2, label = "weight(female)")
+df_SN$ha3 <- labelled(df_SN$ha3, label = "height(female)")
+#df_SN$hv227 <- labelled(df_SN$hv227, label = "has mosquito bed net for sleeping")
+#df_SN$hml35 <- labelled(df_SN$hml35, label = "malaria rapid test")
+df_SN$Orphanhood <- labelled(df_SN$Orphanhood, label = "orphanhood")
 
 ```

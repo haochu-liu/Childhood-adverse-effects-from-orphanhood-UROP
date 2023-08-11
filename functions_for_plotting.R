@@ -453,7 +453,7 @@ df_bin_coeff <- function(response, data){
   
   str <- "~ Orphanhood + hv104 + hv105"
   f <- paste(response, str)
-  model <- lm(f, data=data)
+  model <- glm(f, data=data, family="binomial")
   
   coeff_df <- data.frame(matrix(nrow = 0, ncol = 4))
   

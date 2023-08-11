@@ -181,10 +181,13 @@ ggplot(coeff_hv207, aes(x=Predictors, y=Coeff, ymin=CI_lower, ymax=CI_upper,
                         col=data, fill=data)) + 
   geom_linerange(size=1, position=position_dodge(width = 0.5)) +
   geom_hline(yintercept=0, lty=2) +
-  geom_point(aes(shape=data), size=2.5, position=position_dodge(width = 0.5)) +
+  geom_point(aes(shape=data), size=3, position=position_dodge(width = 0.5)) +
   scale_fill_manual(values=barCOLS) +
   scale_color_manual(values=dotCOLS) +
   scale_x_discrete(name=element_blank()) +
   theme_minimal() +
   ylab("") +
   ggtitle("Coefficients in Model for hv207 (has radio)")
+
+
+

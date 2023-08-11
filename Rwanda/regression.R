@@ -132,5 +132,8 @@ save(regression_table_RW, file = "Rwanda/regression_table_RW.Rda")
 write.csv(regression_table_RW, file = "Rwanda/regression_table_RW.csv")
 
 
+coeff_hv207_RW <- df_bin_coeff("hv207", data)
+coeff_hv207_RW$data <- "Rwanda 2019"
+save(coeff_hv207_RW, file = "Rwanda/coeff_hv207_RW.Rda")
 
 

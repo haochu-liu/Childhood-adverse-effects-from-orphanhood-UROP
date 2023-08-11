@@ -3,6 +3,7 @@ library(labelled)
 library(rdhs)
 library(Hmisc)
 library(tidyr)
+library(MASS)
 
 source("~/Desktop/Childhood advserse effects from orphanhood/functions_for_plotting.R")
 
@@ -104,6 +105,6 @@ save(regression_table_CO, file = "Colombia/regression_table_CO.Rda")
 write.csv(regression_table_CO, file = "Colombia/regression_table_CO.csv")
 
 # coeff table
-coeff_hv207_CO <- df_bin_coeff("hv207", df2015_CO)
-coeff_hv207_CO$fill <- "Colombia 2015"
+coeff_hv207_CO <- df_bin_coeff("hv207", df_2015)
+coeff_hv207_CO$data <- "Colombia 2015"
 save(coeff_hv207_CO, file = "Colombia/coeff_hv207_CO.Rda")

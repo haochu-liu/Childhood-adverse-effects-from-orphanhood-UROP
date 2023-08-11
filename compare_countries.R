@@ -176,11 +176,12 @@ load("Senegal/coeff_hv207_SN.Rda")
 dotCOLS = c("#a6d8f0", "#f9b282", "#adf0a6")
 barCOLS = c("#008fd5", "#de6b35", "#4ede35")
 coeff_hv207 <- rbind(coeff_hv207_CO, coeff_hv207_RW, coeff_hv207_SN)
+coeff_hv207[, 2:4] <- lapply(coeff_hv207[, 2:4], as.numeric)
 ggplot(coeff_hv207, aes(x=Predictors, y=Coeff, ymin=CI_lower, ymax=CI_upper,
-                   col=fill, fill=fill)) + 
+                        col=data, fill=data)) + 
   geom_linerange(size=1, position=position_dodge(width = 0.5)) +
-  geom_hline(yintercept=1, lty=2) +
-  geom_point(size=2.5, shape=21, position=position_dodge(width = 0.5)) +
+  geom_hline(yintercept=0, lty=2) +
+  geom_point(aes(shape=data), size=2.5, position=position_dodge(width = 0.5)) +
   scale_fill_manual(values=barCOLS) +
   scale_color_manual(values=dotCOLS) +
   scale_x_discrete(name=element_blank()) +

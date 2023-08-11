@@ -189,5 +189,3 @@ ggplot(coeff_hv207, aes(x=Predictors, y=Coeff, ymin=CI_lower, ymax=CI_upper,
   ylab("") +
   ggtitle("Coefficients in Model for hv207 (has radio)")
 
-
-

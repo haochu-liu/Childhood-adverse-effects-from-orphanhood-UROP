@@ -169,3 +169,20 @@ forester(left_side_data = edu_df[,"Outcomes", drop=FALSE],
          point_sizes = 2.5,
          file_path = here::here("figures/forest_edu.png"))
 
+# coeff plot
+load("Rwanda/coeff_hv207_RW.Rda")
+load("Colombia/coeff_hv207_CO.Rda")
+load("Senegal/coeff_hv207_SN.Rda")
+dotCOLS = c("#a6d8f0", "#f9b282", "#adf0a6")
+barCOLS = c("#008fd5", "#de6b35", "#4ede35")
+coeff_hv207 <- rbind(coeff_hv207_CO, coeff_hv207_RW, coeff_hv207_SN)
+ggplot(coeff_hv207, aes(x=Predictors, y=Coeff, ymin=CI_lower, ymax=CI_upper,
+                   col=fill, fill=fill)) + 
+  geom_linerange(size=1, position=position_dodge(width = 0.5)) +
+  geom_hline(yintercept=1, lty=2) +
+  geom_point(size=2.5, shape=21, position=position_dodge(width = 0.5)) +
+  scale_fill_manual(values=barCOLS) +
+  scale_color_manual(values=dotCOLS) +
+  scale_x_discrete(name=element_blank()) +
+  theme_minimal() +
+  ggtitle("Coefficient")

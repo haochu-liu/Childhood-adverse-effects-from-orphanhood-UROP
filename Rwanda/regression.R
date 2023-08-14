@@ -84,12 +84,10 @@ label$hv201 <- "Has piped or tube water" # <=21: piped/tube, >21: not have
 label$hv205 <- "Has flush or pit toilet" # <=23: flush/pit, >23: not have
 label$hv270 <- "household wealth index" # <=2: poor
 label$hv121 <- "School attendance" # 0: no, >=1: attend
-label$ha53 <- "woman's hemoglobin level (g/dl - 1 decimal)"
-label$hc53 <- "child's hemoglobin level (g/dl - 1 decimal)"
-label$hb53 <- "man's hemoglobin level (g/dl - 1 decimal)"
-label$ha57 <- "Has anemia (woman)" # <=3: yes 4: no
+label$hc53 <- "child's hemoglobin level (g/dl)"
+label$hc3 <- "child's height (cm)"
+label$hc2 <- "child's weight (kg)"
 label$hc57 <- "Has anemia (child)"
-label$hb57 <- "Has anemia (man)"
 label$hml32 <- "Has malaria" # 0: negative, 1: positive
 label(df_2019) <- label
 
@@ -102,7 +100,7 @@ explain_names <- c("Orphanhood", "hv105", "hv104", "hc1")
 
 bin_names <- c("hv025", "hv206", "hv207", "hv208", "hv209", "hv210", "hv211",
                "hv212", "hv227", "hv221", "hv243a", "hv243b", "hv243e",
-               "hv121", "hv201", "hv205", "ha57", "hc57", "hml32")
+               "hv121", "hv201", "hv205", "hc57", "hml32")
 
 con_names <- c("hc3", "hc2", "hc53")
 
@@ -132,8 +130,34 @@ save(regression_table_RW, file = "Rwanda/regression_table_RW.Rda")
 write.csv(regression_table_RW, file = "Rwanda/regression_table_RW.csv")
 
 
-coeff_hv207_RW <- df_bin_coeff("hv207", data)
-coeff_hv207_RW$data <- "Rwanda 2019"
-save(coeff_hv207_RW, file = "Rwanda/coeff_hv207_RW.Rda")
+coeff_RW <- data.frame(matrix(nrow = 0, ncol = 6))
+
+data <- df_2019[, c(explain_names, bin_names)]
+val_labels(data) <- NULL
+for (i in 1:length(bin_names)) {
+  coeff_rows <- df_bin_coeff(bin_names[i], data)
+  coeff_rows$Names <- bin_names[i]
+  coeff_rows$Labels <- label(data)[[bin_names[i]]]
+  coeff_RW <- rbind(coeff_RW, coeff_rows)
+}
+
+data <- df_2019[, c(explain_names, con_names)]
+val_labels(data) <- NULL
+for (i in 1:length(con_names)) {
+  coeff_rows <- df_cont_coeff(con_names[i], data)
+  coeff_rows$Names <- con_names[i]
+  coeff_rows$Labels <- label(data)[[con_names[i]]]
+  coeff_RW <- rbind(coeff_RW, coeff_rows)
+}
+
+data <- df_2019[, c(explain_names, ord_names)]
+for (i in 1:length(ord_names)) {
+  coeff_rows <- df_ordered_coeff(ord_names[i], data)
+  coeff_rows$Names <- ord_names[i]
+  coeff_rows$Labels <- label(data)[[ord_names[i]]]
+  coeff_RW <- rbind(coeff_RW, coeff_rows)
+}
+coeff_RW$data <- "Rwanda 2019"
+save(coeff_RW, file = "Rwanda/coeff_RW.Rda")
 
 

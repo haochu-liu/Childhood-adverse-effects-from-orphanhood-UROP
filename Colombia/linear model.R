@@ -108,3 +108,7 @@ write.csv(regression_table_CO, file = "Colombia/regression_table_CO.csv")
 coeff_hv207_CO <- df_bin_coeff("hv207", df_2015)
 coeff_hv207_CO$data <- "Colombia 2015"
 save(coeff_hv207_CO, file = "Colombia/coeff_hv207_CO.Rda")
+
+# trial
+coeff_ha40_CO <- df_cont_coeff("hc2", df_2010) 
+coeff_hv106 <- df_ordered_coeff("hv106", df2015_CO[, col_2015])

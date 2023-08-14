@@ -486,7 +486,7 @@ df_cont_coeff <- function(response, data){
   f <- paste(response, str)
   
   
-  if (response %in% c("hc2", "hc3", "hc53")) {
+  if (strsplit(response, split="")[[1]][2] == "c") {
     df <- data[, c(response, "Orphanhood", "hv104", "hc1")]
     df$age <- df$hc1 / 12.0
   } else {

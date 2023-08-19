@@ -70,7 +70,7 @@ df2019$hc57 <- ifelse(df2019$hc57<=3, 1, 0)
 df2019$hb57[df2019$hb57 > 4] <- NA
 df2019$hb57 <- ifelse(df2019$hb57<=3, 1, 0)
 df2019$hml32[df2019$hml32>1] <- NA
-df2019$hv106[df2019$hv106 >= 8] <- NA
+df2019$hv106[df2019$hv106 >= 3] <- NA
 
 # labels
 label <- as.list(label(df2019))

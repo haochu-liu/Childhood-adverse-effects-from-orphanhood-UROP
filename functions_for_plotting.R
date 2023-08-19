@@ -371,9 +371,9 @@ df_edu_sort <- function(odd_df) {
 }
 
 df_binary <- function(vec_response, data){
-  # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105)
+  # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105) + Age^2
   
-  str <- "~ Orphanhood + hv104 + hv105"
+  str <- "~ Orphanhood + hv104 + hv105 + I(hv105^2)"
   bin_df <- data.frame(matrix(nrow = 0, ncol = 6))
   
   for (i in 1:length(vec_response)){
@@ -395,17 +395,25 @@ df_binary <- function(vec_response, data){
   bin_df
 }
 
+
 df_cont <- function(vec_response, data){
-  # glm : response ~ Orphanhood + Sex (hv104) + Age (hc1) + Age^2
+  # glm : response ~ Orphanhood + Sex (hv104) + Age + Age^2
   
-  str <- "~ Orphanhood + hv104 + hc1 + I(hc1^2)"
+  str <- "~ Orphanhood + hv104 + age + I(age^2)"
   cont_df <- data.frame(matrix(nrow = 0, ncol = 6))
   
   for (i in 1:length(vec_response)){
     
     f <- paste(vec_response[i], str)
+    if (vec_response[i] %in% c("hc2", "hc3", "hc53")) {
+      df <- data[, c(vec_response[i], "Orphanhood", "hv104", "hc1")]
+      df$age <- df$hc1 / 12.0
+    } else {
+      df <- data[, c(vec_response[i], "Orphanhood", "hv104", "hv105")]
+      df$age <- df$hv105
+    }
     
-    model <- lm(f, data=data)
+    model <- lm(f, data=df)
     ci <- confint(model)
     coeff <- coef(summary(model))["Orphanhoodorphan","Estimate"]
     p_val <- coef(summary(model))["Orphanhoodorphan","Pr(>|t|)"]
@@ -420,10 +428,11 @@ df_cont <- function(vec_response, data){
   cont_df
 }
 
+
 df_ordered <- function(vec_response, data){
-  # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
+  # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105) + Age^2
   
-  str <- "~ Orphanhood + hv104 + hv105"
+  str <- "~ Orphanhood + hv104 + hv105 + I(hv105^2)"
   order_df <- data.frame(matrix(nrow = 0, ncol = 6))
   
   for (i in 1:length(vec_response)){
@@ -449,11 +458,11 @@ df_ordered <- function(vec_response, data){
 }
 
 df_bin_coeff <- function(response, data){
-  # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105)
+  # glm : response ~ Orphanhood + Sex (hv104) + Age (hv105) + Age^2
   
-  str <- "~ Orphanhood + hv104 + hv105"
+  str <- "~ Orphanhood + hv104 + hv105 + I(hv105^2)"
   f <- paste(response, str)
-  model <- lm(f, data=data)
+  model <- glm(f, data=data, family="binomial")
   
   coeff_df <- data.frame(matrix(nrow = 0, ncol = 4))
   
@@ -461,9 +470,10 @@ df_bin_coeff <- function(response, data){
   coeff <- coef(summary(model))
   r1 <- c("Orphanhood", coeff["Orphanhoodorphan","Estimate"], ci[2, 1], ci[2, 2])
   r2 <- c("Sex", coeff["hv104","Estimate"], ci[3, 1], ci[3, 2])
-  r3 <- c("Age (in years)", coeff["hv105","Estimate"], ci[4, 1], ci[4, 2])
+  r3 <- c("Age", coeff["hv105","Estimate"], ci[4, 1], ci[4, 2])
+  r4 <- c("Age^2", coeff["I(hv105^2)", "Estimate"], ci[5, 1], ci[5, 2])
   
-  coeff_df <- rbind(coeff_df, r1, r2, r3)
+  coeff_df <- rbind(coeff_df, r1, r2, r3, r4)
   
   colnames(coeff_df) <- c("Predictors", "Coeff", "CI_lower", "CI_upper")
   coeff_df
@@ -472,18 +482,27 @@ df_bin_coeff <- function(response, data){
 df_cont_coeff <- function(response, data){
   # glm : response ~ Orphanhood + Sex (hv104) + Age (hc1) + Age^2
   
-  str <- "~ Orphanhood + hv104 + hc1 + I(hc1^2)"
+  str <- "~ Orphanhood + hv104 + age + I(age^2)"
   f <- paste(response, str)
-  model <- lm(f, data=data)
   
+  
+  if (strsplit(response, split="")[[1]][2] == "c") {
+    df <- data[, c(response, "Orphanhood", "hv104", "hc1")]
+    df$age <- df$hc1 / 12.0
+  } else {
+    df <- data[, c(response, "Orphanhood", "hv104", "hv105")]
+    df$age <- df$hv105
+  }
+  
+  model <- lm(f, data=df)
   coeff_df <- data.frame(matrix(nrow = 0, ncol = 4))
   
   ci <- confint(model)
   coeff <- coef(summary(model))
   r1 <- c("Orphanhood", coeff["Orphanhoodorphan","Estimate"], ci[2, 1], ci[2, 2])
   r2 <- c("Sex", coeff["hv104","Estimate"], ci[3, 1], ci[3, 2])
-  r3 <- c("Age (in months)", coeff["hc1","Estimate"], ci[4, 1], ci[4, 2])
-  r4 <- c("Age^2", coeff["I(hc1^2)","Estimate"], ci[5, 1], ci[5, 2])
+  r3 <- c("Age", coeff["age","Estimate"], ci[4, 1], ci[4, 2])
+  r4 <- c("Age^2", coeff["I(age^2)","Estimate"], ci[5, 1], ci[5, 2])
   
   coeff_df <- rbind(coeff_df, r1, r2, r3, r4)
   
@@ -492,9 +511,9 @@ df_cont_coeff <- function(response, data){
 }
 
 df_ordered_coeff <- function(response, data){
-  # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
+  # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105) + Age^2
   
-  str <- "~ Orphanhood + hv104 + hv105"
+  str <- "~ Orphanhood + hv104 + hv105 + I(hv105^2)"
   f <- paste(response, str)
   
   df <- data[, c(response, "Orphanhood", "hv104", "hv105")]
@@ -509,9 +528,10 @@ df_ordered_coeff <- function(response, data){
   
   r1 <- c("Orphanhood", coeff["Orphanhoodorphan","Value"], ci[1, 1], ci[1, 2])
   r2 <- c("Sex", coeff["hv104female","Value"], ci[2, 1], ci[2, 2])
-  r3 <- c("Age (in years)", coeff["hv105","Value"], ci[3, 1], ci[3, 2])
+  r3 <- c("Age", coeff["hv105","Value"], ci[3, 1], ci[3, 2])
+  r4 <- c("Age^2", coeff["I(hv105^2)","Value"], ci[4, 1], ci[4, 2])
   
-  coeff_df <- rbind(coeff_df, r1, r2, r3)
+  coeff_df <- rbind(coeff_df, r1, r2, r3, r4)
   
   colnames(coeff_df) <- c("Predictors", "Coeff", "CI_lower", "CI_upper")
   coeff_df

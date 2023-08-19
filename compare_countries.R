@@ -169,3 +169,23 @@ forester(left_side_data = edu_df[,"Outcomes", drop=FALSE],
          point_sizes = 2.5,
          file_path = here::here("figures/forest_edu.png"))
 
+# coeff plot
+load("Rwanda/coeff_hv207_RW.Rda")
+load("Colombia/coeff_hv207_CO.Rda")
+load("Senegal/coeff_hv207_SN.Rda")
+dotCOLS = c("#a6d8f0", "#f9b282", "#adf0a6")
+barCOLS = c("#008fd5", "#de6b35", "#4ede35")
+coeff_hv207 <- rbind(coeff_hv207_CO, coeff_hv207_RW, coeff_hv207_SN)
+coeff_hv207[,c("Coeff", "CI_lower", "CI_upper")] <- lapply(coeff_hv207[,c("Coeff", "CI_lower", "CI_upper")], as.numeric)
+ggplot(coeff_hv207, aes(x=Predictors, y=Coeff, ymin=CI_lower, ymax=CI_upper,
+                        col=data, fill=data)) + 
+  geom_linerange(size=1, position=position_dodge(width = 0.5)) +
+  geom_hline(yintercept=0, lty=2) +
+  geom_point(aes(shape=data), size=3, position=position_dodge(width = 0.5)) +
+  scale_fill_manual(values=barCOLS) +
+  scale_color_manual(values=dotCOLS) +
+  scale_x_discrete(name=element_blank()) +
+  theme_minimal() +
+  ylab("") +
+  ggtitle("Coefficients in Model for hv207 (has radio)")
+

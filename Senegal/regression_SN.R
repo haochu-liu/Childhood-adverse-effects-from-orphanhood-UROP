@@ -3,6 +3,7 @@ library(dplyr)
 library(labelled)
 library(Hmisc)
 library(tidyr)
+library(MASS)
 
 source("functions_for_plotting.R")
 
@@ -121,9 +122,9 @@ ord_table <- df_ordered(ord_names, data)
 
 regression_table_SN <- rbind(bin_table, con_table, ord_table)
 regression_table_SN$Labels <- tolower(regression_table_SN$Labels)
-regression_table_SN$fill <- "SNanda 2019"
-save(regression_table_SN, file = "SNanda/regression_table_SN.Rda")
-write.csv(regression_table_SN, file = "SNanda/regression_table_SN.csv")
+regression_table_SN$fill <- "Senegal 2019"
+save(regression_table_SN, file = "Senegal/regression_table_SN.Rda")
+write.csv(regression_table_SN, file = "Senegal/regression_table_SN.csv")
 
 
 coeff_SN <- data.frame(matrix(nrow = 0, ncol = 6))

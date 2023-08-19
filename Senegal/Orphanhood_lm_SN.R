@@ -159,6 +159,7 @@ regression_table_SN["fill"]<-"Senegal 2019"
 
 regression_table_SN$Labels<-tolower(regression_table_SN$Labels)
 
+regression_table_SN[9,"Labels"]<-"has telephone (land-line)"
 regression_table_SN[14,"Labels"]<-"has flush or pit toilet"
 regression_table_SN[15,"Labels"]<-"child's weight in kilograms (1 decimal)"
 regression_table_SN[16,"Labels"]<-"child's height in centimeters (1 decimal)"
@@ -167,6 +168,38 @@ regression_table_SN[18,"Labels"]<-"household wealth index"
 
 
 save(regression_table_SN,file="regression_table_SN.Rda")
+write.csv(regression_table_SN,file="regression_table_SN.csv")
 
 bin_coeff_SN<-df_bin_coeff(log_name,df_SN)
 con_coeff_SN<-df_cont_coeff(con_name,df_SN)
+
+coeff_hv207_SN <- df_bin_coeff("hv207", df_SN)
+coeff_hv207_SN$fill <- "Senegal 2019"
+save(coeff_hv207_SN, file = "coeff_hv207_SN.Rda")
+
+regression_table<-read.csv("regression_table.csv")
+
+regression_table$average_coeff<-NULL
+for(x in 1:24){
+  if (is.na(regression_table$average.coeff[x])==TRUE){
+    regression_table$average.coeff[x]<-regression_table$Coeff.3[x]
+  }
+  else{
+    regression_table$average.coeff[x]<-as.numeric(regression_table$average.coeff[x])
+  }
+}
+
+regression_table$average_p<-NULL
+for(x in 1:24){
+  regression_table$average_p[x]<-mean(c(as.numeric(regression_table$Coeff.3[x]),as.numeric(regression_table$Coeff.4[x]),as.numeric(regression_table$Coeff.5[x])))
+}
+
+for(x in 1:24){
+  if (is.na(regression_table$average.p.value[x])==TRUE){
+    regression_table$average.p.value[x]<-regression_table$P_val.3[x]
+  }
+  else{
+    regression_table$average.p.value[x]<-as.numeric(regression_table$average.p.value[x])
+  }
+}
+write.csv(regression_table,file="regression_table.csv")

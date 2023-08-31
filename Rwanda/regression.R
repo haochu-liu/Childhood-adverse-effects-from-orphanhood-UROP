@@ -162,7 +162,7 @@ save(coeff_RW, file = "Rwanda/coeff_RW.Rda")
 
 
 coeff_plot_RW <- coeff_RW
-
+coeff_plot_RW <- coeff_plot_RW[seq(1, 92, by=4), ]
 
 
 

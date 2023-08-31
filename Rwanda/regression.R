@@ -163,6 +163,16 @@ save(coeff_RW, file = "Rwanda/coeff_RW.Rda")
 
 coeff_plot_RW <- coeff_RW
 coeff_plot_RW <- coeff_plot_RW[seq(1, 92, by=4), ]
-
-
+coeff_plot_RW$Labels <- tolower(coeff_plot_RW$Labels)
+label_order <- c("has mobile telephone", "household wealth index", "has radio",
+                 "has mosquito bed net for sleeping", "highest educational level attained",
+                 "has car/truck", "has bicycle", "school attendance", "has electricity",
+                 "has a computer", "has motorcycle/scooter", "has piped or tube water",
+                 "has refrigerator", "has television", "child's height (cm)", "lives in urban area",
+                 "child's hemoglobin level (g/dl)", "has flush or pit toilet",
+                 "has telephone (land-line)", "child's weight (kg)",
+                 "has malaria", "has watch", "has anemia (child)")
+coeff_plot_RW <- coeff_plot_RW[match(label_order, coeff_plot_RW$Labels), ]
+save(coeff_plot_RW, file = "Rwanda/coeff_plot_RW.Rda")
+write.csv(coeff_plot_RW, file = "Rwanda/coeff_plot_RW.csv")
 

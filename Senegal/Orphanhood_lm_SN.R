@@ -98,10 +98,12 @@ df_ordered <- function(vec_response, data){
 bin_df_SN<-df_binary(log_name,df_SN)
 cont_df_SN<-df_cont(con_name,df_SN)
 library(labelled)
-df_SN <- unlabelled(df_SN)
+df_SN1 <- unlabelled(df_SN1)
 ordered_df_SN<-df_ordered(cat_name,df_SN)
 
-df_SN<-chdf2019[,col_name]
+df_SN<-df2019[,col_name]
+df_SN1<-df_SN
+df_SN<-sample_n(df_SN,100)
 
 df_ordered <- function(vec_response, data){
   # glm : response ~ Orphanhood + Sex (hv105) + Age (hv105)
@@ -112,17 +114,16 @@ df_ordered <- function(vec_response, data){
   
   for (i in 1:length(vec_response)){
     
-    i<-2
+    i<-1
     f <- paste(vec_response[i], str)
     df <- data[, c(vec_response[i], "Orphanhood", "hv104", "hv105")]
     df <- unlabelled(df)
     
-    model1 <- polr(as.factor(hv270)~ Orphanhood + hv104 + hv105, data=df_SN,
+    model1 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105 + I(hv105^2), data=df_SN,
                    Hess=TRUE, method = c("logistic"))
-    
     startval<-c(model1$coefficients,model1$zeta)
-    model2 <- polr(as.factor(hv270)~ Orphanhood + hv104 + hv105, data=df_SN1,
-                   Hess=TRUE, method = c("logistic"),start=startval)
+    model2 <- polr(as.factor(hv106)~ Orphanhood + hv104 + hv105 + I(hv105^2), data=df_SN1,
+                   Hess=TRUE, start=startval)
     
     model<-model2
     
@@ -188,6 +189,12 @@ for(x in 1:24){
     regression_table$average.coeff[x]<-as.numeric(regression_table$average.coeff[x])
   }
 }
+
+
+coeff_SN<-read.csv("Senegal/coeff_SN.csv")
+regression_table_SN<-read.csv("Senegal/regression_table_SN.csv")
+save(coeff_SN,file="Senegal/coeff_SN.Rda")
+save(regression_table_SN,file="Senegal/regression_table_SN.Rda")
 
 regression_table$average_p<-NULL
 for(x in 1:24){

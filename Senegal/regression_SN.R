@@ -86,6 +86,7 @@ label$hc3 <- "child's height (cm)"
 label$hc2 <- "child's weight (kg)"
 label$hc57 <- "Has anemia (child)"
 label$hml32 <- "Has malaria" # 0: negative, 1: positive
+label$hv227 <- "Has mosquito bednet for sleeping"
 label(df2019) <- label
 
 # save file

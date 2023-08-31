@@ -109,6 +109,50 @@ coeff_hv207_CO <- df_bin_coeff("hv207", df_2015)
 coeff_hv207_CO$data <- "Colombia 2015"
 save(coeff_hv207_CO, file = "Colombia/coeff_hv207_CO.Rda")
 
-# trial
-coeff_ha40_CO <- df_cont_coeff("hc2", df_2010) 
-coeff_hv106 <- df_ordered_coeff("hv106", df2015_CO[, col_2015])
+# fit models
+bin_table <- df_binary(bin_vec, df_2015)
+
+cont_table <- df_cont(cont_vec, df_2010)
+cont_table$Labels <- tolower(cont_table$Labels)
+cont_table$fill <- "Colombia 2010"
+
+ord_table <- df_ordered(ord_vec, df2015_CO[,col_2015])
+
+regression_table_CO <- rbind(bin_table, ord_table)
+regression_table_CO$Labels <- tolower(regression_table_CO$Labels)
+regression_table_CO$fill <- "Colombia 2015"
+
+regression_table_CO <- rbind(regression_table_CO, cont_table)
+save(regression_table_CO, file = "Colombia/regression_table_CO.Rda")
+write.csv(regression_table_CO, file = "Colombia/regression_table_CO.csv")
+
+coeff_CO <- data.frame(matrix(nrow = 0, ncol = 7))
+
+data <- df_2015
+for (i in 1:length(bin_vec)) {
+  coeff_rows <- df_bin_coeff(bin_vec[i], data)
+  coeff_rows$Names <- bin_vec[i]
+  coeff_rows$Labels <- label(data)[[bin_vec[i]]]
+  coeff_rows$data <- "Colombia 2015"
+  coeff_CO <- rbind(coeff_CO, coeff_rows)
+}
+
+data <- df_2010
+for (i in 1:length(cont_vec)) {
+  coeff_rows <- df_cont_coeff(cont_vec[i], data)
+  coeff_rows$Names <- cont_vec[i]
+  coeff_rows$Labels <- label(data)[[cont_vec[i]]]
+  coeff_rows$data <- "Colombia 2010"
+  coeff_CO <- rbind(coeff_CO, coeff_rows)
+}
+
+data <- df2015_CO[,col_2015]
+for (i in 1:length(ord_vec)) {
+  coeff_rows <- df_ordered_coeff(ord_vec[i], data)
+  coeff_rows$Names <- ord_vec[i]
+  coeff_rows$Labels <- label(data)[[ord_vec[i]]]
+  coeff_rows$data <- "Colombia 2015"
+  coeff_CO <- rbind(coeff_CO, coeff_rows)
+}
+
+save(coeff_CO, file = "Colombia/coeff_CO.Rda")

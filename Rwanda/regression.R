@@ -161,3 +161,8 @@ coeff_RW$data <- "Rwanda 2019"
 save(coeff_RW, file = "Rwanda/coeff_RW.Rda")
 
 
+coeff_plot_RW <- coeff_RW
+
+
+
+

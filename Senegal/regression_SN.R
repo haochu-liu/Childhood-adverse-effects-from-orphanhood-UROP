@@ -120,8 +120,10 @@ con_table <- df_cont(con_names, data)
 
 data <- df2019[, c(explain_names, ord_names)]
 ord_table <- df_ordered(ord_names, data)
+bin_table$fill <- "Senegal 2019"
+con_table$fill <- "Senegal 2019"
 
-regression_table_SN <- rbind(bin_table, con_table, ord_table)
+regression_table_SN <- rbind(bin_table, con_table,regression_table_SN)
 regression_table_SN$Labels <- tolower(regression_table_SN$Labels)
 regression_table_SN$fill <- "Senegal 2019"
 save(regression_table_SN, file = "Senegal/regression_table_SN.Rda")
@@ -159,4 +161,9 @@ coeff_SN$data <- "SN 2019"
 write.csv(coeff_SN,"Senegal/coeff_SN.csv")
 save(coeff_SN, file = "Senegal/coeff_SN.Rda")
 
+coeff_SN_allfactors<-coeff_SN
+save(coeff_SN_allfactors,file="Senegal/coeff_SN_allfactors.Rda")
 
+
+coeff_SN<-subset(coeff_SN,coeff_SN$Predictors=="Orphanhood")
+coeff_plot_SN<-read.csv("coeff_SN")

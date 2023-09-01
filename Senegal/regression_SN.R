@@ -161,4 +161,9 @@ coeff_SN$data <- "SN 2019"
 write.csv(coeff_SN,"Senegal/coeff_SN.csv")
 save(coeff_SN, file = "Senegal/coeff_SN.Rda")
 
+coeff_SN_allfactors<-coeff_SN
+save(coeff_SN_allfactors,file="Senegal/coeff_SN_allfactors.Rda")
 
+
+coeff_SN<-subset(coeff_SN,coeff_SN$Predictors=="Orphanhood")
+coeff_plot_SN<-read.csv("coeff_SN")

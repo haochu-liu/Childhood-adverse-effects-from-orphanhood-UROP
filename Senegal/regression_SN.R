@@ -120,8 +120,10 @@ con_table <- df_cont(con_names, data)
 
 data <- df2019[, c(explain_names, ord_names)]
 ord_table <- df_ordered(ord_names, data)
+bin_table$fill <- "Senegal 2019"
+con_table$fill <- "Senegal 2019"
 
-regression_table_SN <- rbind(bin_table, con_table, ord_table)
+regression_table_SN <- rbind(bin_table, con_table,regression_table_SN)
 regression_table_SN$Labels <- tolower(regression_table_SN$Labels)
 regression_table_SN$fill <- "Senegal 2019"
 save(regression_table_SN, file = "Senegal/regression_table_SN.Rda")

@@ -1,0 +1,143 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+
+# Input
+
+```{r}
+library(rdhs)
+library(dplyr)
+library(labelled)
+library(tidyr)
+
+
+load("df_2019.Rda")
+df_2019$country <- "RW"
+df_2019 <- df_2019 <- df_2019 %>% drop_na(c("hv105", "hv111", "hv113",
+                                            "hv104", "country"))
+df_2019 <- df_2019 %>% rename(
+  "Age" = "hv105",
+  "Mother_alive" = "hv111",
+  "Father_alive" = "hv113",
+  "Sex" = "hv104",
+)
+df_2019 <- unlabelled(df_2019)
+head(df_2019)
+```
+
+
+# Health
+
+## Anemia level
+This variable has four levels, 1 is severe, 4 is not anemic. It only contains teenage female data.
+
+```{r}
+df <- df_2019 %>% drop_na(c("ha57"))
+table(df$ha57)
+glm_anemia <- glm(ha57 ~ Mother_alive + Father_alive + Age,
+                  family="binomial", data=df)
+summary(glm_anemia)
+```
+
+
+## Malaria
+
+```{r}
+df <- df_2019 %>% drop_na(c("hml32"))
+table(df$hml32)
+glm_malaria <- glm(hml32 ~ Mother_alive + Father_alive + Sex + Age,
+                  family="binomial", data=df)
+summary(glm_malaria)
+```
+
+
+## Hemoglobin level
+This variable is continuous with unit g/dl. It only contains teenage female data.
+
+```{r}
+df <- df_2019 %>% drop_na(c("ha56"))
+lm_hemoglobin <- lm(ha56 ~ Mother_alive + Father_alive + Age, data=df)
+summary(lm_hemoglobin)
+```
+
+
+## Body fit
+Consider BMI for individuals with height and weight information. (teenage female)
+Q: definition of overweight / underweight also depends on age, sex, ethnic background.
+
+```{r}
+df <- df_2019 %>% drop_na(c("ha2", "ha3"))
+df$ha3 <- df$ha3 / 1000 # height in m
+df$ha2 <- df$ha2 / 10 # weight in kg
+df$BMI <- df$ha2 / df$ha3 ^ 2
+df$obese <- df$BMI > 30
+df$underweight <- df$BMI < 16
+table(df$obese)
+lm_obese <- lm(obese ~ Mother_alive + Father_alive + Age, data=df)
+summary(lm_obese)
+table(df$underweight)
+lm_underweight <- lm(underweight ~ Mother_alive + Father_alive + Age, data=df)
+summary(lm_underweight)
+```
+
+
+# Education
+
+## School attendance
+Only consider the status of school attendance. 0 is no, 1 is attending.
+
+```{r}
+df <- df_2019 %>% drop_na(c("hv121"))
+table(df$hv121)
+glm_attainment <- glm(hv121 ~ Mother_alive + Father_alive + Sex + Age,
+                      family="binomial", data=df)
+summary(glm_attainment)
+```
+
+
+## Highest level of education attended
+Only consider the status of school attendance. 0 is no, 1 is attending.
+
+```{r}
+df <- df_2019 %>% drop_na(c("hv106"))
+table(df$hv106)
+glm_edu_level <- glm(hv121 ~ Mother_alive + Father_alive + Sex + Age,
+                      family="binomial", data=df)
+summary(glm_edu_level)
+```
+
+
+# Sexuality, marriage, and birth history
+
+## Teenage marriage
+
+```{r}
+df <- df_2019 %>% drop_na(c("hv115"))
+table(df$hv115)
+glm_marriage <- glm(hv115 ~ Mother_alive + Father_alive + Sex + Age,
+                      family="binomial", data=df)
+summary(glm_marriage)
+```
+
+
+## Teenage pregnancy
+
+```{r}
+df <- df_2019 %>% drop_na(c("hml18"))
+table(df$hml18)
+glm_pregnancy <- glm(hml18 ~ Mother_alive + Father_alive + Age,
+                     family="binomial", data=df)
+summary(glm_pregnancy)
+```
+
+
+* Mother alive and father alive are separated explanatory variables?
+* problems: interactions, significance
+* interpret confidence interval
+* other explanatory variables or interactions?
+* Colombia data set does not have health data
+
+

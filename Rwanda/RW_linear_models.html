@@ -421,19 +421,19 @@ head(df_2019)</code></pre>
 ## 4                 primary     0     1   NA   NA &lt;NA&gt;   NA   NA   NA   NA   NA
 ## 5 no education, preschool     0     1   NA   NA &lt;NA&gt;   NA   NA   NA   NA   NA
 ## 6                 primary     0     1   NA   NA &lt;NA&gt;   NA   NA   NA   NA   NA
-##      hml32 hml18 ha56         hv115 ha57.1 Orphanhood country
-## 1     &lt;NA&gt;  &lt;NA&gt;   NA never married   &lt;NA&gt; non-orphan      RW
-## 2     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt;   &lt;NA&gt; non-orphan      RW
-## 3 negative  &lt;NA&gt;   NA          &lt;NA&gt;   &lt;NA&gt; non-orphan      RW
-## 4     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt;   &lt;NA&gt; non-orphan      RW
-## 5     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt;   &lt;NA&gt; non-orphan      RW
-## 6     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt;   &lt;NA&gt;     orphan      RW</code></pre>
+##      hml32 hml18 ha56         hv115 Orphanhood country
+## 1     &lt;NA&gt;  &lt;NA&gt;   NA never married non-orphan      RW
+## 2     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt; non-orphan      RW
+## 3 negative  &lt;NA&gt;   NA          &lt;NA&gt; non-orphan      RW
+## 4     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt; non-orphan      RW
+## 5     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt; non-orphan      RW
+## 6     &lt;NA&gt;  &lt;NA&gt;   NA          &lt;NA&gt;     orphan      RW</code></pre>
 </div>
 <div id="health" class="section level1">
 <h1>Health</h1>
 <div id="anemia-level" class="section level2">
 <h2>Anemia level</h2>
-<p>This variable has four levels, 1 is severe, 4 is not anemic. It only
+<p>In this variable, 1 means positive, 0 means negative. It only
 contains teenage female data.</p>
 <pre class="r"><code>df &lt;- df_2019 %&gt;% drop_na(c(&quot;ha57&quot;))
 table(df$ha57)</code></pre>

@@ -32,7 +32,7 @@ head(df_2019)
 # Health
 
 ## Anemia level
-This variable has four levels, 1 is severe, 4 is not anemic. It only contains teenage female data.
+In this variable, 1 means positive, 0 means negative. It only contains teenage female data.
 
 ```{r}
 df <- df_2019 %>% drop_na(c("ha57"))

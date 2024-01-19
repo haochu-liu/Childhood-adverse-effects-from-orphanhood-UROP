@@ -134,10 +134,18 @@ summary(glm_pregnancy)
 ```
 
 
+Questions:
+
 * Mother alive and father alive are separated explanatory variables?
 * problems: interactions, significance
-* interpret confidence interval
-* other explanatory variables or interactions?
 * Colombia data set does not have health data
+
+
+To do:
+
+* Interpret confidence interval
+* Other explanatory variables or interactions
+
+
 
 
